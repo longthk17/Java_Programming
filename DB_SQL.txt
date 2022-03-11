@@ -1,0 +1,23 @@
+Hệ thống quản lý bán hàng điện thoại:
+- Quản lý khách hàng
+Thêm, Xóa, Cập nhật
+
+- Quản lý nhân viên
+Thêm, Xóa, Cập nhật, phân quyền
+
+- Quản lý sản phẩm
+Thêm, Xóa, Cập nhật
+
+- Đăng nhập - Đăng ký
+Chỉ có tài khoản giám đốc được tạo sẵn, còn lại các cấp dưới phải do giám đốc tạo
+
+- Quản lý hóa đơn
+Tạo, Xóa, Cập nhật hóa đơn
+Đơn đặt hàng thành công mới có hóa đơn
+
+- Quản lý đơn đặt hàng
+Tạo, Xóa, Cập nhật hóa đơn
+Đơn đặt hàng do giám đốc đặt và phải được xác nhận đặt hàng thành công mới chuyển thành hóa đơn
+
+- Thống kê
+Sản phẩm, doanh thu
