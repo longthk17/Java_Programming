@@ -1,23 +1,31 @@
 Hệ thống quản lý bán hàng điện thoại:
+- Đăng nhập
+Nhân viên có tài khoản mới được đăng nhập vào hệ thống
+
 - Quản lý khách hàng
 Thêm, Xóa, Cập nhật
+Nhân viên có thể TẠO hồ sơ khách hàng, có thể CẬP NHẬT và XÓA khách hàng
 
 - Quản lý nhân viên
-Thêm, Xóa, Cập nhật, phân quyền
+Quản lý có thể TẠO tài khoản cho nhân viên, có thể CẬP NHẬT, PHÂN QUYỀN và XÓA nhân viên
 
 - Quản lý sản phẩm
-Thêm, Xóa, Cập nhật
+Nhân viên có thể THÊM sản phẩm mới hoặc số lượng của sản phẩm đã có sẵn, có thể CẬP NHẬT và XÓA sp
+HIỂN THỊ ra danh sách những sản phẩm có trong cửa hàng để nhân viên có thể tạo hóa đơn cho khách hàng
 
-- Đăng nhập - Đăng ký
-Chỉ có tài khoản giám đốc được tạo sẵn, còn lại các cấp dưới phải do giám đốc tạo
+- Quản lý đơn hàng
+HIỂN THỊ danh sách các đơn đặt hàng của nhân viên và khách hàng
+Nhân viên có thể TẠO đơn đặt hàng sản phẩm từ nhà cung cấp, có thể CẬP NHẬT và XÓA đơn hàng
+Đơn hàng có trạng thái: đang xử lý, thành công, không thành công
+	+ thành công: đơn hàng phải nhập đúng số lượng đã đặt và giá tiền đồng ý mua
+		đơn hàng sẽ chuyển sang phần quản lý hóa đơn để được xử lý thanh toán (ko được xóa)
+	+ không thành công: đơn hàng bị hủy bỏ và không thể cập nhật (có thể xóa)
+	+ đang xử lý: đơn hàng được tạo với số lượng và tên sản phẩm muốn đặt
+		tạo đơn hàng thành công có trạng thái đang xử lý
+		đơn hàng có thể cập nhật thành công hoặc không thành công
+Nếu muốn đặt thêm cùng sản phẩm hoặc sản phẩm khác thì tạo thêm đơn hàng mới
+Nếu số lượng đặt nhiều hơn số lượng đặt thành công thì cập nhật lại
 
 - Quản lý hóa đơn
 Tạo, Xóa, Cập nhật hóa đơn
 Đơn đặt hàng thành công mới có hóa đơn
-
-- Quản lý đơn đặt hàng
-Tạo, Xóa, Cập nhật hóa đơn
-Đơn đặt hàng do giám đốc đặt và phải được xác nhận đặt hàng thành công mới chuyển thành hóa đơn
-
-- Thống kê
-Sản phẩm, doanh thu
