@@ -1,0 +1,10 @@
+package table_gui;
+
+public class mainDialog extends Main {
+
+	public mainDialog(String title) {
+		super(title);
+		// TODO Auto-generated constructor stub
+	}
+
+}

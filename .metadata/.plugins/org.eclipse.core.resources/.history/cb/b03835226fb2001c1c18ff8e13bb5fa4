@@ -1,0 +1,70 @@
+package table_gui;
+
+import java.awt.event.*;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.table.*;
+
+public class Phonebook extends JFrame implements ActionListener {
+	
+	protected JLabel title_label;
+	protected JButton btnAdd, btnDel, btnSub;
+	protected JPanel pn1, pn2, pn3;
+	protected JDialog dia;
+	protected JTextField tfName;
+	protected JTextField tfPhone;
+	protected DefaultTableModel model = new DefaultTableModel();
+	protected JTable tb = new JTable(model);
+	
+	public Phonebook(String title) {
+		initGUI(title);
+	}
+	
+	private void initGUI(String title) {
+		setTitle(title);
+		setBounds(500,80,500,400);
+		setLayout(new FlowLayout());
+		
+		title_label = new JLabel("Phonebook");
+		title_label.setFont(new Font("Verdana", Font.BOLD, 30));
+
+		pn1 = new JPanel();
+		pn2 = new JPanel();
+		pn3 = new JPanel();
+		
+		btnAdd = new JButton("Add Contact");
+		btnDel = new JButton("Delete Contact");
+		
+		tb.setPreferredScrollableViewportSize(new Dimension(400,200));
+		model.addColumn("Name");
+		model.addColumn("Phone no");
+		
+		tb.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+			}
+		});
+		
+		JScrollPane sp = new JScrollPane(tb);
+		
+		pn1.add(title_label);
+		pn2.add(sp);
+		pn3.add(btnAdd);
+		pn3.add(btnDel);
+		
+		add(pn1);
+		add(pn2);
+		add(pn3);
+		
+		setVisible(true);
+	}
+	
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource() == btnAdd) {
+			new DialogInput(title);
+		}
+	}
+
+}

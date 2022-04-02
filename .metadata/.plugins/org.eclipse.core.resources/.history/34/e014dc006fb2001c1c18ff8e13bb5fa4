@@ -1,0 +1,15 @@
+package table_gui;
+
+import javax.swing.*;
+
+public class DialogInput extends Phonebook {
+	JPanel pn;
+	
+	
+	public DialogInput(String title) {
+		super(title);
+		// TODO Auto-generated constructor stub
+		
+	}
+
+}

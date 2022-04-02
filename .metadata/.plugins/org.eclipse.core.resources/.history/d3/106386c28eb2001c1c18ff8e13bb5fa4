@@ -1,0 +1,16 @@
+package table_gui;
+
+import javax.swing.JDialog;
+
+public class mainDialog extends Main {
+	
+	JDialog main;
+	
+
+	public mainDialog(String title) {
+		super(title);
+		// TODO Auto-generated constructor stub
+		
+	}
+
+}

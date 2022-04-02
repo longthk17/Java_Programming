@@ -1,0 +1,25 @@
+package table_gui;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+public class DialogExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 400);
+        JDialog dialog = new JDialog(frame, "Dialog", true);
+        JPanel mainGui = new JPanel(new BorderLayout());
+        mainGui.setBorder(new EmptyBorder(20, 20, 20, 20));
+        mainGui.add(new JLabel("Đóng hộp thoại"), BorderLayout.CENTER);
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        mainGui.add(buttonPanel, BorderLayout.SOUTH);
+        JButton close = new JButton("Đóng");
+        close.addActionListener(e->dialog.setVisible(false));
+        buttonPanel.add(close);
+        frame.setVisible(true);
+        dialog.setContentPane(mainGui);
+        dialog.pack();
+        dialog.setVisible(true);
+    }
+} 

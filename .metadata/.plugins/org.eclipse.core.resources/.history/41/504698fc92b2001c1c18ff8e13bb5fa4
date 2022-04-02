@@ -1,0 +1,38 @@
+package table_gui;
+
+import java.awt.event.*;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.table.*;
+
+class Phonebook {
+	
+	String name;
+	String PhoneNo;
+	
+	public Phonebook() {
+		
+	}
+	
+	public Phonebook(String name, String PhoneNo) {
+		this.name = name;
+		this.PhoneNo = PhoneNo;
+	}
+	
+	public String getname() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public String getPhoneNo() {
+		return PhoneNo;
+	}
+	
+	public void setPhoneNo(String PhoneNo) {
+		this.PhoneNo = PhoneNo;
+	}
+}
+

@@ -1,0 +1,42 @@
+package table_gui;
+
+import java.awt.*;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+
+public class Main extends JFrame {
+	
+	JLabel title_label;
+	JButton btnAdd, btnDel;
+	DefaultTableModel model = new DefaultTableModel();
+	JTable tb = new JTable(model);
+	
+	public Main(String title) {
+		initGUI(title);
+		
+	}
+	
+	private void initGUI(String title) {
+		setTitle(title);
+		setBounds(500,80,500,400);
+		setLayout(new FlowLayout());
+		setVisible(true);
+	}
+	
+	private void initComponents() {
+		title_label = new JLabel("Phonebook");
+		title_label.setFont(new Font("Verdana", Font.BOLD, 30));
+		
+		pn1 = new JPanel();
+		pn2 = new JPanel();
+		pn3 = new JPanel();
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+//		Phonebook demo = new Phonebook("Demo");
+		
+		new Main("NGU");
+	}
+}

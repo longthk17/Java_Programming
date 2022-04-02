@@ -1,0 +1,11 @@
+package table_gui;
+
+public class DialogInput extends Phonebook {
+
+	public DialogInput(String title) {
+		super(title);
+		// TODO Auto-generated constructor stub
+		
+	}
+
+}
