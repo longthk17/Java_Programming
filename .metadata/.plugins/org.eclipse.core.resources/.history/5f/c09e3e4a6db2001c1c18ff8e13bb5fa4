@@ -1,5 +1,0 @@
-package table_gui;
-
-public class DialogInput extends Phonebook {
-
-}

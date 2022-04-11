@@ -24,14 +24,15 @@ public class Main extends JFrame implements ActionListener {
 	
 	public Main(String title) {
 		initGUI(title);
-		
 	}
 	
 	private void initGUI(String title) {
 		setTitle(title);
-		setBounds(500,80,500,400);
 		setLayout(new FlowLayout());
+		
 		initComponents();
+		
+		setBounds(500,80,500,400);
 		setVisible(true);
 	}
 	
