@@ -74,14 +74,41 @@ public class Main {
 			System.err.println(ex.getMessage());
 		}
 	}
+	// tim kiem san pham theo ma loai san pham
+	private void searchItem(int maloaisp) {
+		try {
+			Statement stmt = conn.createStatement();
+			String sql;
+			sql = "SELECT * FROM sanpham WHERE MaLoaiSP = " + maloaisp;
+			ResultSet rs = stmt.executeQuery(sql);
+			
+
+			while(rs.next()) {
+				int maSP = rs.getInt("MaSP");
+				String tenSP = rs.getString("TenSP");
+				int giaSP = rs.getInt("Gia");
+				int loaisp = rs.getInt("MaLoaiSP");
+				
+				System.out.println("MaSP: " + maSP);
+				System.out.println("TenSP: " + tenSP);
+				System.out.println("Gia: " + giaSP);
+				System.out.println("MaLoaiSP: " + loaisp);
+			    System.out.println("=================");
+			
+			} 
+		} catch(SQLException ex) {
+			System.err.println(ex.getMessage());
+		}
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Main main = new Main();
-//		main.insertItem("may giat dung", 3000000, "cong nghe");
+//		main.insertItem("may giat", 3000000, "toshiba");
 //		main.deleteItem(9);
-		main.updateItem("Ngu", 100, 7);
-		main.showItem();
+//		main.updateItem("Ngu", 100, 7);
+		main.searchItem(4);
+//		main.showItem();
 	}
 
 }
