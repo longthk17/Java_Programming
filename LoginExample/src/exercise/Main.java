@@ -9,15 +9,9 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Login login = new Login("Login");
-//		String hasPass = DigestUtils.md5Hex("kimlong1");
-//		System.out.println(hasPass);
-//		String hasPass = Hashing.getMd5("kimlong123");
-//		User.getUserLogin("kimlonG", hasPass);
+//		Register reg = new Register("Register");
 //		User user = new User();
-//		user.getByUsername("kimlong");
-//		System.out.println(user.getId());
-//		System.out.println(user.getUsername());
-//		System.out.println(user.getPassword());
+//		user.saveUser("long", "long123");
 	}
 
 }

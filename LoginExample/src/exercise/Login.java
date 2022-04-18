@@ -59,6 +59,7 @@ public class Login extends JFrame implements ActionListener {
 		btnLogin = new JButton("Login");
 		btnLogin.addActionListener(this);
 		btnReg = new JButton("Register");
+		btnReg.addActionListener(this);
 		btnExit = new JButton("Exit");
 		
 		btnPanel.add(btnLogin);
@@ -90,13 +91,11 @@ public class Login extends JFrame implements ActionListener {
 				this.dispose();
 			}
 		}
-	}
-	
-	public static boolean validateLogin(String a, String b) {
-		if(a == b) {
-			return true;
+		if(e.getSource() == btnReg) {
+			Register reg = new Register("Register");
+			reg.setVisible(true);
+			this.dispose();
 		}
-		else return false;
 	}
 	
 	boolean validateLogin(User user) {

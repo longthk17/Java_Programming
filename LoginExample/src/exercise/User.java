@@ -66,5 +66,22 @@ class User {
 			return null;
 		}
 	}
+	
+	public void saveUser(String username, String password) {
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "INSERT INTO users(Username,Password) VALUES(?,?)";
+			String hashPassword = Hashing.getMd5(password);
+			PreparedStatement prest = conn.prepareStatement(sql);
+			prest.setString(1, username);
+			prest.setString(2, hashPassword);
+			prest.executeUpdate();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+
 
 }
