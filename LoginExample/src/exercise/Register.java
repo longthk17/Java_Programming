@@ -16,7 +16,7 @@ public class Register extends JFrame implements ActionListener {
 	JLabel lbTitle, lbUsername, lbPass, lbConfirmPass;
 	JTextField tfUsername;
 	JPasswordField tfPass, tfCofirmPass;
-	JButton btnSave;
+	JButton btnSave, btnLogin;
 	
 	JPanel pn1;
 	
@@ -64,8 +64,11 @@ public class Register extends JFrame implements ActionListener {
 		
 		btnSave = new JButton("Save");
 		btnSave.addActionListener(this);
+		btnLogin = new JButton("Login");
+		btnLogin.addActionListener(this);
 		
 		pn1.add(btnSave);
+		pn1.add(btnLogin);
 		
 		add(lbTitle);
 		add(lbUsername);
@@ -107,7 +110,7 @@ public class Register extends JFrame implements ActionListener {
 		}
 	}
 	
-	public void saveUser(User user) {
+	public boolean saveUser(User user) {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
@@ -117,8 +120,10 @@ public class Register extends JFrame implements ActionListener {
 			prest.setString(1, user.getUsername());
 			prest.setString(2, hashPassword);
 			prest.executeUpdate();
+			return true;
 		} catch(Exception ex) {
 			ex.printStackTrace();
+			return false;
 		}
 	}
 
@@ -132,9 +137,22 @@ public class Register extends JFrame implements ActionListener {
 			String hashPass = Hashing.getMd5(tfPass.getText());
 			if(validateReg(user) == true) {
 				if(user.getPassword().equals(tfCofirmPass.getText())) {
-					saveUser(user);JOptionPane.showConfirmDialog(this, "Them thanh cong",null,JOptionPane.DEFAULT_OPTION);
+					if(saveUser(user)) {
+						int ques;
+						ques = JOptionPane.showConfirmDialog(this, "Them thanh cong",null,JOptionPane.OK_CANCEL_OPTION );
+						if(ques == JOptionPane.OK_OPTION) {
+							Login login = new Login("Login");
+							this.dispose();
+							login.setVisible(true);
+						}
+					}
 				}
 			}
+		}
+		if(e.getSource() == btnLogin) {
+			Login login = new Login("Login");
+			this.dispose();
+			login.setVisible(true);
 		}
 		
 	}

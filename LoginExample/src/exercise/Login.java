@@ -16,7 +16,7 @@ public class Login extends JFrame implements ActionListener {
 	JLabel lb_title, lb_username, lb_password;
 	JTextField tf_username;
 	JPasswordField tf_password;
-	JButton btnLogin, btnExit, btnReg;
+	JButton btnLogin, btnReg;
 	
 	JPanel btnPanel;
 	
@@ -60,11 +60,9 @@ public class Login extends JFrame implements ActionListener {
 		btnLogin.addActionListener(this);
 		btnReg = new JButton("Register");
 		btnReg.addActionListener(this);
-		btnExit = new JButton("Exit");
 		
 		btnPanel.add(btnLogin);
 		btnPanel.add(btnReg);
-		btnPanel.add(btnExit);
 		
 		add(lb_title);
 		add(lb_username);
@@ -83,12 +81,12 @@ public class Login extends JFrame implements ActionListener {
 			String hashPass = Hashing.getMd5(tf_password.getText());
 			User user = new User();
 			user.getByUsername(username);
-			if(validateLogin(user)) {
-				System.out.println("sai");
-			} else {
+			if(validateLogin(user, hashPass) == true) {
 				Home home = new Home(user);
 				home.setVisible(true);
 				this.dispose();
+			} else {
+				System.out.println("sai");
 			}
 		}
 		if(e.getSource() == btnReg) {
@@ -98,10 +96,10 @@ public class Login extends JFrame implements ActionListener {
 		}
 	}
 	
-	boolean validateLogin(User user) {
+	boolean validateLogin(User user, String pass) {
 		if(user == null) {
 			return false;
-		} else if (tf_password.getText() != user.getPassword()) {
+		} else if (!pass.equals(user.getPassword())) {
 			return false;
 		}
 		return true;

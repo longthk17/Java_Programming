@@ -46,7 +46,7 @@ class User {
 		this.id = id;
 	}
 	
-	public User getByUsername(String username) {
+	public void getByUsername(String username) {
 		try {
 			Connection connection = MySQLConnUtils.getMySQLConnection();
 			String sql;
@@ -54,34 +54,35 @@ class User {
 			PreparedStatement prest = connection.prepareStatement(sql);
 			prest.setString(1, username);
 			ResultSet rs = prest.executeQuery();
-			while(rs.next()) {
+			if(rs.next()) {
 				this.username = rs.getString(2);
 				this.password = rs.getString(3);
 				this.id = rs.getInt(1);
 			}
-			return null;
 		} catch (Exception ex) {
 			// TODO Auto-generated catch block
 			ex.printStackTrace();
-			return null;
 		}
 	}
 	
-	public void saveUser(String username, String password) {
+	public boolean getLogin(String username) {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "INSERT INTO users(Username,Password) VALUES(?,?)";
-			String hashPassword = Hashing.getMd5(password);
+			sql = "SELECT Username, Password FROM users WHERE Username = ?";
 			PreparedStatement prest = conn.prepareStatement(sql);
 			prest.setString(1, username);
-			prest.setString(2, hashPassword);
-			prest.executeUpdate();
+			ResultSet rs = prest.executeQuery();
+			if(rs.next()) {
+				this.username = rs.getString(1);
+				this.password = rs.getString(2);
+				return true;
+			} else return false;
+			
 		} catch(Exception ex) {
 			ex.printStackTrace();
+			return false;
 		}
 	}
 	
-
-
 }
