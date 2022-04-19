@@ -65,24 +65,4 @@ class User {
 		}
 	}
 	
-	public boolean getLogin(String username) {
-		try {
-			Connection conn = MySQLConnUtils.getMySQLConnection();
-			String sql;
-			sql = "SELECT Username, Password FROM users WHERE Username = ?";
-			PreparedStatement prest = conn.prepareStatement(sql);
-			prest.setString(1, username);
-			ResultSet rs = prest.executeQuery();
-			if(rs.next()) {
-				this.username = rs.getString(1);
-				this.password = rs.getString(2);
-				return true;
-			} else return false;
-			
-		} catch(Exception ex) {
-			ex.printStackTrace();
-			return false;
-		}
-	}
-	
 }

@@ -110,6 +110,7 @@ public class Register extends JFrame implements ActionListener {
 		}
 	}
 	
+	// method create User into DB
 	public boolean saveUser(User user) {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
@@ -131,11 +132,16 @@ public class Register extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == btnSave) {
+			//Khoi tao doi tuong user
 			User user = new User();
+			//set User
 			user.setUsername(tfUsername.getText());
 			user.setPassword(tfPass.getText());
+			// Encode pass
 			String hashPass = Hashing.getMd5(tfPass.getText());
+			//check register
 			if(validateReg(user) == true) {
+				//check password ==
 				if(user.getPassword().equals(tfCofirmPass.getText())) {
 					if(saveUser(user)) {
 						int ques;

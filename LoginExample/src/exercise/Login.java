@@ -81,6 +81,7 @@ public class Login extends JFrame implements ActionListener {
 			String hashPass = Hashing.getMd5(tf_password.getText());
 			User user = new User();
 			user.getByUsername(username);
+			//Check login
 			if(validateLogin(user, hashPass) == true) {
 				Home home = new Home(user);
 				home.setVisible(true);
