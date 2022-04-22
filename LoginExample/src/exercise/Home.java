@@ -30,7 +30,7 @@ public class Home extends JFrame implements ActionListener {
 		
 		initComponents(user);
 
-		setSize(500,500);
+		setBounds(450,80,500,500);
 
 		setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 		setVisible(true);
@@ -40,7 +40,7 @@ public class Home extends JFrame implements ActionListener {
 		String text = "Hello " + user.getUsername();
 		homeLb = new JLabel(text);
 		homeLb.setFont(new Font("Verdana", Font.BOLD, 20));
-		homeLb.setBounds(210,50,200,60);
+		homeLb.setBounds(150,50,200,60);
 		
 		btnLogout = new JButton("Logout");
 		btnLogout.setBounds(150, 200, 100, 60);

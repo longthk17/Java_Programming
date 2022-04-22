@@ -31,7 +31,7 @@ public class Register extends JFrame implements ActionListener {
 		
 		initComponents();
 		
-		setBounds(500, 80, 500, 400);
+		setBounds(450, 80, 500, 400);
 		setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 		setVisible(false);
 	}
