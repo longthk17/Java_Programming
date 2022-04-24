@@ -16,7 +16,7 @@ public class HomeGUI extends JFrame implements ActionListener{
 	JPanel mainHome, mainHeader;
 	JButton btnCustomer,btnEmployee,btnMerchandise,btnReceipt;
 	
-	JPanel contentPanel;
+	JPanel contentPanel, pn1, pn2;
 	
 	public HomeGUI() {
 		initGUI();
@@ -30,7 +30,7 @@ public class HomeGUI extends JFrame implements ActionListener{
 		initComponents();
 
 		getContentPane().setBackground(Color.decode("#DFEEEA"));
-		setBounds(200,50,1500,1000);
+		setBounds(100,0,1200,750);
 		setVisible(true);
 		
 	}
@@ -39,12 +39,12 @@ public class HomeGUI extends JFrame implements ActionListener{
 		mainHeader = new JPanel();
 		mainHeader.setLayout(null);
 		mainHeader.setBackground(Color.decode("#2F5D62"));
-		mainHeader.setBounds(0,0,1500,150);
+		mainHeader.setBounds(0,0,1200,120);
 		
 		ImageIcon originalIcon = new ImageIcon("D:\\Github\\Java_Programming\\JavaProject\\src\\images\\logo.png");
  
-        int width = originalIcon.getIconWidth() / 3;
-        int height = originalIcon.getIconHeight() / 3;
+        int width = originalIcon.getIconWidth() / 4;
+        int height = originalIcon.getIconHeight() / 4;
         
         //Dòng này là để scale lại ảnh
         Image scaled = scaleImage(originalIcon.getImage(), width, height);
@@ -54,31 +54,40 @@ public class HomeGUI extends JFrame implements ActionListener{
         JLabel icon = new JLabel();
         icon.setIcon(scaledIcon);
         
-        icon.setBounds(-20,-10,width,height);
+        icon.setBounds(-10,-10,width,height);
         
         JLabel title = new JLabel("LaptopS");
         title.setFont(new Font("AddElectricCity", Font.BOLD, 50));
         title.setForeground(Color.decode("#FFFFFF"));
-        title.setBounds(150, 20, 300, 100);
+        title.setBounds(120, 10, 300, 100);
         
         JLabel hello = new JLabel();
         hello.setText("Hello,");
         hello.setFont(new Font("Alba Matter", Font.ITALIC, 30));
         hello.setForeground(Color.decode("#DFEEEA"));
-        hello.setBounds(1100,30,100,100);
+        hello.setBounds(800,30,100,100);
         
 
         JLabel lbLogout = new JLabel();
 		ImageIcon iconLogout = new ImageIcon("D:\\Github\\Java_Programming\\JavaProject\\src\\images\\power-off.png");
 		lbLogout.setIcon(iconLogout);
 		lbLogout.setForeground(Color.decode("#DFEEEA"));
-		lbLogout.setBounds(1350, 40, iconLogout.getIconWidth(), iconLogout.getIconHeight());
-      
+		lbLogout.setBounds(1050, 40, iconLogout.getIconWidth(), iconLogout.getIconHeight());
+		
+		JLabel test = new JLabel("test");
+		
+		pn1 = new JPanel();
+		pn1.setLayout(new FlowLayout());
+		pn1.setBounds(500,0,200, 120);
+		pn1.setBackground(Color.black);
+		
+		pn1.add(test);
 
         mainHeader.add(title);
         mainHeader.add(icon);
         mainHeader.add(hello);
         mainHeader.add(lbLogout);
+        mainHeader.add(pn1);
 		
 		add(mainHeader);
 
@@ -93,7 +102,7 @@ public class HomeGUI extends JFrame implements ActionListener{
 		mainHome = new JPanel();
 		mainHome.setLayout(new GridLayout(4,0));
 		mainHome.setBackground(Color.decode("#5E8B7E"));
-		mainHome.setBounds(0,150,200,850);
+		mainHome.setBounds(0,120,150,595);
 		
 		btnEmployee = new JButton("Employee");
 		ImageIcon iconEmployee = new ImageIcon("D:\\Github\\Java_Programming\\JavaProject\\src\\images\\employee.png");
@@ -150,9 +159,9 @@ public class HomeGUI extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == btnEmployee) {
-//			EmployeeGUI emp = new EmployeeGUI();
-//			add(emp);
-//			emp.setBounds(200,150,emp.getWidth(),emp.getHeight());
+			EmployeeGUI emp = new EmployeeGUI();
+			add(emp);
+			emp.setBounds(150,120,emp.getWidth(),emp.getHeight());
 		}
 	}
 

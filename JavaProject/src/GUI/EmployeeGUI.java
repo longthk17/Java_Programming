@@ -13,8 +13,8 @@ public class EmployeeGUI extends JPanel {
 	}
 	
 	private void initGUI() {
-		setSize(500,500);
-		setBackground(Color.decode("#DFEEEA"));
+		setSize(1050,630);
+		setBackground(Color.black);
 	}
 	
 	private void initComponents() {
