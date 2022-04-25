@@ -14,7 +14,7 @@ import javax.swing.*;
 public class HomeGUI extends JFrame implements ActionListener{
 	
 	JPanel mainHome, mainHeader;
-	JButton btnCustomer,btnEmployee,btnMerchandise,btnReceipt;
+	JButton btnCustomer,btnEmployee,btnMerchandise,btnReceipt, btnLogout, btnChangePass;
 	
 	JPanel contentPanel, pn1, pn2;
 	
@@ -31,6 +31,7 @@ public class HomeGUI extends JFrame implements ActionListener{
 
 		getContentPane().setBackground(Color.decode("#DFEEEA"));
 		setBounds(100,0,1200,750);
+		setResizable(false);
 		setVisible(true);
 		
 	}
@@ -41,7 +42,7 @@ public class HomeGUI extends JFrame implements ActionListener{
 		mainHeader.setBackground(Color.decode("#2F5D62"));
 		mainHeader.setBounds(0,0,1200,120);
 		
-		ImageIcon originalIcon = new ImageIcon("D:\\Github\\Java_Programming\\JavaProject\\src\\images\\logo.png");
+		ImageIcon originalIcon = new ImageIcon(this.getClass().getResource("/images/logo.png"));
  
         int width = originalIcon.getIconWidth() / 4;
         int height = originalIcon.getIconHeight() / 4;
@@ -67,26 +68,38 @@ public class HomeGUI extends JFrame implements ActionListener{
         hello.setForeground(Color.decode("#DFEEEA"));
         hello.setBounds(800,30,100,100);
         
+        btnChangePass = new JButton("Change Password");
+        btnChangePass.setFont(new Font("Keyes", Font.BOLD, 15));
+        btnChangePass.setForeground(Color.decode("#DFEEEA"));
+        btnChangePass.setFocusable(false);
+        btnChangePass.setBackground(Color.decode("#2F5D62"));
+        btnChangePass.setBorder(null);
+        btnChangePass.addActionListener(this);
+        
 
-        JLabel lbLogout = new JLabel();
-		ImageIcon iconLogout = new ImageIcon("D:\\Github\\Java_Programming\\JavaProject\\src\\images\\power-off.png");
-		lbLogout.setIcon(iconLogout);
-		lbLogout.setForeground(Color.decode("#DFEEEA"));
-		lbLogout.setBounds(1050, 40, iconLogout.getIconWidth(), iconLogout.getIconHeight());
+		btnLogout = new JButton();
+		ImageIcon iconLogout = new ImageIcon(this.getClass().getResource("/images/power-off.png"));
+		btnLogout.setIcon(iconLogout);
+		btnLogout.setFocusable(false);
+		btnLogout.setBackground(Color.decode("#2F5D62"));
+		btnLogout.setBorder(null);
+		btnLogout.addActionListener(this);
 		
-		JLabel test = new JLabel("test");
+		
 		
 		pn1 = new JPanel();
 		pn1.setLayout(new FlowLayout());
-		pn1.setBounds(500,0,200, 120);
-		pn1.setBackground(Color.black);
+		pn1.setBounds(700,30,400, 80);
+		pn1.setBackground(Color.decode("#2F5D62"));
 		
-		pn1.add(test);
+		pn1.add(hello);
+		pn1.add(btnChangePass);
+		pn1.add(btnLogout);
 
         mainHeader.add(title);
         mainHeader.add(icon);
-        mainHeader.add(hello);
-        mainHeader.add(lbLogout);
+//        mainHeader.add(hello);
+//        mainHeader.add(lbLogout);
         mainHeader.add(pn1);
 		
 		add(mainHeader);
@@ -105,43 +118,43 @@ public class HomeGUI extends JFrame implements ActionListener{
 		mainHome.setBounds(0,120,150,595);
 		
 		btnEmployee = new JButton("Employee");
-		ImageIcon iconEmployee = new ImageIcon("D:\\Github\\Java_Programming\\JavaProject\\src\\images\\employee.png");
+		ImageIcon iconEmployee = new ImageIcon(this.getClass().getResource("/images/employee.png"));
 		btnEmployee.setIcon(iconEmployee);
 		btnEmployee.setFocusable(false);
 		btnEmployee.setHorizontalTextPosition(JButton.CENTER);
 		btnEmployee.setVerticalTextPosition(JButton.BOTTOM);
-		btnEmployee.setFont(new Font("Keyes", Font.BOLD, 20));
+		btnEmployee.setFont(new Font("Keyes", Font.BOLD, 15));
 		btnEmployee.setBackground(Color.decode("#5E8B7E"));
 		btnEmployee.setForeground(Color.decode("#F6E7D8"));
 		btnEmployee.addActionListener(this);
 		
 		btnCustomer = new JButton("Customer");
-		ImageIcon iconCustomer = new ImageIcon("D:\\Github\\Java_Programming\\JavaProject\\src\\images\\customer.png");
+		ImageIcon iconCustomer = new ImageIcon(this.getClass().getResource("/images/customer.png"));
 		btnCustomer.setIcon(iconCustomer);
 		btnCustomer.setFocusable(false);
 		btnCustomer.setHorizontalTextPosition(JButton.CENTER);
 		btnCustomer.setVerticalTextPosition(JButton.BOTTOM);
-		btnCustomer.setFont(new Font("Keyes", Font.BOLD, 20));
+		btnCustomer.setFont(new Font("Keyes", Font.BOLD, 15));
 		btnCustomer.setBackground(Color.decode("#5E8B7E"));
 		btnCustomer.setForeground(Color.decode("#F6E7D8"));
 
 		btnMerchandise = new JButton("Merchandise");
-		ImageIcon iconMerchandise = new ImageIcon("D:\\Github\\Java_Programming\\JavaProject\\src\\images\\laptop.png");
+		ImageIcon iconMerchandise = new ImageIcon(this.getClass().getResource("/images/laptop.png"));
 		btnMerchandise.setIcon(iconMerchandise);
 		btnMerchandise.setFocusable(false);
 		btnMerchandise.setHorizontalTextPosition(JButton.CENTER);
 		btnMerchandise.setVerticalTextPosition(JButton.BOTTOM);
-		btnMerchandise.setFont(new Font("Keyes", Font.BOLD, 20));
+		btnMerchandise.setFont(new Font("Keyes", Font.BOLD, 15));
 		btnMerchandise.setBackground(Color.decode("#5E8B7E"));
 		btnMerchandise.setForeground(Color.decode("#F6E7D8"));
 
 		btnReceipt = new JButton("Receipt");
-		ImageIcon iconReceipt = new ImageIcon("D:\\Github\\Java_Programming\\JavaProject\\src\\images\\bill.png");
+		ImageIcon iconReceipt = new ImageIcon(this.getClass().getResource("/images/bill.png"));
 		btnReceipt.setIcon(iconReceipt);
 		btnReceipt.setFocusable(false);
 		btnReceipt.setHorizontalTextPosition(JButton.CENTER);
 		btnReceipt.setVerticalTextPosition(JButton.BOTTOM);
-		btnReceipt.setFont(new Font("Keyes", Font.BOLD, 20));
+		btnReceipt.setFont(new Font("Keyes", Font.BOLD, 15));
 		btnReceipt.setBackground(Color.decode("#5E8B7E"));
 		btnReceipt.setForeground(Color.decode("#F6E7D8"));
 		
