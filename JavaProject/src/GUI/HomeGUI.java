@@ -18,6 +18,9 @@ public class HomeGUI extends JFrame implements ActionListener{
 	
 	JPanel contentPanel, pn1, pn2;
 	
+	EmployeeGUI emp = new EmployeeGUI();
+	MerchandiseGUI mer = new MerchandiseGUI();
+	
 	public HomeGUI() {
 		initGUI();
 	}
@@ -147,6 +150,7 @@ public class HomeGUI extends JFrame implements ActionListener{
 		btnMerchandise.setFont(new Font("Keyes", Font.BOLD, 15));
 		btnMerchandise.setBackground(Color.decode("#5E8B7E"));
 		btnMerchandise.setForeground(Color.decode("#F6E7D8"));
+		btnMerchandise.addActionListener(this);
 
 		btnReceipt = new JButton("Receipt");
 		ImageIcon iconReceipt = new ImageIcon(this.getClass().getResource("/images/bill.png"));
@@ -172,9 +176,14 @@ public class HomeGUI extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == btnEmployee) {
-			EmployeeGUI emp = new EmployeeGUI();
+			remove(mer);
 			add(emp);
 			emp.setBounds(150,120,emp.getWidth(),emp.getHeight());
+		}
+		if(e.getSource() == btnMerchandise) {
+			remove(emp);
+			add(mer);
+			mer.setBounds(150,120,mer.getWidth(),mer.getHeight());
 		}
 	}
 

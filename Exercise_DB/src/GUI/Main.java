@@ -109,6 +109,7 @@ public class Main extends JFrame implements ActionListener {
 		cbTypeItem.setSize(20, 10);
 		
 		cbTypeItem_search = new JComboBox();
+		
 		for(int i=0; i < typeList().size(); i++) {
 			cbTypeItem_search.addItem(typeList().get(i).tenloai_sp);
 		}

@@ -15,7 +15,9 @@ public class EmployeeGUI extends JPanel {
 	JLabel lbId, lbName, lbUsername, lbPassword, lbPhone, lbType;
 	JTextField tfId, tfName, tfUsername, tfPassword, tfPhone;
 	JComboBox cbType;
-	JPanel pn1;
+	JPanel pn1, pnBtn;
+	
+	JButton btnAdd, btnUpd, btnDel;
 	
 	DefaultTableModel model = new DefaultTableModel();
 	JTable tb = new JTable(model);
@@ -86,6 +88,17 @@ public class EmployeeGUI extends JPanel {
 		JScrollPane sp = new JScrollPane(tb);
 		sp.setBounds(70, 150, 700, 400);
 		
+		
+		btnAdd = new JButton("Add");
+		btnAdd.setFont(new Font("Keyes", Font.BOLD, 20));
+		btnAdd.setBounds(820, 200, 150, 50);
+		btnUpd = new JButton("Update");
+		btnUpd.setFont(new Font("Keyes", Font.BOLD, 20));
+		btnUpd.setBounds(820, 300, 150, 50);
+		btnDel = new JButton("Delete");
+		btnDel.setFont(new Font("Keyes", Font.BOLD, 20));
+		btnDel.setBounds(820, 400, 150, 50);
+		
 		add(lbId);
 		add(tfId);
 		add(lbName);
@@ -99,6 +112,9 @@ public class EmployeeGUI extends JPanel {
 		add(lbType);
 		add(cbType);
 		add(sp);
+		add(btnAdd);
+		add(btnUpd);
+		add(btnDel);
 		
 	}
 }
