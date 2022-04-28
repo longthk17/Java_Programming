@@ -1,10 +1,4 @@
-INDEX VERSION 1.131+D:\Github\Java_Programming\.metadata\.plugins\org.eclipse.jdt.core
-732390033.index
-3031213521.index
-1254345755.index
-3534310585.index
+INDEX VERSION 1.131+D:\Lap trinh huong doi tuong\Java_Programming\.metadata\.plugins\org.eclipse.jdt.core
+3585002278.index
 1865797976.index
-1167275426.index
-3050471535.index
 2868695985.index
-1353103237.index
