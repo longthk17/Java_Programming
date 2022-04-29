@@ -8,6 +8,5 @@ public class Main {
 //		EmployeeGUI employee = new EmployeeGUI();
 		
 		HomeGUI home = new HomeGUI();
-		//ngu lam con trai
 	}
 }
