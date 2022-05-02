@@ -14,9 +14,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+
+import DTO.Employee;
+import DAL.EmployeeDAL;
 
 public class LoginGUI extends JFrame implements ActionListener {
 	JLabel lbUsername, lbPass, lbTitle;
@@ -24,6 +28,8 @@ public class LoginGUI extends JFrame implements ActionListener {
 	JPasswordField tfPass;
 	
 	JButton btnLogin;
+	
+	Employee curEmp;
 	
 	
 	public LoginGUI() {
@@ -38,6 +44,7 @@ public class LoginGUI extends JFrame implements ActionListener {
 		
 		getContentPane().setBackground(Color.decode("#EEEEEE"));
 		setBounds(450,80,500,500);
+		setResizable(false);
 		setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 		setVisible(true);
 	}
@@ -47,7 +54,7 @@ public class LoginGUI extends JFrame implements ActionListener {
 		lbTitle.setFont(new Font("Keyes", Font.BOLD, 40));
 		lbTitle.setBounds(150,-30,200,200);
 		
-		ImageIcon originalIcon = new ImageIcon("D:\\Github\\Java_Programming\\JavaProject\\src\\images\\user.png");
+		ImageIcon originalIcon = new ImageIcon(this.getClass().getResource("/images/user.png"));
  
         int width = originalIcon.getIconWidth() / 4;
         int height = originalIcon.getIconHeight() / 4;
@@ -78,6 +85,7 @@ public class LoginGUI extends JFrame implements ActionListener {
         btnLogin.setFont(new Font("Adams", Font.PLAIN, 15));
         btnLogin.setBounds(190,380,100,25);
         btnLogin.setBorder(BorderFactory.createLineBorder(Color.black));
+        btnLogin.addActionListener(this);
         
         add(lbTitle);
         add(icon);
@@ -96,6 +104,24 @@ public class LoginGUI extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		if(e.getSource() == btnLogin) {
+			String username = tfUsername.getText();
+			String password = tfPass.getText();
+			Employee emp = EmployeeDAL.getByUsername(username);
+			if(emp != null) {
+				curEmp = emp;
+				if(curEmp.getPassword().equals(password)) {
+					JOptionPane.showMessageDialog(this, "Đăng nhập thành công");
+					HomeGUI home = new HomeGUI(curEmp);
+					home.setVisible(true);
+					dispose();
+				} else {
+					JOptionPane.showMessageDialog(this, "Sai mật khẩu");
+				}
+			} else {
+				JOptionPane.showMessageDialog(this, "Nhân viên không tồn tại");
+			}
+		}
 		
 	}
 }

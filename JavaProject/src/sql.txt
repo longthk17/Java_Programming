@@ -1,0 +1,14 @@
+CREATE TABLE employee (
+    id varchar(255) NOT NULL,
+    fullName varchar(255) NOT NULL,
+    username varchar(255) NOT NULL,
+    password varchar(255) NOT NULL,
+    phone text,
+    type varchar(255) NOT NULL,
+    gender varchar(255) NOT NULL,
+    address varchar(255) NOT NULL,
+    PRIMARY KEY(id)
+);
+
+INSERT INTO `employee`(`id`, `fullName`, `username`, `password`, `phone`, `type`, `gender`, `address`) VALUES ('NV01','kim long','kimlong','12345','0769815172','admin','male','vietnam')
+INSERT INTO `employee`(`id`, `fullName`, `username`, `password`, `phone`, `type`, `gender`, `address`) VALUES ('NV02','dang thong','dangthong','12345','0764721172','sale','male','france')
