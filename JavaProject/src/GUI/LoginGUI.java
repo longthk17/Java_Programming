@@ -106,7 +106,7 @@ public class LoginGUI extends JFrame implements ActionListener {
 		// TODO Auto-generated method stub
 		if(e.getSource() == btnLogin) {
 			String username = tfUsername.getText();
-			String password = tfPass.getText();
+			String password = Hashing.getMd5(tfPass.getText());
 			Employee emp = EmployeeDAL.getByUsername(username);
 			if(emp != null) {
 				curEmp = emp;
@@ -116,7 +116,7 @@ public class LoginGUI extends JFrame implements ActionListener {
 					home.setVisible(true);
 					dispose();
 				} else {
-					JOptionPane.showMessageDialog(this, "Sai mật khẩu");
+					JOptionPane.showMessageDialog(this, "Sai tài khoản hoặc mật khẩu");
 				}
 			} else {
 				JOptionPane.showMessageDialog(this, "Nhân viên không tồn tại");

@@ -10,7 +10,6 @@
     <fullyQualifiedTypeName name="java.awt.event.MouseAdapter"/>
     <fullyQualifiedTypeName name="java.awt.event.MouseEvent"/>
     <fullyQualifiedTypeName name="java.lang.reflect.InvocationTargetException"/>
-    <fullyQualifiedTypeName name="java.sql.Statement"/>
     <fullyQualifiedTypeName name="com.mysql.cj.Query"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="exercise.Register"/>
@@ -43,4 +42,7 @@
     <fullyQualifiedTypeName name="DTO.Employee"/>
     <fullyQualifiedTypeName name="BUS.EmployeeBUS"/>
     <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
+    <fullyQualifiedTypeName name="java.sql.Statement"/>
+    <fullyQualifiedTypeName name="GUI.Hashing"/>
+    <fullyQualifiedTypeName name="GUI.EmployeeGUI"/>
 </qualifiedTypeNameHistroy>

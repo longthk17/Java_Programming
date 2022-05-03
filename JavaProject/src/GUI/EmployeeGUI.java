@@ -29,7 +29,7 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 	JComboBox cbType, cbGender;
 	JPanel pn1, pnBtn;
 	JDateChooser calBirth;
-	JButton btnAdd, btnUpd, btnDel;
+	JButton btnAdd, btnUpd, btnDel, btnClear;
 	String gender[] = {"Male", "Female"};
 	String type[] = {"Admin","Sale"};
 			
@@ -59,6 +59,7 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 		lbId.setBounds(70, 60, 100, 25);
 		
 		tfId = new JTextField();
+		tfId.setEditable(false);
 		tfId.setBounds(150, 60, 150, 25);
 		
 		lbName = new JLabel("Name");
@@ -70,7 +71,7 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 		
 		lbBirth = new JLabel("Birth");
 		lbBirth.setFont(new Font("Verdana", Font.BOLD, 15));
-		lbBirth.setBounds(70, 160, 100, 25);;
+		lbBirth.setBounds(70, 160, 100, 25);
 		
 		calBirth = new JDateChooser();
 		calBirth.setBounds(150, 160, 150, 25);
@@ -93,10 +94,10 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 		
 		lbAddress = new JLabel("Address");
 		lbAddress.setFont(new Font("Verdana", Font.BOLD, 15));
-		lbAddress.setBounds(320, 160, 120, 25);
+		lbAddress.setBounds(70, 160, 100, 25);
 		
 		tfAddress = new JTextField();
-		tfAddress.setBounds(450, 160, 150, 25);
+		tfAddress.setBounds(150, 160, 150, 25);
 		
 		lbPhone = new JLabel("Phone");
 		lbPhone.setFont(new Font("Verdana", Font.BOLD, 15));
@@ -114,10 +115,10 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 		
 		lbGender = new JLabel("Gender");
 		lbGender.setFont(new Font("Verdana", Font.BOLD, 15));
-		lbGender.setBounds(670, 160, 100, 25);
+		lbGender.setBounds(320, 160, 120, 25);
 
 		cbGender = new JComboBox(gender);
-		cbGender.setBounds(755, 160, 100, 25);
+		cbGender.setBounds(450, 160, 150, 25);
 		
 		
 
@@ -125,7 +126,7 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 		model.addColumn("Name");
 		model.addColumn("Gender");
 		model.addColumn("Username");
-		model.addColumn("Password");
+//		model.addColumn("Password");
 		model.addColumn("Address");
 		model.addColumn("Phone");
 		model.addColumn("Type");
@@ -134,15 +135,16 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 		JScrollPane sp = new JScrollPane(tb);
 		tb.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent evt) {
+				tfId.setEditable(false);
 				int i = tb.getSelectedRow();
 				if(i>=0) {
 					tfId.setText(model.getValueAt(i, 0).toString());
 					tfName.setText(model.getValueAt(i, 1).toString());
 //					cbGender.setPrototypeDisplayValue(model.getValueAt(i, 2));
 					tfUsername.setText(model.getValueAt(i, 3).toString());
-					tfPassword.setText(model.getValueAt(i, 4).toString());
-					tfAddress.setText(model.getValueAt(i, 5).toString());
-					tfPhone.setText(model.getValueAt(i, 6).toString());
+					tfPassword.setText("");
+					tfAddress.setText(model.getValueAt(i, 4).toString());
+					tfPhone.setText(model.getValueAt(i, 5).toString());
 //					cbType.setPrototypeDisplayValue(model.getValueAt(i, 7));
 				}
 			}
@@ -163,6 +165,11 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 		btnDel.setFont(new Font("Keyes", Font.BOLD, 20));
 		btnDel.setBounds(820, 480, 150, 50);
 		btnDel.addActionListener(this);
+		btnClear = new JButton("Clear");
+		btnClear.setFont(new Font("Keyes", Font.BOLD, 15));
+		btnClear.setBounds(900, 20, 100, 30);
+		btnClear.addActionListener(this);
+		
 		
 		add(lbId);
 		add(tfId);
@@ -186,6 +193,7 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 		add(btnAdd);
 		add(btnUpd);
 		add(btnDel);	
+		add(btnClear);
 	}
 	
 	public void loadEmployeeList() {
@@ -197,21 +205,111 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 			String id = emp.getId();
 			String fullName = emp.getFullName();
 			String username = emp.getUsername();
-			String password = emp.getPassword();
+//			String password = emp.getPassword();
 			String phone = emp.getPhone();
 			String type = emp.getType();
 			String gender = emp.getGender();
 			String address = emp.getAddress();
-			Object[] row = {id,fullName,gender,username,password,address,phone,type};
+			Object[] row = {id,fullName,gender,username,address,phone,type};
 			model.addRow(row);
 		}
+	}
+	
+	public boolean checkNull(String string) {
+		if(string != null && !string.trim().equals("")) {
+			return true;
+		} else return false;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == btnAdd) {
-			
+			try {
+				tfId.setEditable(true);
+				if(checkNull(tfId.getText()) && checkNull(tfName.getText()) && checkNull(tfPassword.getText()) && checkNull(tfUsername.getText()) && checkNull(tfPhone.getText()) && checkNull(tfAddress.getText())) {
+					Employee emp = new Employee();
+					emp.setId(tfId.getText());
+					emp.setFullName(tfName.getText());
+					emp.setUsername(tfUsername.getText());
+					emp.setPassword(tfPassword.getText());
+					emp.setPhone(tfPhone.getText());
+					
+					String type = (String)cbType.getSelectedItem();
+					emp.setType(type);
+					
+					String gender = (String)cbGender.getSelectedItem();
+					emp.setGender(gender);
+					emp.setAddress(tfAddress.getText());
+					JOptionPane.showMessageDialog(this, empBUS.addEmployee(emp));
+					loadEmployeeList();
+				} else {
+					JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin");
+				}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(this, "Thông tin không hợp lệ");
+			}
 		}
+		
+		if(e.getSource() == btnUpd) {
+			try {
+				if(checkNull(tfName.getText()) && checkNull(tfPassword.getText()) && checkNull(tfUsername.getText()) && checkNull(tfPhone.getText()) && checkNull(tfAddress.getText())) {
+					Employee emp = new Employee();
+					emp.setId(tfId.getText());
+					emp.setFullName(tfName.getText());
+					emp.setUsername(tfUsername.getText());
+					emp.setPassword(tfPassword.getText());
+					emp.setPhone(tfPhone.getText());
+					
+					String type = (String)cbType.getSelectedItem();
+					emp.setType(type);
+					
+					String gender = (String)cbGender.getSelectedItem();
+					emp.setGender(gender);
+					emp.setAddress(tfAddress.getText());
+					JOptionPane.showMessageDialog(this, empBUS.updateEmployee(emp));
+					loadEmployeeList();
+					tfId.setText("");
+					tfName.setText("");
+					tfUsername.setText("");
+					tfPassword.setText("");
+					tfPhone.setText("");
+					tfAddress.setText("");
+				} else {
+					JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin");
+				}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(this, "Thông tin không hợp lệ");
+			}
+		}
+		if(e.getSource() == btnDel) {
+			int i = tb.getSelectedRow();
+			String id = (String) model.getValueAt(i, 0);
+			if(i>=0) {
+				empBUS.deleteEmployee(id);
+				JOptionPane.showMessageDialog(this, "Xóa thành công");
+				loadEmployeeList();
+				tfId.setText("");
+				tfName.setText("");
+				tfUsername.setText("");
+				tfPassword.setText("");
+				tfPhone.setText("");
+				tfAddress.setText("");
+			} else {
+				JOptionPane.showMessageDialog(this, "Xóa thất bại");
+			}
+		}
+		
+		if(e.getSource() == btnClear) {
+			tfId.setText("");
+			tfName.setText("");
+			tfUsername.setText("");
+			tfPassword.setText("");
+			tfPhone.setText("");
+			tfAddress.setText("");
+		}
+		
 	}
 }

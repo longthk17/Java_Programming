@@ -3,9 +3,11 @@ package DAL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import DTO.Employee;
+import GUI.Hashing;
 
 public class EmployeeDAL {
 	
@@ -58,6 +60,99 @@ public class EmployeeDAL {
 		} catch(Exception ex) {
 			ex.printStackTrace();
 			return null;
+		}
+	}
+	
+	public boolean addEmployee(Employee emp) {
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "INSERT INTO employee values(?,?,?,?,?,?,?,?)";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			prest.setString(1, emp.getId());
+			prest.setString(2, emp.getFullName());
+			prest.setString(3, emp.getUsername());
+			String hashPass = Hashing.getMd5(emp.getPassword());
+			prest.setString(4, hashPass);
+			prest.setString(5, emp.getPhone());
+			prest.setString(6, emp.getType());
+			prest.setString(7, emp.getGender());
+			prest.setString(8, emp.getAddress());
+			if(prest.executeUpdate()>=1 ) {
+				return true;
+			} else return false;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean updateEmployee(Employee emp) {
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "UPDATE employee SET fullName = ?, username = ?, password = ?, phone = ?, type = ?, gender = ?, address = ?"
+					+ "WHERE id = ?";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			prest.setString(1, emp.getFullName());
+			prest.setString(2, emp.getUsername());
+			String hashPass = Hashing.getMd5(emp.getPassword());
+			prest.setString(3, hashPass);
+			prest.setString(4, emp.getPhone());
+			prest.setString(5, emp.getType());
+			prest.setString(6, emp.getGender());
+			prest.setString(7, emp.getAddress());
+			prest.setString(8, emp.getId());
+			if(prest.executeUpdate()>=1 ) {
+				return true;
+			} else return false;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean deleteEmployee(String id) {
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "DELETE FROM employee WHERE id = ?";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			prest.setString(1, id);
+			if(prest.executeUpdate()>=1) {
+				return true;
+			} else return false;
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean hasEmployeeID(String id) {
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "SELECT * FROM employee WHERE id = '" + id + "'";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			return rs.next();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean hasEmployeeUsername(String username) {
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "SELECT * FROM employee WHERE username = '" + username + "'";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			return rs.next();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			return false;
 		}
 	}
 }

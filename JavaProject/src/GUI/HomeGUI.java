@@ -36,6 +36,7 @@ public class HomeGUI extends JFrame implements ActionListener{
 
 		initHeader();
 		initComponents();
+		checkUser(curEmp);
 
 		getContentPane().setBackground(Color.decode("#DFEEEA"));
 		setBounds(100,0,1200,750);
@@ -127,7 +128,7 @@ public class HomeGUI extends JFrame implements ActionListener{
 		btnEmployee = new JButton("Employee");
 		ImageIcon iconEmployee = new ImageIcon(this.getClass().getResource("/images/employee.png"));
 		btnEmployee.setIcon(iconEmployee);
-//		btnEmployee.setFocusable(false);
+		btnEmployee.setFocusable(false);
 		btnEmployee.setHorizontalTextPosition(JButton.CENTER);
 		btnEmployee.setVerticalTextPosition(JButton.BOTTOM);
 		btnEmployee.setFont(new Font("Keyes", Font.BOLD, 15));
@@ -185,6 +186,12 @@ public class HomeGUI extends JFrame implements ActionListener{
 		mer.setVisible(false);
 	}
 	
+	public void checkUser(Employee emp) {
+		if(!emp.getType().equals("Admin")) {
+			btnEmployee.setEnabled(false);
+		}
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -193,7 +200,7 @@ public class HomeGUI extends JFrame implements ActionListener{
 			this.dispose();
 		}
 		if(e.getSource() == btnChangePass) {
-			
+			System.out.println("NGU");
 		}
 		if(e.getSource() == btnEmployee) {
 			clear();
