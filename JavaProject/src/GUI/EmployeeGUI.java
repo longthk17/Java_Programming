@@ -4,18 +4,26 @@ import java.awt.Color;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
 
+import DTO.Employee;
+import BUS.EmployeeBUS;
+
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.EventQueue;
 
-public class EmployeeGUI extends JPanel {
+public class EmployeeGUI extends JPanel implements ActionListener {
 	JLabel lbId, lbName, lbUsername, lbPassword, lbPhone, lbType, lbGender, lbAddress, lbBirth;
 	JTextField tfId, tfName, tfUsername, tfPassword, tfPhone, tfAddress;
 	JComboBox cbType, cbGender;
@@ -29,6 +37,8 @@ public class EmployeeGUI extends JPanel {
 	DefaultTableModel model = new DefaultTableModel();
 	JTable tb = new JTable(model);
 	
+	EmployeeBUS empBUS = new EmployeeBUS();
+	
 	public EmployeeGUI() {
 		initGUI();
 	}
@@ -36,7 +46,10 @@ public class EmployeeGUI extends JPanel {
 	private void initGUI() {
 		setSize(1050,630);
 		setLayout(null);
+		
 		initComponents();
+		loadEmployeeList();
+		
 		setBackground(Color.decode("#DFEEEA"));
 	}
 	
@@ -119,18 +132,37 @@ public class EmployeeGUI extends JPanel {
 		
 		
 		JScrollPane sp = new JScrollPane(tb);
+		tb.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				int i = tb.getSelectedRow();
+				if(i>=0) {
+					tfId.setText(model.getValueAt(i, 0).toString());
+					tfName.setText(model.getValueAt(i, 1).toString());
+//					cbGender.setPrototypeDisplayValue(model.getValueAt(i, 2));
+					tfUsername.setText(model.getValueAt(i, 3).toString());
+					tfPassword.setText(model.getValueAt(i, 4).toString());
+					tfAddress.setText(model.getValueAt(i, 5).toString());
+					tfPhone.setText(model.getValueAt(i, 6).toString());
+//					cbType.setPrototypeDisplayValue(model.getValueAt(i, 7));
+				}
+			}
+			
+		});
 		sp.setBounds(70, 250, 700, 300);
 		
 		
 		btnAdd = new JButton("Add");
 		btnAdd.setFont(new Font("Keyes", Font.BOLD, 20));
 		btnAdd.setBounds(820, 280, 150, 50);
+		btnAdd.addActionListener(this);
 		btnUpd = new JButton("Update");
 		btnUpd.setFont(new Font("Keyes", Font.BOLD, 20));
 		btnUpd.setBounds(820, 380, 150, 50);
+		btnUpd.addActionListener(this);
 		btnDel = new JButton("Delete");
 		btnDel.setFont(new Font("Keyes", Font.BOLD, 20));
 		btnDel.setBounds(820, 480, 150, 50);
+		btnDel.addActionListener(this);
 		
 		add(lbId);
 		add(tfId);
@@ -153,7 +185,33 @@ public class EmployeeGUI extends JPanel {
 		add(sp);
 		add(btnAdd);
 		add(btnUpd);
-		add(btnDel);
-		
+		add(btnDel);	
+	}
+	
+	public void loadEmployeeList() {
+		model.setRowCount(0);
+		ArrayList<Employee> arr = new ArrayList<Employee>();
+		arr = empBUS.getAllEmployee();
+		for(int i=0; i < arr.size(); i++) {
+			Employee emp = arr.get(i);
+			String id = emp.getId();
+			String fullName = emp.getFullName();
+			String username = emp.getUsername();
+			String password = emp.getPassword();
+			String phone = emp.getPhone();
+			String type = emp.getType();
+			String gender = emp.getGender();
+			String address = emp.getAddress();
+			Object[] row = {id,fullName,gender,username,password,address,phone,type};
+			model.addRow(row);
+		}
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource() == btnAdd) {
+			
+		}
 	}
 }

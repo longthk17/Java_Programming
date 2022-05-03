@@ -3,10 +3,37 @@ package DAL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import DTO.Employee;
 
 public class EmployeeDAL {
+	
+	public ArrayList<Employee> getAllEmployee() {
+		ArrayList<Employee> empList = new ArrayList<>();
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "SELECT * FROM employee";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			ResultSet rs = prest.executeQuery();
+			while(rs.next()) {
+				String id = rs.getString("id");
+				String fullName = rs.getString("fullName");
+				String username = rs.getString("username");
+				String password = rs.getString("password");
+				String phone = rs.getString("phone");
+				String type = rs.getString("type");
+				String gender = rs.getString("gender");
+				String address = rs.getString("address");
+				Employee emp = new Employee(id, fullName, username, password, phone, type, gender, address);
+				empList.add(emp);
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return empList;
+	}
 	
 	public static Employee getByUsername(String username) {
 		try {

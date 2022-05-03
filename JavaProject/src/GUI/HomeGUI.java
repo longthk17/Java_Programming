@@ -193,6 +193,7 @@ public class HomeGUI extends JFrame implements ActionListener{
 			this.dispose();
 		}
 		if(e.getSource() == btnChangePass) {
+			
 		}
 		if(e.getSource() == btnEmployee) {
 			clear();
