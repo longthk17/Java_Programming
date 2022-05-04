@@ -2,7 +2,6 @@ INDEX VERSION 1.131+D:\Github\Java_Programming\.metadata\.plugins\org.eclipse.jd
 2021906954.index
 1254345755.index
 3050471535.index
-1865797976.index
 1167275426.index
 3534310585.index
 2868695985.index
