@@ -4,3 +4,8 @@ userName = "root"
 password = ""
 hostName = "localhost"
 port = 3307
+
+
+
+where r u from ?
+no where ai phom ?
