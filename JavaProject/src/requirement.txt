@@ -8,4 +8,5 @@ port = 3307
 
 
 where r u from ?
+what do you mean?
 no where ai phom ?
