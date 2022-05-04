@@ -1,0 +1,6 @@
+Xampp - MySQL
+dbName = "javaproject"
+userName = "root"
+password = ""
+hostName = "localhost"
+port = 3307
