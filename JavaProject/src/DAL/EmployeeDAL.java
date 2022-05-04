@@ -1,13 +1,15 @@
 package DAL;
 
+import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 import DTO.Employee;
-import GUI.Hashing;
+import Utils.Hashing;
+import Utils.MySQLConnUtils;
+import Utils.Date;
 
 public class EmployeeDAL {
 	
@@ -28,7 +30,7 @@ public class EmployeeDAL {
 				String type = rs.getString("type");
 				String gender = rs.getString("gender");
 				String address = rs.getString("address");
-				Employee emp = new Employee(id, fullName, username, password, phone, type, gender, address);
+				Employee emp = new Employee(id, fullName, username, password, phone, type, gender, address, null, null);
 				empList.add(emp);
 			}
 		} catch(Exception ex) {
@@ -67,7 +69,7 @@ public class EmployeeDAL {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "INSERT INTO employee values(?,?,?,?,?,?,?,?)";
+			sql = "INSERT INTO employee values(?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement prest = conn.prepareStatement(sql);
 			prest.setString(1, emp.getId());
 			prest.setString(2, emp.getFullName());
@@ -78,6 +80,9 @@ public class EmployeeDAL {
 			prest.setString(6, emp.getType());
 			prest.setString(7, emp.getGender());
 			prest.setString(8, emp.getAddress());
+			java.sql.Date date = Date.getCurrentDatetime();
+			prest.setDate(9, date);
+			prest.setDate(10, null);
 			if(prest.executeUpdate()>=1 ) {
 				return true;
 			} else return false;
@@ -91,7 +96,7 @@ public class EmployeeDAL {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "UPDATE employee SET fullName = ?, username = ?, password = ?, phone = ?, type = ?, gender = ?, address = ?"
+			sql = "UPDATE employee SET fullName = ?, username = ?, password = ?, phone = ?, type = ?, gender = ?, address = ?, update_date = ?"
 					+ "WHERE id = ?";
 			PreparedStatement prest = conn.prepareStatement(sql);
 			prest.setString(1, emp.getFullName());
@@ -102,7 +107,9 @@ public class EmployeeDAL {
 			prest.setString(5, emp.getType());
 			prest.setString(6, emp.getGender());
 			prest.setString(7, emp.getAddress());
-			prest.setString(8, emp.getId());
+			java.sql.Date date = Date.getCurrentDatetime();
+			prest.setDate(8, date);
+			prest.setString(9, emp.getId());
 			if(prest.executeUpdate()>=1 ) {
 				return true;
 			} else return false;

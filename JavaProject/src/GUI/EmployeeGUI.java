@@ -273,6 +273,12 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 					emp.setGender(gender);
 					emp.setAddress(tfAddress.getText());
 					JOptionPane.showMessageDialog(this, empBUS.addEmployee(emp));
+					tfId.setText("");
+					tfName.setText("");
+					tfUsername.setText("");
+					tfPassword.setText("");
+					tfPhone.setText("");
+					tfAddress.setText("");
 					loadEmployeeList();
 				} else {
 					JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin");
@@ -300,13 +306,13 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 					emp.setGender(gender);
 					emp.setAddress(tfAddress.getText());
 					JOptionPane.showMessageDialog(this, empBUS.updateEmployee(emp));
-					loadEmployeeList();
 					tfId.setText("");
 					tfName.setText("");
 					tfUsername.setText("");
 					tfPassword.setText("");
 					tfPhone.setText("");
 					tfAddress.setText("");
+					loadEmployeeList();
 				} else {
 					JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin");
 				}
