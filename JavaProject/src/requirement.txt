@@ -5,6 +5,7 @@ password = ""
 hostName = "localhost"
 port = 3307
 
+tanthanh 123
 
 
 where r u from ?
