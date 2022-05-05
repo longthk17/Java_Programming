@@ -11,17 +11,22 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import DTO.Employee;
+
 public class HomeGUI extends JFrame implements ActionListener{
 	
 	JPanel mainHome, mainHeader;
 	JButton btnCustomer,btnEmployee,btnMerchandise,btnReceipt, btnLogout, btnChangePass;
 	
-	JPanel contentPanel, pn1, pn2;
+	JPanel pn1, pn2;
+	
+	Employee curEmp;
 	
 	EmployeeGUI emp = new EmployeeGUI();
 	MerchandiseGUI mer = new MerchandiseGUI();
 	
-	public HomeGUI() {
+	public HomeGUI(Employee emp) {
+		this.curEmp = emp;
 		initGUI();
 	}
 	
@@ -31,12 +36,13 @@ public class HomeGUI extends JFrame implements ActionListener{
 
 		initHeader();
 		initComponents();
+		checkUser(curEmp);
 
 		getContentPane().setBackground(Color.decode("#DFEEEA"));
 		setBounds(100,0,1200,750);
 		setResizable(false);
-		setVisible(true);
-		
+		setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+		setVisible(false);
 	}
 	
 	private void initHeader() {
@@ -66,13 +72,13 @@ public class HomeGUI extends JFrame implements ActionListener{
         title.setBounds(120, 10, 300, 100);
         
         JLabel hello = new JLabel();
-        hello.setText("Hello,");
-        hello.setFont(new Font("Alba Matter", Font.ITALIC, 30));
+        hello.setText("Hello, " + curEmp.getFullName());
+        hello.setFont(new Font("Keyes", Font.ITALIC, 25));
         hello.setForeground(Color.decode("#DFEEEA"));
-        hello.setBounds(800,30,100,100);
+        hello.setBounds(900, 40, 250, 80);
         
         btnChangePass = new JButton("Change Password");
-        btnChangePass.setFont(new Font("Keyes", Font.BOLD, 15));
+        btnChangePass.setFont(new Font("Verdana", Font.BOLD, 15));
         btnChangePass.setForeground(Color.decode("#DFEEEA"));
         btnChangePass.setFocusable(false);
         btnChangePass.setBackground(Color.decode("#2F5D62"));
@@ -92,16 +98,15 @@ public class HomeGUI extends JFrame implements ActionListener{
 		
 		pn1 = new JPanel();
 		pn1.setLayout(new FlowLayout());
-		pn1.setBounds(700,30,400, 80);
+		pn1.setBounds(850,10,400, 80);
 		pn1.setBackground(Color.decode("#2F5D62"));
 		
-		pn1.add(hello);
 		pn1.add(btnChangePass);
 		pn1.add(btnLogout);
 
         mainHeader.add(title);
         mainHeader.add(icon);
-//        mainHeader.add(hello);
+        mainHeader.add(hello);
 //        mainHeader.add(lbLogout);
         mainHeader.add(pn1);
 		
@@ -129,6 +134,7 @@ public class HomeGUI extends JFrame implements ActionListener{
 		btnEmployee.setFont(new Font("Keyes", Font.BOLD, 15));
 		btnEmployee.setBackground(Color.decode("#5E8B7E"));
 		btnEmployee.setForeground(Color.decode("#F6E7D8"));
+//		btnEmployee.setEnabled(false);
 		btnEmployee.addActionListener(this);
 		
 		btnCustomer = new JButton("Customer");
@@ -140,6 +146,8 @@ public class HomeGUI extends JFrame implements ActionListener{
 		btnCustomer.setFont(new Font("Keyes", Font.BOLD, 15));
 		btnCustomer.setBackground(Color.decode("#5E8B7E"));
 		btnCustomer.setForeground(Color.decode("#F6E7D8"));
+//		btnCustomer.setEnabled(false);
+		btnCustomer.addActionListener(this);
 
 		btnMerchandise = new JButton("Merchandise");
 		ImageIcon iconMerchandise = new ImageIcon(this.getClass().getResource("/images/laptop.png"));
@@ -150,6 +158,7 @@ public class HomeGUI extends JFrame implements ActionListener{
 		btnMerchandise.setFont(new Font("Keyes", Font.BOLD, 15));
 		btnMerchandise.setBackground(Color.decode("#5E8B7E"));
 		btnMerchandise.setForeground(Color.decode("#F6E7D8"));
+//		btnMerchandise.setEnabled(false);
 		btnMerchandise.addActionListener(this);
 
 		btnReceipt = new JButton("Receipt");
@@ -161,7 +170,8 @@ public class HomeGUI extends JFrame implements ActionListener{
 		btnReceipt.setFont(new Font("Keyes", Font.BOLD, 15));
 		btnReceipt.setBackground(Color.decode("#5E8B7E"));
 		btnReceipt.setForeground(Color.decode("#F6E7D8"));
-		
+//		btnReceipt.setEnabled(false);
+		btnReceipt.addActionListener(this);		
 
 		mainHome.add(btnEmployee);
 		mainHome.add(btnCustomer);
@@ -169,19 +179,38 @@ public class HomeGUI extends JFrame implements ActionListener{
 		mainHome.add(btnReceipt);
 		
 		add(mainHome);
-		
 	}
-
+	
+	public void clear() {
+		emp.setVisible(false);
+		mer.setVisible(false);
+	}
+	
+	public void checkUser(Employee emp) {
+		if(!emp.getType().equals("Admin")) {
+			btnEmployee.setEnabled(false);
+		}
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		if(e.getSource() == btnLogout) {
+			LoginGUI login = new LoginGUI();
+			this.dispose();
+		}
+		if(e.getSource() == btnChangePass) {
+			System.out.println("NGU");
+		}
 		if(e.getSource() == btnEmployee) {
-			remove(mer);
+			clear();
+			emp.setVisible(true);
 			add(emp);
 			emp.setBounds(150,120,emp.getWidth(),emp.getHeight());
 		}
 		if(e.getSource() == btnMerchandise) {
-			remove(emp);
+			clear();
+			mer.setVisible(true);
 			add(mer);
 			mer.setBounds(150,120,mer.getWidth(),mer.getHeight());
 		}
