@@ -42,10 +42,11 @@
     <fullyQualifiedTypeName name="GUI.Hashing"/>
     <fullyQualifiedTypeName name="GUI.EmployeeGUI"/>
     <fullyQualifiedTypeName name="java.sql.Date"/>
-    <fullyQualifiedTypeName name="java.util.Date"/>
     <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
     <fullyQualifiedTypeName name="java.sql.ResultSet"/>
     <fullyQualifiedTypeName name="java.sql.Connection"/>
-    <fullyQualifiedTypeName name="Utils.Date"/>
     <fullyQualifiedTypeName name="java.sql.Statement"/>
+    <fullyQualifiedTypeName name="Utils.MySQLConnUtils"/>
+    <fullyQualifiedTypeName name="Utils.Date"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
 </qualifiedTypeNameHistroy>

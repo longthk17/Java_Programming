@@ -1,38 +1,35 @@
 package DTO;
 
+import java.util.Date;
+
 public class Merchandise {
-	String id, idname, producer, merchandisename;
+	String id, producer, merchandiseName;
 	int quantity, price;
+	Date createDate, updateDate;
 	
 	public Merchandise() {
 		
 	}
-	
-	public Merchandise(String id, String idname, String producer, String merchandisename, int quantity, int price) {
+
+	public Merchandise(String id, String producer, String merchandiseName, int quantity, int price,
+			Date createDate, Date updateDate) {
 		this.id = id;
-		this.idname = idname;
 		this.producer = producer;
-		this.merchandisename = merchandisename;
+		this.merchandiseName = merchandiseName;
 		this.quantity = quantity;
 		this.price = price;
+		this.createDate = createDate;
+		this.updateDate = updateDate;
 	}
-	
-	public String getID() {
+
+	public String getId() {
 		return id;
 	}
 
-	public void setID(String id) {
+	public void setId(String id) {
 		this.id = id;
 	}
-	
-	public String getIDName() {
-		return idname;
-	}
 
-	public void setIDName(String idname) {
-		this.idname = idname;
-	}
-	
 	public String getProducer() {
 		return producer;
 	}
@@ -40,15 +37,15 @@ public class Merchandise {
 	public void setProducer(String producer) {
 		this.producer = producer;
 	}
-	
+
 	public String getMerchandiseName() {
-		return merchandisename;
+		return merchandiseName;
 	}
 
-	public void setMerchandiseName(String merchandisename) {
-		this.merchandisename = merchandisename;
+	public void setMerchandiseName(String merchandiseName) {
+		this.merchandiseName = merchandiseName;
 	}
-	
+
 	public int getQuantity() {
 		return quantity;
 	}
@@ -56,13 +53,29 @@ public class Merchandise {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
+
 	public int getPrice() {
 		return price;
 	}
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
 	
 }
