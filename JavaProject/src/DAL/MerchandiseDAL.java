@@ -6,11 +6,11 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import DTO.Employee;
 import DTO.Merchandise;
 import GUI.Hashing;
 
 public class MerchandiseDAL {
+	
 	public ArrayList<Merchandise> getAllMerchandise() {
 		ArrayList<Merchandise> merList = new ArrayList<>();
 		try {
@@ -20,13 +20,13 @@ public class MerchandiseDAL {
 			PreparedStatement prest = conn.prepareStatement(sql);
 			ResultSet rs = prest.executeQuery();
 			while(rs.next()) {
-				String ID = rs.getString("ID");
-				String IDName = rs.getString("IDName");
-				String Producer = rs.getString("username");
-				String MerchandiseName = rs.getString("password");
-				int Quantity = rs.getInt("Quantity");
-				int Price = rs.getInt("Price");
-				Merchandise mer = new Merchandise(ID, IDName, Producer, MerchandiseName, Quantity, Price);
+				String id = rs.getString("id");
+				String idname = rs.getString("idname");
+				String producer = rs.getString("producer");
+				String merchandisename = rs.getString("merchandisename");
+				int quantity = rs.getInt("quantity");
+				int price = rs.getInt("price");
+				Merchandise mer = new Merchandise(id, idname, producer, merchandisename, quantity, price);
 				merList.add(mer);
 			}
 		} catch(Exception ex) {
@@ -35,7 +35,7 @@ public class MerchandiseDAL {
 		return merList;
 	}
 	
-	public static Merchandise getByUsername(String IDName) {
+	/*public static Merchandise getByUsername(String IDName) {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
@@ -57,7 +57,7 @@ public class MerchandiseDAL {
 			ex.printStackTrace();
 			return null;
 		}
-	}
+	}*/
 	
 	public boolean addMerchandise(Merchandise mer) {
 		try {
@@ -84,16 +84,16 @@ public class MerchandiseDAL {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "UPDATE merchandise SET IDName = ?, Producer = ?, MerchandiseName = ?, Quantity = ?, Price = ?"
+			sql = "UPDATE merchandise SET idname = ?, producer = ?, merchandisename = ?, quantity = ?, price = ?"
 					+ "WHERE id = ?";
 			PreparedStatement prest = conn.prepareStatement(sql);
-			prest.setString(1, mer.getID());
-			prest.setString(2, mer.getIDName());
-			prest.setString(3, mer.getProducer());
-			prest.setString(4, mer.getMerchandiseName());
-			prest.setInt(5, mer.getQuantity());
-			prest.setInt(6, mer.getPrice());
-			if(prest.executeUpdate()>=1 ) {
+			prest.setString(1, mer.getIDName());
+			prest.setString(2, mer.getProducer());
+			prest.setString(3, mer.getMerchandiseName());
+			prest.setInt(4, mer.getQuantity());
+			prest.setInt(5, mer.getPrice());
+			prest.setString(6, mer.getID());
+			if(prest.executeUpdate() >= 1 ) {
 				return true;
 			} else return false;
 		} catch (Exception ex) {
@@ -102,13 +102,13 @@ public class MerchandiseDAL {
 		}
 	}
 	
-	public boolean deleteMerchandise(String ID) {
+	public boolean deleteMerchandise(String id) {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
 			sql = "DELETE FROM merchandise WHERE ID = ?";
 			PreparedStatement prest = conn.prepareStatement(sql);
-			prest.setString(1, ID);
+			prest.setString(1, id);
 			if(prest.executeUpdate()>=1) {
 				return true;
 			} else return false;
@@ -118,11 +118,11 @@ public class MerchandiseDAL {
 		}
 	}
 	
-	public boolean hasMerchandiseID(String ID) {
+	public boolean hasMerchandiseID(String id) {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "SELECT * FROM merchandise WHERE ID = '" + ID + "'";
+			sql = "SELECT * FROM merchandise WHERE id = '" + id + "'";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			return rs.next();
@@ -132,7 +132,7 @@ public class MerchandiseDAL {
 		}
 	}
 	
-	public boolean hasIDName(String IDName) {
+	/*public boolean hasIDName(String IDName) {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
@@ -144,5 +144,5 @@ public class MerchandiseDAL {
 			ex.printStackTrace();
 			return false;
 		}
-	}
+	}*/
 }
