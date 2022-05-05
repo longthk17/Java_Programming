@@ -14,3 +14,7 @@ INSERT INTO `employee`(`id`, `fullName`, `username`, `password`, `phone`, `type`
 INSERT INTO `employee`(`id`, `fullName`, `username`, `password`, `phone`, `type`, `gender`, `address`) VALUES ('NV02','dang thong','dangthong','123','0764721172','sale','male','france');
 INSERT INTO `employee`(`id`, `fullName`, `username`, `password`, `phone`, `type`, `gender`, `address`) VALUES ('NV03','tan thanh','tanthanh','123','0769815274','sale','male','italia');
 INSERT INTO `employee`(`id`, `fullName`, `username`, `password`, `phone`, `type`, `gender`, `address`) VALUES ('NV04','minh tuong','minhtuong','123','0764888872','sale','male','spain');
+
+
+INSERT INTO `merchandise`(`id`, `idName`, `merchandiseName`, `producer`, `quantity`, `price`, `create_date`, `update_date`) VALUES ('SP01','001','laptop 180','asus','5','10000','2022-5-5','')
+INSERT INTO `merchandise`(`id`, `idName`, `merchandiseName`, `producer`, `quantity`, `price`, `create_date`, `update_date`) VALUES ('SP02','002','laptop 360','dell','10','200000','2022-5-5','')
