@@ -20,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.border.Border;
 
 import DTO.Employee;
+import Utils.Hashing;
 import DAL.EmployeeDAL;
 
 public class LoginGUI extends JFrame implements ActionListener {

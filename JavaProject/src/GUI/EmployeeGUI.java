@@ -24,8 +24,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.EventQueue;
 
 public class EmployeeGUI extends JPanel implements ActionListener {
-	JLabel lbId, lbName, lbUsername, lbPassword, lbPhone, lbType, lbGender, lbAddress, lbBirth;
-	JTextField tfId, tfName, tfUsername, tfPassword, tfPhone, tfAddress;
+	JLabel lbId, lbName, lbUsername, lbPassword, lbPhone, lbType, lbGender, lbAddress, lbBirth, lbSearch, lbTitle;
+	JTextField tfId, tfName, tfUsername, tfPassword, tfPhone, tfAddress, toolSearch;
 	JComboBox cbType, cbGender;
 	JPanel pn1, pnBtn;
 	JDateChooser calBirth;
@@ -54,6 +54,25 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 	}
 	
 	private void initComponents() {
+		
+		lbTitle = new JLabel("Employee:");
+		lbTitle.setFont(new Font("AddElectricCity", Font.BOLD,30));
+		lbTitle.setBounds(20, 15, 250, 30);
+		
+		toolSearch = new JTextField();
+		toolSearch.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
+		toolSearch.setBounds(300, 15, 400, 25);
+		
+		lbSearch = new JLabel();
+		lbSearch.setIcon(new ImageIcon(this.getClass().getResource("/images/magnifier.png")));
+		lbSearch.setBounds(710, -20, 100, 100);
+		
+		
 		lbId = new JLabel("Id");
 		lbId.setFont(new Font("Verdana", Font.BOLD, 15));
 		lbId.setBounds(70, 60, 100, 25);
@@ -119,8 +138,6 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 
 		cbGender = new JComboBox(gender);
 		cbGender.setBounds(450, 160, 150, 25);
-		
-		
 
 		model.addColumn("ID");
 		model.addColumn("Name");
@@ -155,22 +172,36 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 		
 		btnAdd = new JButton("Add");
 		btnAdd.setFont(new Font("Keyes", Font.BOLD, 20));
+		btnAdd.setFocusable(false);
+		btnAdd.setBackground(Color.decode("#A7C4BC"));
 		btnAdd.setBounds(820, 280, 150, 50);
 		btnAdd.addActionListener(this);
+		
 		btnUpd = new JButton("Update");
 		btnUpd.setFont(new Font("Keyes", Font.BOLD, 20));
+		btnUpd.setFocusable(false);
+		btnUpd.setBackground(Color.decode("#A7C4BC"));
 		btnUpd.setBounds(820, 380, 150, 50);
 		btnUpd.addActionListener(this);
+		
 		btnDel = new JButton("Delete");
 		btnDel.setFont(new Font("Keyes", Font.BOLD, 20));
+		btnDel.setFocusable(false);
+		btnDel.setBackground(Color.decode("#A7C4BC"));
 		btnDel.setBounds(820, 480, 150, 50);
 		btnDel.addActionListener(this);
+		
 		btnClear = new JButton("Clear");
 		btnClear.setFont(new Font("Keyes", Font.BOLD, 15));
-		btnClear.setBounds(900, 20, 100, 30);
+		btnClear.setFocusable(false);
+		btnClear.setBackground(Color.decode("#A7C4BC"));
+		btnClear.setBounds(755, 160, 100, 30);
 		btnClear.addActionListener(this);
 		
 		
+		add(lbTitle);
+		add(toolSearch);
+		add(lbSearch);
 		add(lbId);
 		add(tfId);
 		add(lbName);
@@ -242,6 +273,12 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 					emp.setGender(gender);
 					emp.setAddress(tfAddress.getText());
 					JOptionPane.showMessageDialog(this, empBUS.addEmployee(emp));
+					tfId.setText("");
+					tfName.setText("");
+					tfUsername.setText("");
+					tfPassword.setText("");
+					tfPhone.setText("");
+					tfAddress.setText("");
 					loadEmployeeList();
 				} else {
 					JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin");
@@ -269,13 +306,13 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 					emp.setGender(gender);
 					emp.setAddress(tfAddress.getText());
 					JOptionPane.showMessageDialog(this, empBUS.updateEmployee(emp));
-					loadEmployeeList();
 					tfId.setText("");
 					tfName.setText("");
 					tfUsername.setText("");
 					tfPassword.setText("");
 					tfPhone.setText("");
 					tfAddress.setText("");
+					loadEmployeeList();
 				} else {
 					JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin");
 				}
