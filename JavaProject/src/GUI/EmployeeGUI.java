@@ -64,6 +64,12 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				String name = toolSearch.getText();
+				if(name.equals("")) {
+					loadEmployeeList();
+				} else {
+					loadEmployeeSearch(name);
+				}
 			}
 		});
 		toolSearch.setBounds(300, 15, 400, 25);
@@ -236,7 +242,24 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 			String id = emp.getId();
 			String fullName = emp.getFullName();
 			String username = emp.getUsername();
-//			String password = emp.getPassword();
+			String phone = emp.getPhone();
+			String type = emp.getType();
+			String gender = emp.getGender();
+			String address = emp.getAddress();
+			Object[] row = {id,fullName,gender,username,address,phone,type};
+			model.addRow(row);
+		}
+	}
+	
+	public void loadEmployeeSearch(String name) {
+		model.setRowCount(0);
+		ArrayList<Employee> arr = new ArrayList<Employee>();
+		arr = empBUS.getByFullName(name);
+		for(int i=0; i < arr.size(); i++) {
+			Employee emp = arr.get(i);
+			String id = emp.getId();
+			String fullName = emp.getFullName();
+			String username = emp.getUsername();
 			String phone = emp.getPhone();
 			String type = emp.getType();
 			String gender = emp.getGender();

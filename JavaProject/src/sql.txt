@@ -18,3 +18,5 @@ INSERT INTO `employee`(`id`, `fullName`, `username`, `password`, `phone`, `type`
 
 INSERT INTO `merchandise`(`id`, `idName`, `merchandiseName`, `producer`, `quantity`, `price`, `create_date`, `update_date`) VALUES ('SP01','001','laptop 180','asus','5','10000','2022-5-5','')
 INSERT INTO `merchandise`(`id`, `idName`, `merchandiseName`, `producer`, `quantity`, `price`, `create_date`, `update_date`) VALUES ('SP02','002','laptop 360','dell','10','200000','2022-5-5','')
+INSERT INTO `merchandise`(`id`, `idName`, `merchandiseName`, `producer`, `quantity`, `price`, `create_date`, `update_date`) VALUES ('SP03','003','laptop 720','hp','12','300000','2022-5-5','')
+INSERT INTO `merchandise`(`id`, `idName`, `merchandiseName`, `producer`, `quantity`, `price`, `create_date`, `update_date`) VALUES ('SP04','004','laptop 900','asus','31','5000000','2022-5-5','')
