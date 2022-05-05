@@ -45,6 +45,7 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 		setSize(1050,630);
 		setLayout(null);
 		
+		loadMerchandiseList();
 		initComponents();
 		setBackground(Color.decode("#DFEEEA"));
 	}
@@ -174,13 +175,13 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 		arr = merBUS.getAllMerchandise();
 		for(int i=0; i < arr.size(); i++) {
 			Merchandise mer = arr.get(i);
-			String ID = mer.getID();
-			String IDName = mer.getIDName();
-			String Producer = mer.getProducer();
-			String MerchandiseName = mer.getMerchandiseName();
-			int Quantity = mer.getQuantity();
-			int Price = mer.getPrice();
-			Object[] row = {ID, IDName, Producer, MerchandiseName, Quantity, Price};
+			String id = mer.getID();
+			String idname = mer.getIDName();
+			String producer = mer.getProducer();
+			String merchandisename = mer.getMerchandiseName();
+			int quantity = mer.getQuantity();
+			int price = mer.getPrice();
+			Object[] row = {id, idname, producer, merchandisename, quantity, price};
 			model.addRow(row);
 		}
 	}
@@ -279,10 +280,12 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 					mer.setIDName(tfID_Name.getText());
 					mer.setProducer(tfProducer.getText());
 					mer.setMerchandiseName(tfMerchandise_Name.getText());
-					mer.setQuantity(tfQuantity.getColumns());
-					mer.setPrice(tfPrice.getColumns());
+					String quantity = tfQuantity.getText();
+					mer.setQuantity(Integer.parseInt(quantity));
+					String price = tfPrice.getText();
+					mer.setPrice(Integer.parseInt(price));
 					
-					JOptionPane.showMessageDialog(this, merBUS.updateMerchandise(mer));
+					JOptionPane.showMessageDialog(this, merBUS.addMerchandise(mer));
 					loadMerchandiseList();
 				} else {
 					JOptionPane.showMessageDialog(this, "Vui lĂ²ng nháº­p Ä‘á»§ thĂ´ng tin");
@@ -301,8 +304,10 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 					mer.setIDName(tfID_Name.getText());
 					mer.setProducer(tfProducer.getText());
 					mer.setMerchandiseName(tfMerchandise_Name.getText());
-					mer.setQuantity(tfQuantity.getColumns());
-					mer.setPrice(tfPrice.getColumns());
+					String quantity = tfQuantity.getText();
+					mer.setQuantity(Integer.parseInt(quantity));
+					String price = tfPrice.getText();
+					mer.setPrice(Integer.parseInt(price));
 					
 					JOptionPane.showMessageDialog(this, merBUS.updateMerchandise(mer));
 					loadMerchandiseList();
@@ -325,7 +330,7 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 			String ID = (String) model.getValueAt(i, 0);
 			if(i>=0) {
 				merBUS.deleteMerchandise(ID);
-				JOptionPane.showMessageDialog(this, "XĂ³a thĂ nh cĂ´ng");
+				JOptionPane.showMessageDialog(this, "Xóa thành công");
 				loadMerchandiseList();
 				tfID.setText("");
 				tfID_Name.setText("");
@@ -334,7 +339,7 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 				tfQuantity.setText("");
 				tfPrice.setText("");
 			} else {
-				JOptionPane.showMessageDialog(this, "XĂ³a tháº¥t báº¡i");
+				JOptionPane.showMessageDialog(this, "Xóa thất bại");
 			}
 		}
 		

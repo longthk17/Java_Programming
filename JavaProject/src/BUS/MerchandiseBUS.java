@@ -12,11 +12,10 @@ public class MerchandiseBUS {
 	return merDAL.getAllMerchandise();
 	}
 		
-	public String addEmployee(Merchandise mer) {
-	if(merDAL.hasMerchandiseID(mer.getID())) {
-		return "MĂ£ NV Ä‘Ă£ tá»“n táº¡i";
-	} else if (merDAL.hasMerchandiseID(mer.getIDName())) {
-			return "TĂ i khoáº£n Ä‘Ă£ tá»“n táº¡i";
+	public String addMerchandise(Merchandise mer) {
+		if(merDAL.hasMerchandiseID(mer.getID())) {
+			return "Mã sản phẩm đã tồn tại";
+		
 		} else if (merDAL.addMerchandise(mer)) {
 			return "Thêm Thành Công";
 		} else {
@@ -24,8 +23,8 @@ public class MerchandiseBUS {
 		}
 	}
 		
-	public String updateMerchandise(Merchandise emp) {
-		if (merDAL.updateMerchandise(emp)) {
+	public String updateMerchandise(Merchandise mer) {
+		if (merDAL.updateMerchandise(mer)) {
 			return "Cập nhật thành công";
 		} else {
 			return "Cập nhật thất bại";

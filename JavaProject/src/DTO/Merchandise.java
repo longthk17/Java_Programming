@@ -1,68 +1,68 @@
 package DTO;
 
 public class Merchandise {
-	String ID, IDName, Producer, MerchandiseName;
-	int Quantity, Price;
+	String id, idname, producer, merchandisename;
+	int quantity, price;
 	
 	public Merchandise() {
 		
 	}
 	
-	public Merchandise(String ID, String IDName, String Producer, String MerchandiseName, int Quantity, int Price) {
-		this.ID = ID;
-		this.IDName = IDName;
-		this.Producer = Producer;
-		this.MerchandiseName = MerchandiseName;
-		this.Quantity = Quantity;
-		this.Price = Price;
+	public Merchandise(String id, String idname, String producer, String merchandisename, int quantity, int price) {
+		this.id = id;
+		this.idname = idname;
+		this.producer = producer;
+		this.merchandisename = merchandisename;
+		this.quantity = quantity;
+		this.price = price;
 	}
 	
 	public String getID() {
-		return ID;
+		return id;
 	}
 
-	public void setID(String ID) {
-		this.ID = ID;
+	public void setID(String id) {
+		this.id = id;
 	}
 	
 	public String getIDName() {
-		return IDName;
+		return idname;
 	}
 
-	public void setIDName(String IDName) {
-		this.IDName = IDName;
+	public void setIDName(String idname) {
+		this.idname = idname;
 	}
 	
 	public String getProducer() {
-		return Producer;
+		return producer;
 	}
 
-	public void setProducer(String Producer) {
-		this.Producer = Producer;
+	public void setProducer(String producer) {
+		this.producer = producer;
 	}
 	
 	public String getMerchandiseName() {
-		return MerchandiseName;
+		return merchandisename;
 	}
 
-	public void setMerchandiseName(String MerchandiseName) {
-		this.MerchandiseName = MerchandiseName;
+	public void setMerchandiseName(String merchandisename) {
+		this.merchandisename = merchandisename;
 	}
 	
 	public int getQuantity() {
-		return Quantity;
+		return quantity;
 	}
 
-	public void setQuantity(int Quantity) {
-		this.Quantity = Quantity;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 	
 	public int getPrice() {
-		return Quantity;
+		return price;
 	}
 
-	public void setPrice(int Price) {
-		this.Price = Price;
+	public void setPrice(int price) {
+		this.price = price;
 	}
 	
 }
