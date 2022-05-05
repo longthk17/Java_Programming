@@ -19,6 +19,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
+import BUS.EmployeeBUS;
 import DTO.Employee;
 import Utils.Hashing;
 import DAL.EmployeeDAL;
@@ -31,7 +32,8 @@ public class LoginGUI extends JFrame implements ActionListener {
 	JButton btnLogin;
 	
 	Employee curEmp;
-	
+
+	EmployeeBUS empBUS = new EmployeeBUS();
 	
 	public LoginGUI() {
 		initGUI();
@@ -108,7 +110,7 @@ public class LoginGUI extends JFrame implements ActionListener {
 		if(e.getSource() == btnLogin) {
 			String username = tfUsername.getText();
 			String password = Hashing.getMd5(tfPass.getText());
-			Employee emp = EmployeeDAL.getByUsername(username);
+			Employee emp = empBUS.getByUsername(username);
 			if(emp != null) {
 				curEmp = emp;
 				if(curEmp.getPassword().equals(password)) {

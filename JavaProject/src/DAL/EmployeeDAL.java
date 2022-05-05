@@ -39,6 +39,33 @@ public class EmployeeDAL {
 		return empList;
 	}
 	
+	public static ArrayList<Employee> getByFullName(String name) {
+		ArrayList<Employee> empList = new ArrayList<>();
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "SELECT * FROM employee WHERE fullName = ?";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			prest.setString(1, name);
+			ResultSet rs = prest.executeQuery();
+			if(rs.next()) {
+				String id = rs.getString("id");
+				String fullName = rs.getString("fullName");
+				String username = rs.getString("username");
+				String password = rs.getString("password");
+				String phone = rs.getString("phone");
+				String type = rs.getString("type");
+				String gender = rs.getString("gender");
+				String address = rs.getString("address");
+				Employee emp = new Employee(id, fullName, username, password, phone, type, gender, address, null, null);
+				empList.add(emp);
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return empList;
+	}
+	
 	public static Employee getByUsername(String username) {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
