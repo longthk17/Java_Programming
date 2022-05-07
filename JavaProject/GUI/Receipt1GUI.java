@@ -41,8 +41,10 @@ public class Receipt1GUI extends JFrame {
 	DefaultTableModel model = new DefaultTableModel();
 	JTable tb = new JTable(model);
 	
+	String curMhd;
 	
-	public Receipt1GUI() {
+	public Receipt1GUI(String mhd) {
+		this.curMhd = mhd;
 		initGUI();
 	}
 	
@@ -82,9 +84,8 @@ public class Receipt1GUI extends JFrame {
 		
 		lb_shd = new JLabel("");
 		lb_shd.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lb_shd.setText(curMhd);
 		lb_shd.setBounds(223, 84, 85, 29);
-		Receipt re = new Receipt();
-		lb_shd.setText(re.getMhd());
 		
 		lbnl = new JLabel("Ng\u00E0y l\u1EADp:");
 		lbnl.setBounds(102, 119, 83, 20);
