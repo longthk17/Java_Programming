@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import DTO.Customer;
 import DTO.Employee;
 
 public class HomeGUI extends JFrame implements ActionListener{
@@ -25,6 +26,7 @@ public class HomeGUI extends JFrame implements ActionListener{
 	EmployeeGUI emp = new EmployeeGUI();
 	MerchandiseGUI mer = new MerchandiseGUI();
 	ReceiptGUI rec = new ReceiptGUI();
+	CustomerGUI cus = new CustomerGUI();
 	
 	public HomeGUI(Employee emp) {
 		this.curEmp = emp;
@@ -187,7 +189,7 @@ public class HomeGUI extends JFrame implements ActionListener{
 		emp.setVisible(false);
 		mer.setVisible(false);
 		rec.setVisible(false);
-		
+		cus.setVisible(false);
 	}
 	
 	public void checkUser(Employee emp) {
@@ -223,6 +225,12 @@ public class HomeGUI extends JFrame implements ActionListener{
 			rec.setVisible(true);
 			add(rec);
 			rec.setBounds(150,120,rec.getWidth(),rec.getHeight());
+		}
+		if(e.getSource() == btnCustomer) {
+			clear();
+			cus.setVisible(true);
+			add(cus);
+			cus.setBounds(150,120,cus.getWidth(),cus.getHeight());
 		}
 	}
 
