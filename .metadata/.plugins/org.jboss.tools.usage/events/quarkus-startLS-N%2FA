@@ -1,11 +1,21 @@
+<<<<<<< HEAD
+#Tue May 03 19:07:05 ICT 2022
+=======
 #Sat May 07 19:29:47 ICT 2022
+>>>>>>> 69d4748e73e264c5354685c5ada1bb3371d3c63f
 a=startLS
 c=0
 cl=N/A
 cmp=quarkus
 ct=quarkus
+<<<<<<< HEAD
+d=1651579625331
+l=Number of microprofile-ls start
+s=2
+=======
 d=1651926587706
 l=Number of microprofile-ls start
 s=4
+>>>>>>> 69d4748e73e264c5354685c5ada1bb3371d3c63f
 v=1.5.0
 vl=How many times during the day

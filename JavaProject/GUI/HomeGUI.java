@@ -24,7 +24,6 @@ public class HomeGUI extends JFrame implements ActionListener{
 	
 	EmployeeGUI emp = new EmployeeGUI();
 	MerchandiseGUI mer = new MerchandiseGUI();
-	ReceiptGUI rec = new ReceiptGUI();
 	
 	public HomeGUI(Employee emp) {
 		this.curEmp = emp;
@@ -180,14 +179,11 @@ public class HomeGUI extends JFrame implements ActionListener{
 		mainHome.add(btnReceipt);
 		
 		add(mainHome);
-		
 	}
 	
 	public void clear() {
 		emp.setVisible(false);
 		mer.setVisible(false);
-		rec.setVisible(false);
-		
 	}
 	
 	public void checkUser(Employee emp) {
@@ -217,12 +213,6 @@ public class HomeGUI extends JFrame implements ActionListener{
 			mer.setVisible(true);
 			add(mer);
 			mer.setBounds(150,120,mer.getWidth(),mer.getHeight());
-		}
-		if(e.getSource() == btnReceipt) {
-			clear();
-			rec.setVisible(true);
-			add(rec);
-			rec.setBounds(150,120,rec.getWidth(),rec.getHeight());
 		}
 	}
 

@@ -1,10 +1,18 @@
+<<<<<<< HEAD
+#Wed May 04 14:57:59 ICT 2022
+=======
 #Sat May 07 19:19:40 ICT 2022
+>>>>>>> 69d4748e73e264c5354685c5ada1bb3371d3c63f
 a=finishWizard
 c=0
 cl=org.eclipse.jdt.internal.ui.wizards.NewPackageCreationWizard
 cmp=usage
 ct=jbt
+<<<<<<< HEAD
+d=1651651079649
+=======
 d=1651925980038
+>>>>>>> 69d4748e73e264c5354685c5ada1bb3371d3c63f
 l=Wizard class name
 s=0
 v=2.2.400

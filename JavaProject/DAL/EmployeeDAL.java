@@ -1,15 +1,14 @@
 package DAL;
 
-import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import DTO.Employee;
 import Utils.Hashing;
 import Utils.MySQLConnUtils;
-import Utils.Date;
 
 public class EmployeeDAL {
 	
@@ -30,34 +29,7 @@ public class EmployeeDAL {
 				String type = rs.getString("type");
 				String gender = rs.getString("gender");
 				String address = rs.getString("address");
-				Employee emp = new Employee(id, fullName, username, password, phone, type, gender, address, null, null);
-				empList.add(emp);
-			}
-		} catch(Exception ex) {
-			ex.printStackTrace();
-		}
-		return empList;
-	}
-	
-	public static ArrayList<Employee> getByFullName(String name) {
-		ArrayList<Employee> empList = new ArrayList<>();
-		try {
-			Connection conn = MySQLConnUtils.getMySQLConnection();
-			String sql;
-			sql = "SELECT * FROM employee WHERE fullName = ?";
-			PreparedStatement prest = conn.prepareStatement(sql);
-			prest.setString(1, name);
-			ResultSet rs = prest.executeQuery();
-			if(rs.next()) {
-				String id = rs.getString("id");
-				String fullName = rs.getString("fullName");
-				String username = rs.getString("username");
-				String password = rs.getString("password");
-				String phone = rs.getString("phone");
-				String type = rs.getString("type");
-				String gender = rs.getString("gender");
-				String address = rs.getString("address");
-				Employee emp = new Employee(id, fullName, username, password, phone, type, gender, address, null, null);
+				Employee emp = new Employee(id, fullName, username, password, phone, type, gender, address);
 				empList.add(emp);
 			}
 		} catch(Exception ex) {
@@ -96,7 +68,7 @@ public class EmployeeDAL {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "INSERT INTO employee values(?,?,?,?,?,?,?,?,?,?)";
+			sql = "INSERT INTO employee values(?,?,?,?,?,?,?,?)";
 			PreparedStatement prest = conn.prepareStatement(sql);
 			prest.setString(1, emp.getId());
 			prest.setString(2, emp.getFullName());
@@ -107,9 +79,6 @@ public class EmployeeDAL {
 			prest.setString(6, emp.getType());
 			prest.setString(7, emp.getGender());
 			prest.setString(8, emp.getAddress());
-			java.sql.Date date = Date.getCurrentDatetime();
-			prest.setDate(9, date);
-			prest.setDate(10, null);
 			if(prest.executeUpdate()>=1 ) {
 				return true;
 			} else return false;
@@ -123,7 +92,7 @@ public class EmployeeDAL {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "UPDATE employee SET fullName = ?, username = ?, password = ?, phone = ?, type = ?, gender = ?, address = ?, update_date = ?"
+			sql = "UPDATE employee SET fullName = ?, username = ?, password = ?, phone = ?, type = ?, gender = ?, address = ?"
 					+ "WHERE id = ?";
 			PreparedStatement prest = conn.prepareStatement(sql);
 			prest.setString(1, emp.getFullName());
@@ -134,9 +103,7 @@ public class EmployeeDAL {
 			prest.setString(5, emp.getType());
 			prest.setString(6, emp.getGender());
 			prest.setString(7, emp.getAddress());
-			java.sql.Date date = Date.getCurrentDatetime();
-			prest.setDate(8, date);
-			prest.setString(9, emp.getId());
+			prest.setString(8, emp.getId());
 			if(prest.executeUpdate()>=1 ) {
 				return true;
 			} else return false;

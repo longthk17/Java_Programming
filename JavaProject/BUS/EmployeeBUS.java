@@ -12,14 +12,6 @@ public class EmployeeBUS {
 		return empDAL.getAllEmployee();
 	}
 	
-	public ArrayList<Employee> getByFullName(String fullName) {
-		return empDAL.getByFullName(fullName);
-	}
-	
-	public Employee getByUsername(String username) {
-		return empDAL.getByUsername(username);
-	}
-	
 	public String addEmployee(Employee emp) {
 		if(empDAL.hasEmployeeID(emp.getId())) {
 			return "Mã NV đã tồn tại";
