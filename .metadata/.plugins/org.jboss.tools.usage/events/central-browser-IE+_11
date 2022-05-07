@@ -1,18 +1,10 @@
-<<<<<<< HEAD
-#Wed May 04 14:57:57 ICT 2022
-=======
-#Sat May 07 19:19:36 ICT 2022
->>>>>>> 69d4748e73e264c5354685c5ada1bb3371d3c63f
+#Sat May 07 20:56:16 ICT 2022
 a=browser
-c=1
+c=3
 cl=IE _11
 cmp=central
 ct=central
-<<<<<<< HEAD
-d=1651651077437
-=======
-d=1651925976469
->>>>>>> 69d4748e73e264c5354685c5ada1bb3371d3c63f
+d=1651931776925
 l=Specifies which browser was used for JBoss Tools Central
 s=0
 v=2.1.600

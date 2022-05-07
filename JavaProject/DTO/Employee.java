@@ -1,15 +1,19 @@
 package DTO;
 
+import java.sql.Date;
+
 public class Employee {
 	
 	String id, fullName, username, password, phone, type, gender, address;
+	Date createDate, updateDate;
 	
 	public Employee() {
 		
 	}
 
 	public Employee(String id, String fullName, String username, String password, String phone, String type,
-			String gender, String address) {
+			String gender, String address, Date createDate, Date updateDate) {
+		super();
 		this.id = id;
 		this.fullName = fullName;
 		this.username = username;
@@ -18,6 +22,8 @@ public class Employee {
 		this.type = type;
 		this.gender = gender;
 		this.address = address;
+		this.createDate = createDate;
+		this.updateDate = updateDate;
 	}
 
 	public String getId() {
@@ -83,6 +89,21 @@ public class Employee {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
 
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+	
 }

@@ -6,7 +6,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		LoginGUI login = new LoginGUI();
 		
-//		HomeGUI home = new HomeGUI();
+		//HomeGUI home = new HomeGUI();
 		
 	}
 }
