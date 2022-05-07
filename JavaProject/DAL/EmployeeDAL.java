@@ -7,7 +7,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import DTO.Employee;
-import GUI.Hashing;
+import Utils.Hashing;
+import Utils.MySQLConnUtils;
 
 public class EmployeeDAL {
 	

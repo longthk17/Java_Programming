@@ -1,10 +1,10 @@
 package DTO;
 
-public class CustomerDTO {
+public class Customer {
 	String id, fullName, gender,phone,email, address,create_date,update_date;
-	public CustomerDTO() {
+	public Customer() {
 }
-	public CustomerDTO(String id, String fullName, String gender, String phone, String email,
+	public Customer(String id, String fullName, String gender, String phone, String email,
 			 String address,String create_date, String update_date ) {
 		this.id = id;
 		this.fullName = fullName;

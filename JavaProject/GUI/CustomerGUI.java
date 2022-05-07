@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JCheckBox;
 
-public class CustomerGUI extends JPanel {
+public class CustomerGUI extends JPanel implements ActionListener {
 	private JTextField id;
 	private JTextField textField_1;
 	private JTextField textField_2;
@@ -145,5 +145,11 @@ public class CustomerGUI extends JPanel {
 		chckbxNewCheckBox_1.setBounds(306, 190, 60, 24);
 		add(chckbxNewCheckBox_1);
 
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

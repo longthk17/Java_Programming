@@ -5,12 +5,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import DTO.CustomerDTO;
-import GUI.Hashing;
+import DTO.Customer;
+import Utils.Hashing;
+import Utils.MySQLConnUtils;
 
 public class CustomerDAL {
-	public ArrayList<CustomerDTO> getAllCustomerDTO() {
-		ArrayList<CustomerDTO> empList = new ArrayList<>();
+	public ArrayList<Customer> getAllCustomerDTO() {
+		ArrayList<Customer> empList = new ArrayList<>();
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
@@ -26,7 +27,7 @@ public class CustomerDAL {
 				String address = rs.getString("address");
 				String create_date = rs.getString("create_date");
 				String update_date = rs.getString("update_date");
-				CustomerDTO emp = new CustomerDTO(id, fullName, gender,  phone, email, address,create_date,update_date);
+				Customer emp = new Customer(id, fullName, gender,  phone, email, address,create_date,update_date);
 				empList.add(emp);
 			}
 		} catch(Exception ex) {
@@ -35,7 +36,7 @@ public class CustomerDAL {
 		return empList;
 	}
 
-public boolean addCustomerDTO(CustomerDTO emp) {
+public boolean addCustomerDTO(Customer emp) {
 	try {
 		Connection conn = MySQLConnUtils.getMySQLConnection();
 		String sql;
