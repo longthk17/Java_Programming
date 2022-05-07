@@ -127,6 +127,7 @@ public class CustomerGUI extends JPanel {
 		JButton btnFix = new JButton("DELETE");
 		btnFix.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+	
 			}
 		});
 		btnFix.setBounds(282, 379, 93, 31);
