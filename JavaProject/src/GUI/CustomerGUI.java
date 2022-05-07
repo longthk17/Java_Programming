@@ -2,6 +2,8 @@ package GUI;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JTable;
@@ -13,7 +15,7 @@ import java.awt.Color;
 import javax.swing.JCheckBox;
 
 public class CustomerGUI extends JPanel {
-	private JTextField textField;
+	private JTextField id;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
@@ -28,15 +30,16 @@ public class CustomerGUI extends JPanel {
 		setBackground(new Color(152, 251, 152));
 		setLayout(null);
 		
+		
 		JLabel lblNewLabel = new JLabel("ID :");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel.setBounds(66, 72, 49, 31);
 		add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(222, 73, 598, 34);
-		add(textField);
-		textField.setColumns(10);
+		id = new JTextField();
+		id.setBounds(222, 73, 598, 34);
+		add(id);
+		id.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("Quản Lý Khách Hàng");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -115,21 +118,21 @@ public class CustomerGUI extends JPanel {
 		JButton btnNewButton = new JButton("SAVE");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+//				JOptionPane.showMessageDialog("hgjhj");
 			}
 		});
 		btnNewButton.setBounds(460, 379, 93, 31);
 		add(btnNewButton);
 		
-		JButton btnFix = new JButton("FIX");
+		JButton btnFix = new JButton("DELETE");
 		btnFix.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
 			}
 		});
 		btnFix.setBounds(282, 379, 93, 31);
 		add(btnFix);
 		
-		JButton btnMore = new JButton("MORE");
+		JButton btnMore = new JButton("UPDATE");
 		btnMore.setBounds(635, 379, 93, 31);
 		add(btnMore);
 		
