@@ -40,25 +40,25 @@ public class CustomerDTO {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public String getemail() {
+	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email=email;
 	}
-	public String getaddress() {
+	public String getAddress() {
 		return address;
 	}
 	public void setAddress(String address) {
 		this.address=address;
 	}
-	 public String getcreate_date() {
+	 public String getCreate_date() {
 		 return create_date;
 	 }
 	 public void setCreate_date(String create_date) {
 		 this.create_date=create_date;
 	 }
-	 public String getupdate_date() {
+	 public String getUpdate_date() {
 		 return update_date;
 	 }
 	 public void setUpdate_date(String update_date) {
