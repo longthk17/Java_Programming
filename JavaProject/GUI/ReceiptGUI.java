@@ -14,14 +14,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class ReceiptGUI extends JPanel {
+public class ReceiptGUI extends JPanel implements ActionListener {
 	private JPanel pn;
 	private JTable table;
 	private JLabel lb_1, lb_2, lb_mhd, lbb_mhd;
 	private JButton btnew, btadd;
 	DefaultTableModel model = new DefaultTableModel();
 	JTable tb = new JTable(model);
-	Receipt1GUI rec1 = new Receipt1GUI();
 	
 	public ReceiptGUI() {
 		initGUI();
@@ -54,25 +53,11 @@ public class ReceiptGUI extends JPanel {
 		
 		btnew = new JButton("T\u1EA1o h\u00F3a \u0111\u01A1n m\u1EDBi");
 		btnew.setBounds(10, 181, 131, 21);
-		btnew.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource() == btnew) {
-					 
-					Random r = new Random();
-					int x = r.nextInt(1000)+1;
-					lbb_mhd.setText("HD" + x);	
-					
-				}
-			}
-		});
+		btnew.addActionListener(this);
 		
 		btadd = new JButton("Ch\u1EC9nh s\u1EEDa h\u00F3a \u0111\u01A1n");
 		btadd.setBounds(151, 181, 147, 21);
-		btadd.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				btaddActionPerformed(e);
-			}
-		});
+		btadd.addActionListener(this);
 		
 		model.addColumn("ID");
 		model.addColumn("Name");
@@ -93,20 +78,20 @@ public class ReceiptGUI extends JPanel {
 		add(btadd);
 	}
 	
-	
-	/*public void btnewActionPerformed(ActionEvent e) {
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource() == btadd) {
+			String mhd = lbb_mhd.getText();
+			Receipt1GUI re = new Receipt1GUI(mhd);
+			re.setVisible(true);
+		}
 		if(e.getSource() == btnew) {
-			Receipt ree = new Receipt(); 
 			Random r = new Random();
 			int x = r.nextInt(1000)+1;
-			lbb_mhd.setText("HD" + x);
-			ree.setMhd(lbb_);
-		}
-	}*/
-	
-	private void btaddActionPerformed(ActionEvent e) {
-		if(e.getSource() == btadd) {
-			Receipt1GUI re = new Receipt1GUI();
+			lbb_mhd.setText("HD" + x);	
+			
 		}
 	}
 }
