@@ -106,10 +106,7 @@ public class ReceiptGUI extends JPanel {
 	
 	private void btaddActionPerformed(ActionEvent e) {
 		if(e.getSource() == btadd) {
-			new Receipt1GUI();
-			Receipt re = new Receipt();
-			re.setMhd(lbb_mhd.getText());
-			
+			Receipt1GUI re = new Receipt1GUI();
 		}
 	}
 }

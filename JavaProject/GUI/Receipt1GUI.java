@@ -42,20 +42,6 @@ public class Receipt1GUI extends JFrame {
 	JTable tb = new JTable(model);
 	
 	
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Receipt1GUI frame = new Receipt1GUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	
 	public Receipt1GUI() {
 		initGUI();
 	}
@@ -68,7 +54,7 @@ public class Receipt1GUI extends JFrame {
 		setBounds(0,0,1050,630);
 		getContentPane().setLayout(null);
 		setResizable(false);
-		setVisible(true);
+		setVisible(false);
 		getContentPane().setBackground(Color.PINK);	
 		initComponents();
 	}	
