@@ -6,7 +6,16 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/ADMIN/Downloads/library/jcalendar-1.4.jar">
+=======
+	<classpathentry kind="lib" path="C:/Program Files/Java/library/jcalendar-1.4.jar">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Program Files/Java/library/mysql-connector-java-8.0.28.jar">
+>>>>>>> main
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
@@ -21,10 +30,13 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/ADMIN/Downloads/library/protobuf-java-3.11.4.jar">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
+=======
+>>>>>>> main
 	<classpathentry kind="output" path="bin"/>
 </classpath>
