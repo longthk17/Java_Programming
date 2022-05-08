@@ -1,12 +1,11 @@
 package GUI;
 
-import DTO.Receipt;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionListener.*;
-import java.util.Random;
-import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -18,9 +17,11 @@ public class ReceiptGUI extends JPanel implements ActionListener {
 	private JPanel pn;
 	private JTable table;
 	private JLabel lb_1, lb_2, lb_mhd, lbb_mhd;
-	private JButton btnew, btadd;
+	private JButton btnew, btadd, btdel;
 	DefaultTableModel model = new DefaultTableModel();
 	JTable tb = new JTable(model);
+	
+	
 	
 	public ReceiptGUI() {
 		initGUI();
@@ -48,16 +49,33 @@ public class ReceiptGUI extends JPanel implements ActionListener {
 		lb_mhd.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
 		lbb_mhd = new JLabel("");
-		lbb_mhd.setBounds(161, 116, 116, 35);
+		lbb_mhd.setBounds(34, 149, 116, 35);
 		lbb_mhd.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		
-		btnew = new JButton("T\u1EA1o h\u00F3a \u0111\u01A1n m\u1EDBi");
-		btnew.setBounds(10, 181, 131, 21);
-		btnew.addActionListener(this);
+		btnew = new JButton("New");
+		btnew.setBounds(178, 112, 131, 54);
+		btnew.setBackground(Color.decode("#A7C4BC"));
+		btnew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource() == btnew) {
+					 
+					Random r = new Random();
+					int x = r.nextInt(1000)+1;
+					lbb_mhd.setText("HD" + x);	
+					
+				}
+			}
+		});
 		
-		btadd = new JButton("Ch\u1EC9nh s\u1EEDa h\u00F3a \u0111\u01A1n");
-		btadd.setBounds(151, 181, 147, 21);
+		btadd = new JButton("Aadd");
+		btadd.setBounds(178, 176, 131, 54);
+		btadd.setBackground(Color.decode("#A7C4BC"));
 		btadd.addActionListener(this);
+		
+		btdel = new JButton("Delete");
+		btdel.setBounds(178, 240, 131, 54);
+		btdel.setBackground(Color.decode("#A7C4BC"));
+		btdel.addActionListener(this);
 		
 		model.addColumn("ID");
 		model.addColumn("Name");
@@ -76,22 +94,24 @@ public class ReceiptGUI extends JPanel implements ActionListener {
 		add(sp);
 		add(btnew);
 		add(btadd);
+		add(btdel);
 	}
+	
+	
+	
 	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == btadd) {
-			String mhd = lbb_mhd.getText();
-			Receipt1GUI re = new Receipt1GUI(mhd);
+			String hd = lbb_mhd.getText();
+			
+			Receipt1GUI re = new Receipt1GUI(hd);
 			re.setVisible(true);
-		}
-		if(e.getSource() == btnew) {
-			Random r = new Random();
-			int x = r.nextInt(1000)+1;
-			lbb_mhd.setText("HD" + x);	
 			
 		}
 	}
+	
+	
 }
