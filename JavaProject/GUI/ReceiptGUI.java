@@ -13,7 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class ReceiptGUI extends JPanel implements ActionListener{
+public class ReceiptGUI extends JPanel implements ActionListener {
 	private JPanel pn;
 	private JTable table;
 	private JLabel lb_1, lb_2, lb_mhd, lbb_mhd;
@@ -24,7 +24,6 @@ public class ReceiptGUI extends JPanel implements ActionListener{
 	
 	
 	public ReceiptGUI() {
-		
 		initGUI();
 	}
 

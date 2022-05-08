@@ -42,7 +42,8 @@ public class Receipt1GUI extends JFrame {
 	DefaultTableModel model = new DefaultTableModel();
 	JTable tb = new JTable(model);
 	
-	String mhd;
+	String curMhd;
+	
 	
 	public void date() {
 		Date thisDate = new Date();
@@ -51,11 +52,11 @@ public class Receipt1GUI extends JFrame {
 	
 	}
 	
-	public Receipt1GUI(String hd) {
-		this.mhd = hd;
+	public Receipt1GUI(String mhd) {
+		this.curMhd = mhd;
 		lb_shd.setText(hd);
-		//date();
 		initGUI();
+		//date();
 	}
 	
 	
@@ -94,7 +95,8 @@ public class Receipt1GUI extends JFrame {
 		
 		lb_shd = new JLabel("");
 		lb_shd.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lb_shd.setBounds(244, 89, 85, 29);
+		lb_shd.setText(curMhd);
+		lb_shd.setBounds(223, 84, 85, 29);
 		
 		
 		lbnl = new JLabel("Date founded:");
