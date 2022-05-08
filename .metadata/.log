@@ -2429,3 +2429,60 @@ java.lang.InterruptedException
 
 !ENTRY org.eclipse.ui 2 2 2022-05-07 21:57:36.238
 !MESSAGE Invalid property category path: org.springframework.ide.eclipse.beans.ui.properties.ProjectPropertyPage (bundle: org.springframework.ide.eclipse.xml.namespaces, propertyPage: org.springframework.ide.eclipse.beans.ui.namespaces.projectPropertyPage)
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-08 12:32:49.340
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-08 12:32:49.341
+!MESSAGE classpath=6 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-08 12:32:49.342
+!MESSAGE buffering callback sts4.classpath.BXjfsoUi JavaProject false 6
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-08 12:32:49.343
+!MESSAGE executing callback sts4.classpath.BXjfsoUi 1 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-08 12:32:49.496
+!MESSAGE executing callback sts4.classpath.BXjfsoUi SUCCESS [done]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-08 12:32:49.497
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-08 12:32:49.498
+!MESSAGE classpath=6 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-08 12:32:49.499
+!MESSAGE buffering callback sts4.classpath.BXjfsoUi JavaProject false 6
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-08 12:32:49.500
+!MESSAGE executing callback sts4.classpath.BXjfsoUi 1 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-08 12:32:49.508
+!MESSAGE executing callback sts4.classpath.BXjfsoUi SUCCESS [done]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-08 12:32:50.028
+!MESSAGE exists = true open = true => deleted = false
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-08 12:32:50.028
+!MESSAGE classpath=6 entries
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-08 12:32:50.029
+!MESSAGE buffering callback sts4.classpath.BXjfsoUi JavaProject false 6
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-08 12:32:50.030
+!MESSAGE executing callback sts4.classpath.BXjfsoUi 1 batched events
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2022-05-08 12:32:50.095
+!MESSAGE executing callback sts4.classpath.BXjfsoUi SUCCESS [done]
+
+!ENTRY org.eclipse.lsp4e 2 0 2022-05-08 12:33:01.563
+!MESSAGE Timeout waiting for data to generate LS hover
+!STACK 0
+java.util.concurrent.TimeoutException
+	at java.base/java.util.concurrent.CompletableFuture.timedGet(CompletableFuture.java:1960)
+	at java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2095)
+	at org.eclipse.lsp4e.jdt.LSJavaHoverProvider.getHoverInfo2(LSJavaHoverProvider.java:70)
+	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:163)
+	at org.eclipse.jdt.internal.ui.text.java.hover.BestMatchHover.getHoverInfo2(BestMatchHover.java:130)
+	at org.eclipse.jdt.internal.ui.text.java.hover.JavaEditorTextHoverProxy.getHoverInfo2(JavaEditorTextHoverProxy.java:89)
+	at org.eclipse.jface.text.TextViewerHoverManager$1.run(TextViewerHoverManager.java:155)
