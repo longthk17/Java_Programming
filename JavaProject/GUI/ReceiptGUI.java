@@ -67,7 +67,7 @@ public class ReceiptGUI extends JPanel implements ActionListener {
 			}
 		});
 		
-		btadd = new JButton("Aadd");
+		btadd = new JButton("Add");
 		btadd.setBounds(178, 176, 131, 54);
 		btadd.setBackground(Color.decode("#A7C4BC"));
 		btadd.addActionListener(this);
@@ -106,10 +106,8 @@ public class ReceiptGUI extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		if(e.getSource() == btadd) {
 			String hd = lbb_mhd.getText();
-			
 			Receipt1GUI re = new Receipt1GUI(hd);
 			re.setVisible(true);
-			
 		}
 	}
 	

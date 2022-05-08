@@ -54,7 +54,6 @@ public class Receipt1GUI extends JFrame {
 	
 	public Receipt1GUI(String mhd) {
 		this.curMhd = mhd;
-		lb_shd.setText(hd);
 		initGUI();
 		//date();
 	}
@@ -70,8 +69,6 @@ public class Receipt1GUI extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);	
 		setVisible(false);
-		
-		
 	}	
 
 	
