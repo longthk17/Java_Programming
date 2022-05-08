@@ -25,7 +25,7 @@ public class HomeGUI extends JFrame implements ActionListener{
 	
 	EmployeeGUI emp = new EmployeeGUI();
 	MerchandiseGUI mer = new MerchandiseGUI();
-	ReceiptGUI rec = new ReceiptGUI();
+	ReceiptGUI rec = new ReceiptGUI(curEmp);
 	CustomerGUI cus = new CustomerGUI();
 	
 	public HomeGUI(Employee emp) {

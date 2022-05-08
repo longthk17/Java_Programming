@@ -30,7 +30,9 @@ public class EmployeeDAL {
 				String type = rs.getString("type");
 				String gender = rs.getString("gender");
 				String address = rs.getString("address");
-				Employee emp = new Employee(id, fullName, username, password, phone, type, gender, address, null, null);
+				java.sql.Date createDate = rs.getDate("create_date");
+				java.sql.Date updateDate = rs.getDate("update_date");
+				Employee emp = new Employee(id, fullName, username, password, phone, type, gender, address, createDate, updateDate);
 				empList.add(emp);
 			}
 		} catch(Exception ex) {
@@ -57,7 +59,9 @@ public class EmployeeDAL {
 				String type = rs.getString("type");
 				String gender = rs.getString("gender");
 				String address = rs.getString("address");
-				Employee emp = new Employee(id, fullName, username, password, phone, type, gender, address, null, null);
+				java.sql.Date createDate = rs.getDate("create_date");
+				java.sql.Date updateDate = rs.getDate("update_date");
+				Employee emp = new Employee(id, fullName, username, password, phone, type, gender, address, createDate, updateDate);
 				empList.add(emp);
 			}
 		} catch(Exception ex) {
@@ -84,6 +88,8 @@ public class EmployeeDAL {
 				emp.setType(rs.getString("type"));
 				emp.setGender(rs.getString("gender"));
 				emp.setAddress(rs.getString("address"));
+				emp.setCreateDate(rs.getDate("create_date"));
+				emp.setUpdateDate(rs.getDate("update_date"));
 				return emp;
 			} else return null;
 		} catch(Exception ex) {

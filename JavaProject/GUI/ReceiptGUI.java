@@ -7,23 +7,28 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import DTO.Employee;
+
 public class ReceiptGUI extends JPanel implements ActionListener {
 	private JPanel pn;
 	private JTable table;
 	private JLabel lb_1, lb_2, lb_mhd, lbb_mhd;
 	private JButton btnew, btadd, btdel;
+	
+	Employee curEmp;
+	
 	DefaultTableModel model = new DefaultTableModel();
 	JTable tb = new JTable(model);
 	
-	
-	
-	public ReceiptGUI() {
+	public ReceiptGUI(Employee emp) {
+		this.curEmp = emp;
 		initGUI();
 	}
 
@@ -60,8 +65,7 @@ public class ReceiptGUI extends JPanel implements ActionListener {
 				if(e.getSource() == btnew) {
 					Random r = new Random();
 					int x = r.nextInt(1000)+1;
-					lbb_mhd.setText("HD" + x);	
-					
+					lbb_mhd.setText("HD" + x);
 				}
 			}
 		});
@@ -105,7 +109,7 @@ public class ReceiptGUI extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		if(e.getSource() == btadd) {
 			String hd = lbb_mhd.getText();
-			ReceiptDetailGUI re = new ReceiptDetailGUI(hd);
+			ReceiptDetailGUI re = new ReceiptDetailGUI(hd,curEmp);
 			re.setVisible(true);
 		}
 	}

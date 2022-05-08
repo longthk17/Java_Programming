@@ -1,19 +1,22 @@
 package DTO;
 
+import java.sql.Date;
+
 public class Customer {
-	String id, fullName, gender,phone,email, address,create_date,update_date;
+	String id, fullName, gender,phone,email, address;
+	Date createDate, updateDate;
 	public Customer() {
 }
 	public Customer(String id, String fullName, String gender, String phone, String email,
-			 String address,String create_date, String update_date ) {
+			 String address,Date createDate, Date updateDate ) {
 		this.id = id;
 		this.fullName = fullName;
 		this.gender = gender;
 		this.phone = phone;
 		this.email = email;
 		this.address = address;
-		this.create_date=create_date;
-		this.update_date=update_date;
+		this.createDate=createDate;
+		this.updateDate=updateDate;
 	}
 	public String getId() {
 		return id;
@@ -51,17 +54,18 @@ public class Customer {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getCreate_date() {
-		return create_date;
+	public Date getCreateDate() {
+		return createDate;
 	}
-	public void setCreate_date(String create_date) {
-		this.create_date = create_date;
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
 	}
-	public String getUpdate_date() {
-		return update_date;
+	public Date getUpdateDate() {
+		return updateDate;
 	}
-	public void setUpdate_date(String update_date) {
-		this.update_date = update_date;
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
 	}
+
 	
 }

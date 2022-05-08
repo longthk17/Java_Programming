@@ -11,12 +11,13 @@ import Utils.Hashing;
 import Utils.MySQLConnUtils;
 
 public class CustomerDAL {
+	
 	public ArrayList<Customer> getAllCustomer() {
-		ArrayList<Customer> empList = new ArrayList<>();
+		ArrayList<Customer> cusList = new ArrayList<>();
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "insert into customer(id, fullName. gender, phone , email, address,create_date,update_date)";
+			sql = "SELECT * FROM customer";
 			PreparedStatement prest = conn.prepareStatement(sql);
 			ResultSet rs = prest.executeQuery();
 			while(rs.next()) {
@@ -26,15 +27,15 @@ public class CustomerDAL {
 				String phone = rs.getString("phone");
 				String email = rs.getString("email");
 				String address = rs.getString("address");
-				String create_date = rs.getString("create_date");
-				String update_date = rs.getString("update_date");
-				Customer emp = new Customer(id, fullName, gender,  phone, email, address,create_date,update_date);
-				empList.add(emp);
+				java.sql.Date createDate = rs.getDate("create_date");
+				java.sql.Date updateDate = rs.getDate("update_date");
+				Customer emp = new Customer(id, fullName, gender,  phone, email, address,createDate,updateDate);
+				cusList.add(emp);
 			}
 		} catch(Exception ex) {
 			ex.printStackTrace();
 		}
-		return empList;
+		return cusList;
 	}
 	
 
@@ -42,7 +43,7 @@ public class CustomerDAL {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "INSERT INTO CustomerDTO values(?,?,?,?,?,?,?,?)";
+			sql = "INSERT INTO customer values(?,?,?,?,?,?,?,?)";
 			PreparedStatement prest = conn.prepareStatement(sql);
 			prest.setString(1, emp.getId());
 			prest.setString(2, emp.getFullName());
@@ -50,8 +51,8 @@ public class CustomerDAL {
 			prest.setString(4, emp.getPhone());
 			prest.setString(5, emp.getEmail());
 			prest.setString(6, emp.getAddress());
-			prest.setString(7, emp.getCreate_date());
-			prest.setString(7, emp.getUpdate_date());
+			prest.setDate(7, emp.getCreateDate());
+			prest.setDate(7, emp.getUpdateDate());
 			if(prest.executeUpdate()>=1 ) {
 				return true;
 			} else return false;
@@ -65,7 +66,7 @@ public class CustomerDAL {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "DELETE FROM CustomerDTO WHERE id = ?";
+			sql = "DELETE FROM customer WHERE id = ?";
 			PreparedStatement prest = conn.prepareStatement(sql);
 			prest.setString(1, id);
 			if(prest.executeUpdate()>=1) {

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import DTO.Employee;
 import DTO.Merchandise;
 import Utils.Date;
 import Utils.Hashing;
@@ -26,8 +27,10 @@ public class MerchandiseDAL {
 				String merchandisename = rs.getString("merchandiseName");
 				String producer = rs.getString("producer");
 				int quantity = rs.getInt("quantity");
-				int price = rs.getInt("price");
-				Merchandise mer = new Merchandise(id, producer, merchandisename, quantity, price,null,null);
+				float price = rs.getInt("price");
+				java.sql.Date createDate = rs.getDate("create_date");
+				java.sql.Date updateDate = rs.getDate("update_date");
+				Merchandise mer = new Merchandise(id, producer, merchandisename, quantity, price,createDate,updateDate);
 				merList.add(mer);
 			}
 		} catch(Exception ex) {
@@ -40,13 +43,13 @@ public class MerchandiseDAL {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "INSERT INTO merchandise values(?,?,?,?,?,?,?,)";
+			sql = "INSERT INTO merchandise values(?,?,?,?,?,?,?)";
 			PreparedStatement prest = conn.prepareStatement(sql);
 			prest.setString(1, mer.getId());
 			prest.setString(2, mer.getMerchandiseName());
 			prest.setString(3, mer.getProducer());
 			prest.setInt(4, mer.getQuantity());
-			prest.setInt(5, mer.getPrice());
+			prest.setFloat(5, mer.getPrice());
 			java.sql.Date date = Date.getCurrentDatetime();
 			prest.setDate(6, date);
 			prest.setDate(7, null);
@@ -69,7 +72,7 @@ public class MerchandiseDAL {
 			prest.setString(1, mer.getProducer());
 			prest.setString(2, mer.getMerchandiseName());
 			prest.setInt(3, mer.getQuantity());
-			prest.setInt(4, mer.getPrice());
+			prest.setFloat(4, mer.getPrice());
 			java.sql.Date date = Date.getCurrentDatetime();
 			prest.setDate(5, date);
 			prest.setString(6, mer.getId());

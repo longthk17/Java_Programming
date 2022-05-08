@@ -2,6 +2,8 @@ package GUI;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JTable;
@@ -11,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JCheckBox;
-import javax.swing.JOptionPane;
 
 public class CustomerGUI extends JPanel {
 	private JTextField id;
@@ -21,23 +22,26 @@ public class CustomerGUI extends JPanel {
 	private JTextField textField_4;
 	private JTable table;
 	private JTable table_1;
-	
+
+	/**
+	 * Create the panel.
+	 */
 	public CustomerGUI() {
 		setBackground(new Color(152, 251, 152));
 		setLayout(null);
+		setSize(1050,630);
 		
 		JLabel lblNewLabel = new JLabel("ID :");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblNewLabel.setBounds(66, 72, 49, 31);
 		add(lblNewLabel);
 		
-
 		id = new JTextField();
 		id.setBounds(222, 73, 598, 34);
 		add(id);
 		id.setColumns(10);
 		
-		JLabel lblNewLabel_1 = new JLabel("Quản Lý Khách Hàng");
+		JLabel lblNewLabel_1 = new JLabel("Quáº£n LÃ½ KhÃ¡ch HÃ ng");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_1.setBounds(423, 25, 165, 21);
 		add(lblNewLabel_1);
@@ -86,6 +90,7 @@ public class CustomerGUI extends JPanel {
 		textField_4.setColumns(10);
 		textField_4.setBounds(222, 325, 598, 34);
 		add(textField_4);
+		
 		table = new JTable();
 		table.setBounds(65, 409, 1, 1);
 		add(table);
@@ -113,6 +118,7 @@ public class CustomerGUI extends JPanel {
 		JButton btnNewButton = new JButton("SAVE");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+//				JOptionPane.showMessageDialog("hgjhj");
 			}
 		});
 		btnNewButton.setBounds(460, 379, 93, 31);
@@ -121,7 +127,7 @@ public class CustomerGUI extends JPanel {
 		JButton btnFix = new JButton("DELETE");
 		btnFix.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+	
 			}
 		});
 		btnFix.setBounds(282, 379, 93, 31);
@@ -135,8 +141,9 @@ public class CustomerGUI extends JPanel {
 		chckbxNewCheckBox.setBounds(225, 190, 60, 24);
 		add(chckbxNewCheckBox);
 		
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Nữ");
+		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Ná»¯");
 		chckbxNewCheckBox_1.setBounds(306, 190, 60, 24);
 		add(chckbxNewCheckBox_1);
+
 	}
 }

@@ -1,6 +1,7 @@
 package DTO;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class Receipt {
 	String id;
@@ -8,6 +9,8 @@ public class Receipt {
 	Customer customerId;
 	Date createDate, updateDate;
 	
+	ArrayList<ReceiptDetail> receiptDetail = new ArrayList<ReceiptDetail>();
+
 	public Receipt() {
 		
 	}
@@ -60,6 +63,12 @@ public class Receipt {
 		this.updateDate = updateDate;
 	}
 	
-	
+	public ArrayList<ReceiptDetail> getReceiptDetail() {
+		return receiptDetail;
+	}
+
+	public void setReceiptDetail(ArrayList<ReceiptDetail> receiptDetail) {
+		this.receiptDetail = receiptDetail;
+	}
 	
 }
