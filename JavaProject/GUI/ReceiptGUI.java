@@ -58,7 +58,6 @@ public class ReceiptGUI extends JPanel implements ActionListener {
 		btnew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource() == btnew) {
-					 
 					Random r = new Random();
 					int x = r.nextInt(1000)+1;
 					lbb_mhd.setText("HD" + x);	
@@ -106,7 +105,7 @@ public class ReceiptGUI extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		if(e.getSource() == btadd) {
 			String hd = lbb_mhd.getText();
-			Receipt1GUI re = new Receipt1GUI(hd);
+			ReceiptDetailGUI re = new ReceiptDetailGUI(hd);
 			re.setVisible(true);
 		}
 	}

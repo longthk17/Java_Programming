@@ -31,7 +31,7 @@ import javax.swing.border.EmptyBorder;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
-public class Receipt1GUI extends JFrame {
+public class ReceiptDetailGUI extends JFrame {
 
 	private JPanel pn;
 	private JLabel lb_1, lbtthd, lbshd, lbnl, lbtkh, lbckh, lbdcll, 
@@ -52,7 +52,7 @@ public class Receipt1GUI extends JFrame {
 	
 	}
 	
-	public Receipt1GUI(String mhd) {
+	public ReceiptDetailGUI(String mhd) {
 		this.curMhd = mhd;
 		initGUI();
 		//date();
