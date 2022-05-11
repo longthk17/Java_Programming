@@ -3,13 +3,16 @@ package DAL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.UUID;
 
 import DTO.Customer;
+import DTO.Employee;
 import DTO.Merchandise;
 import DTO.Receipt;
 import DTO.ReceiptDetail;
+import Utils.Date;
 import Utils.MySQLConnUtils;
 
 public class ReceiptDetailDAL {
@@ -141,9 +144,42 @@ public class ReceiptDetailDAL {
 		}
 	}
 	
+	public boolean addOrder(Employee emp, String cusId, String recId) {
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			conn.setAutoCommit(false);
+			String sql;
+			sql = "INSERT INTO receipt values(?,?,?,?,?)";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			prest.setString(1, recId);
+			prest.setString(2, emp.getId());
+			prest.setString(3, cusId);
+			java.sql.Date date = Date.getCurrentDatetime();
+			prest.setDate(4, date);
+			prest.setDate(5, null);
+			if(prest.executeUpdate()>=1) {
+				conn.commit();
+				conn.setAutoCommit(true);
+				return true;
+			} else {
+				try {
+					conn.rollback();
+				} catch(SQLException ex1) {
+					ex1.printStackTrace();
+					return false;
+				}
+				return false;
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+	
 	public boolean addMerchandiseOrder(Merchandise mer, String recId, int quantity) {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
+			conn.setAutoCommit(false);
 			String sql;
 			sql = "INSERT INTO receipt_detail values(?,?,?,?,?)";
 			PreparedStatement prest = conn.prepareStatement(sql);
@@ -155,8 +191,18 @@ public class ReceiptDetailDAL {
 			prest.setInt(4, quantity);
 			prest.setFloat(5, amount);
 			if(prest.executeUpdate()>=1) {
+				conn.commit();
+				conn.setAutoCommit(true);
 				return true;
-			} else return false;
+			} else {
+				try {
+					conn.rollback();
+				} catch(SQLException ex1) {
+					ex1.printStackTrace();
+					return false;
+				}
+				return false;
+			}
 		} catch(Exception ex) {
 			ex.printStackTrace();
 			return false;
@@ -180,5 +226,21 @@ public class ReceiptDetailDAL {
 			ex.printStackTrace();
 		}
 		return quantity;
+	}
+	
+	public boolean deleteOrder(String id) {
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "DELETE FROM receipt WHERE id = ?";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			prest.setString(1, id);
+			if(prest.executeUpdate()>=1) {
+				return true;
+			} else return false;
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
 	}
 }

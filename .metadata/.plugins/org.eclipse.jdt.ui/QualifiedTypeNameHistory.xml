@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="javax.swing.JMenuBar"/>
-    <fullyQualifiedTypeName name="javax.swing.JMenu"/>
     <fullyQualifiedTypeName name="javax.swing.JMenuItem"/>
     <fullyQualifiedTypeName name="javax.swing.JTable"/>
     <fullyQualifiedTypeName name="java.net.URL"/>
@@ -30,19 +28,15 @@
     <fullyQualifiedTypeName name="javax.swing.table.DefaultTableModel"/>
     <fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
     <fullyQualifiedTypeName name="com.toedter.calendar.JTextFieldDateEditor"/>
-    <fullyQualifiedTypeName name="java.sql.SQLException"/>
     <fullyQualifiedTypeName name="java.sql.DriverManager"/>
     <fullyQualifiedTypeName name="DAL.EmployeeDAL"/>
-    <fullyQualifiedTypeName name="DTO.Employee"/>
     <fullyQualifiedTypeName name="BUS.EmployeeBUS"/>
     <fullyQualifiedTypeName name="java.awt.event.ActionListener"/>
     <fullyQualifiedTypeName name="GUI.Hashing"/>
     <fullyQualifiedTypeName name="GUI.EmployeeGUI"/>
     <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
     <fullyQualifiedTypeName name="java.sql.ResultSet"/>
-    <fullyQualifiedTypeName name="java.sql.Connection"/>
     <fullyQualifiedTypeName name="java.sql.Statement"/>
-    <fullyQualifiedTypeName name="Utils.MySQLConnUtils"/>
     <fullyQualifiedTypeName name="Utils.Date"/>
     <fullyQualifiedTypeName name="java.util.Date"/>
     <fullyQualifiedTypeName name="java.sql.Date"/>
@@ -59,5 +53,11 @@
     <fullyQualifiedTypeName name="DTO.Receipt"/>
     <fullyQualifiedTypeName name="DTO.ReceiptDetail"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.sql.SQLException"/>
+    <fullyQualifiedTypeName name="DTO.Employee"/>
+    <fullyQualifiedTypeName name="Utils.MySQLConnUtils"/>
+    <fullyQualifiedTypeName name="java.sql.Connection"/>
+    <fullyQualifiedTypeName name="DAL.ReceiptDAL"/>
     <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+    <fullyQualifiedTypeName name="BUS.ReceiptBUS"/>
 </qualifiedTypeNameHistroy>

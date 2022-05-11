@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import DAL.ReceiptDetailDAL;
 import DTO.Customer;
+import DTO.Employee;
 import DTO.Merchandise;
 import DTO.Receipt;
 
@@ -26,11 +27,23 @@ public class ReceiptDetailBUS {
 		return recDetailDAL.getByMerchandiseName(name);
 	}
 	
-	public String addMerchandiseOrder(Merchandise mer, String recId, int quantity) {
-		if(recDetailDAL.addMerchandiseOrder(mer, recId, quantity)) {
-			return "Thành công";
+	public String addOrder(Employee emp, Merchandise mer, String cusId, String recId, int quantity) {
+		if(recDetailDAL.addOrder(emp, cusId, recId)) {
+			if(recDetailDAL.addMerchandiseOrder(mer,recId, quantity)) {
+				return "Thành công";
+			} else {
+				return "Thất bại";
+			}
 		} else {
-			return "Thất bại";
+			return "Đặt hàng không thành công";
+		}
+	}
+	
+	public boolean deleteOrder(String id) {
+		if(recDetailDAL.deleteOrder(id)) {
+			return true;
+		} else {
+			return false;
 		}
 	}
 	

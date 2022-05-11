@@ -2,104 +2,92 @@ package GUI;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
+import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JTable;
-import javax.swing.JButton;
-import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.ListSelectionModel;
 import java.awt.Color;
 import javax.swing.JCheckBox;
+import javax.swing.table.DefaultTableModel;
 
 public class CustomerGUI extends JPanel {
-	private JTextField id;
+	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
-	private JTextField textField_4;
 	private JTable table;
-	private JTable table_1;
+	private JTextField textField_4;
 
 	/**
 	 * Create the panel.
 	 */
 	public CustomerGUI() {
-		setBackground(new Color(152, 251, 152));
+		setBackground(new Color(240, 255, 240));
 		setLayout(null);
 		setSize(1050,630);
 		
-		JLabel lblNewLabel = new JLabel("ID :");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel.setBounds(66, 72, 49, 31);
+		JLabel lblNewLabel = new JLabel("CUSTOMER :");
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblNewLabel.setBounds(41, 10, 206, 36);
 		add(lblNewLabel);
 		
-		id = new JTextField();
-		id.setBounds(222, 73, 598, 34);
-		add(id);
-		id.setColumns(10);
-		
-		JLabel lblNewLabel_1 = new JLabel("Quáº£n LÃ½ KhÃ¡ch HÃ ng");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_1.setBounds(423, 25, 165, 21);
+		JLabel lblNewLabel_1 = new JLabel("ID");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1.setBounds(41, 56, 138, 23);
 		add(lblNewLabel_1);
 		
-		JLabel lblFullName = new JLabel("Full Name :");
-		lblFullName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblFullName.setBounds(57, 130, 78, 31);
-		add(lblFullName);
+		JLabel lblNewLabel_1_1 = new JLabel("FULLNAME");
+		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_1.setBounds(41, 121, 138, 23);
+		add(lblNewLabel_1_1);
 		
-		JLabel lblGender = new JLabel("Gender :");
-		lblGender.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblGender.setBounds(57, 185, 78, 31);
-		add(lblGender);
+		JLabel lblNewLabel_1_2 = new JLabel("PHONE");
+		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_2.setBounds(41, 183, 138, 23);
+		add(lblNewLabel_1_2);
 		
-		JLabel lblPhone = new JLabel("Phone");
-		lblPhone.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblPhone.setBounds(57, 226, 78, 31);
-		add(lblPhone);
+		JLabel lblNewLabel_1_3 = new JLabel("EMAIL");
+		lblNewLabel_1_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_3.setBounds(455, 56, 138, 23);
+		add(lblNewLabel_1_3);
 		
-		JLabel lblEmail = new JLabel("Email");
-		lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblEmail.setBounds(57, 283, 78, 31);
-		add(lblEmail);
+		JLabel lblNewLabel_1_4 = new JLabel("GENDER");
+		lblNewLabel_1_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_4.setBounds(455, 121, 138, 23);
+		add(lblNewLabel_1_4);
 		
-		JLabel lblAddress = new JLabel("Address");
-		lblAddress.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblAddress.setBounds(57, 324, 78, 31);
-		add(lblAddress);
+		JButton btnNewButton = new JButton("CLEAR");
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnNewButton.setBackground(new Color(0, 250, 154));
+		btnNewButton.setBounds(779, 271, 138, 48);
+		add(btnNewButton);
+		
+		textField = new JTextField();
+		textField.setBounds(126, 56, 206, 23);
+		add(textField);
+		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		textField_1.setBounds(222, 131, 598, 34);
+		textField_1.setBounds(126, 123, 206, 23);
 		add(textField_1);
 		
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		textField_2.setBounds(222, 227, 598, 34);
+		textField_2.setBounds(126, 185, 206, 23);
 		add(textField_2);
 		
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
-		textField_3.setBounds(222, 281, 598, 34);
+		textField_3.setBounds(566, 58, 206, 23);
 		add(textField_3);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(222, 325, 598, 34);
-		add(textField_4);
-		
 		table = new JTable();
-		table.setBounds(65, 409, 1, 1);
-		add(table);
-		
-		table_1 = new JTable();
-		table_1.setModel(new DefaultTableModel(
+		table.setBackground(new Color(240, 248, 255));
+		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"ID", "Full Name", "Gender", "Phone", "Email", "Address"},
-				{"", null, null, null, null, null},
+				{null, null, null, null, null, null},
 				{null, null, null, null, null, null},
 				{null, null, null, null, null, null},
 				{null, null, null, null, null, null},
@@ -107,43 +95,49 @@ public class CustomerGUI extends JPanel {
 				{null, null, null, null, null, null},
 			},
 			new String[] {
-				" ID", "Full Name", "Gender", "Phone", "Email", "Address"
+				"ID", "FULLNAME", "PHONE", "EMAIL", "GENDER", "ADDRESS"
 			}
 		));
-		table_1.getColumnModel().getColumn(0).setPreferredWidth(50);
-		table_1.getColumnModel().getColumn(0).setMinWidth(30);
-		table_1.setBounds(0, 436, 1050, 112);
-		add(table_1);
+		table.setSurrendersFocusOnKeystroke(true);
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table.setBounds(90, 265, 637, 386);
+		add(table);
 		
-		JButton btnNewButton = new JButton("SAVE");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-//				JOptionPane.showMessageDialog("hgjhj");
-			}
-		});
-		btnNewButton.setBounds(460, 379, 93, 31);
-		add(btnNewButton);
+		JButton btnAdd = new JButton("ADD");
+		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnAdd.setBackground(new Color(0, 250, 154));
+		btnAdd.setBounds(779, 368, 138, 48);
+		add(btnAdd);
 		
-		JButton btnFix = new JButton("DELETE");
-		btnFix.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-	
-			}
-		});
-		btnFix.setBounds(282, 379, 93, 31);
-		add(btnFix);
+		JButton btnUpdate = new JButton("UPDATE");
+		btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnUpdate.setBackground(new Color(0, 250, 154));
+		btnUpdate.setBounds(779, 460, 138, 48);
+		add(btnUpdate);
 		
-		JButton btnMore = new JButton("UPDATE");
-		btnMore.setBounds(635, 379, 93, 31);
-		add(btnMore);
+		JButton btnDelete = new JButton("DELETE");
+		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnDelete.setBackground(new Color(0, 250, 154));
+		btnDelete.setBounds(779, 558, 138, 48);
+		add(btnDelete);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("Nam");
-		chckbxNewCheckBox.setBounds(225, 190, 60, 24);
+		JCheckBox chckbxNewCheckBox = new JCheckBox("MALE");
+		chckbxNewCheckBox.setBounds(566, 114, 98, 36);
 		add(chckbxNewCheckBox);
 		
-		JCheckBox chckbxNewCheckBox_1 = new JCheckBox("Ná»¯");
-		chckbxNewCheckBox_1.setBounds(306, 190, 60, 24);
-		add(chckbxNewCheckBox_1);
+		JCheckBox chckbxFemale = new JCheckBox("FEMALE");
+		chckbxFemale.setBounds(666, 114, 98, 36);
+		add(chckbxFemale);
+		
+		JLabel lblNewLabel_1_3_1 = new JLabel("ADDRESS");
+		lblNewLabel_1_3_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_1_3_1.setBounds(455, 183, 138, 23);
+		add(lblNewLabel_1_3_1);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBounds(566, 185, 206, 23);
+		add(textField_4);
 
 	}
 }

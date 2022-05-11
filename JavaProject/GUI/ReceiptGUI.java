@@ -4,16 +4,23 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import BUS.ReceiptBUS;
+import BUS.ReceiptDetailBUS;
+import DTO.Customer;
 import DTO.Employee;
 
 public class ReceiptGUI extends JPanel implements ActionListener {
@@ -21,11 +28,20 @@ public class ReceiptGUI extends JPanel implements ActionListener {
 	private JTable table;
 	private JLabel lb_1, lb_2, lb_mhd, lbb_mhd;
 	private JButton btnew, btadd, btdel;
+	private JComboBox cbCus;
 	
 	Employee curEmp;
+	Customer chooseCus;
 	
 	DefaultTableModel model = new DefaultTableModel();
 	JTable tb = new JTable(model);
+	
+	ReceiptDetailBUS recDetailBUS = new ReceiptDetailBUS();
+	ReceiptBUS recBUS = new ReceiptBUS();
+	
+	public ReceiptGUI() {
+		initGUI();
+	}
 	
 	public ReceiptGUI(Employee emp) {
 		this.curEmp = emp;
@@ -80,6 +96,20 @@ public class ReceiptGUI extends JPanel implements ActionListener {
 		btdel.setBackground(Color.decode("#A7C4BC"));
 		btdel.addActionListener(this);
 		
+		cbCus = new JComboBox();
+		ArrayList<Customer> cusData = recDetailBUS.getAllCustomer();
+		for(int i = 0; i < cusData.size(); i++) {
+			cbCus.addItem(cusData.get(i).getFullName());
+		}
+		cbCus.setBounds(100, 300, 174, 19);
+		cbCus.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				// TODO Auto-generated method stub
+				chooseCus = recDetailBUS.getByFullName(cbCus.getSelectedItem().toString());
+			}
+		});
+		
 		model.addColumn("ID");
 		model.addColumn("Name");
 		model.addColumn("Address");
@@ -98,6 +128,7 @@ public class ReceiptGUI extends JPanel implements ActionListener {
 		add(btnew);
 		add(btadd);
 		add(btdel);
+		add(cbCus);
 	}
 	
 	
@@ -109,8 +140,14 @@ public class ReceiptGUI extends JPanel implements ActionListener {
 		// TODO Auto-generated method stub
 		if(e.getSource() == btadd) {
 			String hd = lbb_mhd.getText();
-			ReceiptDetailGUI re = new ReceiptDetailGUI(hd,curEmp);
-			re.setVisible(true);
+			if(hd != null && chooseCus != null) {
+				String cusId = chooseCus.getId();
+				JOptionPane.showMessageDialog(this, recBUS.addOrder(curEmp, cusId, hd));
+				ReceiptDetailGUI re = new ReceiptDetailGUI(hd,curEmp,chooseCus);
+				re.setVisible(true);
+			} else {
+				JOptionPane.showMessageDialog(this, "Chưa tạo mã hóa đơn hoặc chưa chọn thông tin khách hàng!");
+			}
 		}
 	}
 	

@@ -46,7 +46,7 @@ import java.text.SimpleDateFormat;
 public class ReceiptDetailGUI extends JFrame implements ActionListener {
 
 	private JPanel pn;
-	private JLabel lbTitle, lbSubTitle, lbIdReceipt, lbCurDate, lbCusName, lbCusId, lbCusContact, 
+	private JLabel lbTitle, lbSubTitle, lbIdReceipt, lbCurDate, lbCusName, txtCusName, lbCusId, lbCusContact, 
 	lbMerId, lbMerName, lbMerProc, lbQuant, lbTotal, lb_tkt, lb_td, txtIdReceipt, txtCurDate, txtCusId, txtCusContact, txtMerId, txtMerName, txtMerProc;
 	private JTextField textField_1, txtTmKimSn;
 	private JButton btaddkh, btfind, bt_addhd, bt_check, bt_can;
@@ -70,9 +70,10 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		txtCurDate.setText(dateForm.format(thisDate));
 	}
 	
-	public ReceiptDetailGUI(String mhd, Employee emp) {
+	public ReceiptDetailGUI(String mhd, Employee emp, Customer cus) {
 		this.curMhd = mhd;
 		this.curEmp = emp;
+		this.chooseCus = cus;
 		initGUI();
 		date();
 	}
@@ -85,7 +86,8 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		setBounds(0,0,1050,630);
 		getContentPane().setLayout(null);
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);	
+//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setVisible(false);
 	}	
 
@@ -125,22 +127,26 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		lbCusName = new JLabel("Customer:");
 		lbCusName.setBounds(102, 149, 119, 20);
 		lbCusName.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		
+		txtCusName = new JLabel();
+		txtCusName.setBounds(238, 149, 174, 19);
+		txtCusName.setText(chooseCus.getFullName());
 
-		cbCus = new JComboBox();
-		ArrayList<Customer> cusData = recDetailBUS.getAllCustomer();
-		for(int i = 0; i < cusData.size(); i++) {
-			cbCus.addItem(cusData.get(i).getFullName());
-		}
-		cbCus.setBounds(238, 149, 174, 19);
-		cbCus.addItemListener(new ItemListener() {
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				// TODO Auto-generated method stub
-				chooseCus = recDetailBUS.getByFullName(cbCus.getSelectedItem().toString());
-				txtCusId.setText(chooseCus.getId());
-				txtCusContact.setText(chooseCus.getAddress() + " - " + chooseCus.getPhone());
-			}
-		});
+//		cbCus = new JComboBox();
+//		ArrayList<Customer> cusData = recDetailBUS.getAllCustomer();
+//		for(int i = 0; i < cusData.size(); i++) {
+//			cbCus.addItem(cusData.get(i).getFullName());
+//		}
+//		cbCus.setBounds(238, 149, 174, 19);
+//		cbCus.addItemListener(new ItemListener() {
+//			@Override
+//			public void itemStateChanged(ItemEvent e) {
+//				// TODO Auto-generated method stub
+//				chooseCus = recDetailBUS.getByFullName(cbCus.getSelectedItem().toString());
+//				txtCusId.setText(chooseCus.getId());
+//				txtCusContact.setText(chooseCus.getAddress() + " - " + chooseCus.getPhone());
+//			}
+//		});
 		
 		lbCusId = new JLabel("Choose Customer:");
 		lbCusId.setBounds(102, 179, 134, 20);
@@ -148,6 +154,7 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		
 		txtCusId = new JLabel();
 		txtCusId.setBounds(238, 179, 174, 19);
+		txtCusId.setText(chooseCus.getId());
 		
 		lbCusContact = new JLabel("Contact Address:");
 		lbCusContact.setBounds(102, 209, 119, 20);
@@ -155,6 +162,7 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		
 		txtCusContact = new JLabel();
 		txtCusContact.setBounds(238, 209, 119, 20);
+		txtCusContact.setText(chooseCus.getAddress() + " - " + chooseCus.getPhone());
 		
 //		textField_1 = new JTextField();
 //		textField_1.setBounds(238, 149, 174, 19);
@@ -283,7 +291,8 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		pn.add(lbCusContact);
 		pn.add(txtCusContact);
 //		pn.add(textField_1);
-		pn.add(cbCus);
+//		pn.add(cbCus);
+		pn.add(txtCusName);
 //		pn.add(btaddkh);
 //		pn.add(txtTmKimSn);
 		pn.add(cbMer);
@@ -307,7 +316,12 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 
 	private void bt_canActionPerformed(ActionEvent e) {
 		if(e.getSource() == bt_can) {
-			dispose();
+			if(recDetailBUS.deleteOrder(curMhd)) {
+				JOptionPane.showMessageDialog(this, "Hủy thành công");
+				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			} else {
+				JOptionPane.showMessageDialog(this, "Hủy thất bại");
+			}
 		}
 	}
 
@@ -322,7 +336,8 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 			if(chooseMer!=null && chooseCus!=null && chooseQuant>0) {
 				int inventory = recDetailBUS.compareInventory(txtMerId.getText());
 				if(chooseQuant <= inventory) {
-					JOptionPane.showMessageDialog(this, recDetailBUS.addMerchandiseOrder(chooseMer, curMhd, chooseQuant));
+					String cusId = chooseCus.getId();
+					JOptionPane.showMessageDialog(this, recDetailBUS.addOrder(curEmp, chooseMer, cusId, curMhd, chooseQuant));
 				} else {
 					JOptionPane.showMessageDialog(this, "Số lượng đặt lớn hơn số lượng tồn");
 				}
