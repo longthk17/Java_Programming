@@ -185,13 +185,6 @@ public class HomeGUI extends JFrame implements ActionListener{
 		
 	}
 	
-	public void clear() {
-		emp.setVisible(false);
-		mer.setVisible(false);
-		rec.setVisible(false);
-		cus.setVisible(false);
-	}
-	
 	public void checkUser(Employee emp) {
 		if(!emp.getType().equals("Admin")) {
 			btnEmployee.setEnabled(false);
@@ -222,6 +215,7 @@ public class HomeGUI extends JFrame implements ActionListener{
 		}
 		if(e.getSource() == btnReceipt) {
 			clear();
+			rec = new ReceiptGUI(curEmp);
 			rec.setVisible(true);
 			add(rec);
 			rec.setBounds(150,120,rec.getWidth(),rec.getHeight());
@@ -232,6 +226,14 @@ public class HomeGUI extends JFrame implements ActionListener{
 			add(cus);
 			cus.setBounds(150,120,cus.getWidth(),cus.getHeight());
 		}
+	}
+
+	
+	public void clear() {
+		emp.setVisible(false);
+		mer.setVisible(false);
+		rec.setVisible(false);
+		cus.setVisible(false);
 	}
 
 }

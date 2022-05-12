@@ -10,6 +10,26 @@ CREATE TABLE employee (
     PRIMARY KEY(id)
 );
 
+CREATE TABLE receipt (
+    id varchar(255) NOT NULL PRIMARY KEY,
+    employee_id varchar(255) NOT NULL,
+    customer_id varchar(255) NOT NULL,
+    create_date date NOT NULL,
+    update_date date NULL,
+    FOREIGN KEY (employee_id) REFERENCES employee(id),
+    FOREIGN KEY (customer_id) REFERENCES customer(id)
+);
+
+CREATE TABLE receipt_detail (
+    id int NOT NULL PRIMARY KEY,
+    merchandise_id varchar(255) NOT NULL,
+    receipt_id varchar(255) NOT NULL,
+    create_date date NOT NULL,
+    update_date date NULL,
+    FOREIGN KEY (merchandise_id) REFERENCES merchandise(id),
+    FOREIGN KEY (receipt_id) REFERENCES receipt(id)
+);
+
 INSERT INTO `employee`(`id`, `fullName`, `username`, `password`, `phone`, `type`, `gender`, `address`) VALUES ('NV01','kim long','kimlong','123','0769815172','admin','male','vietnam');
 INSERT INTO `employee`(`id`, `fullName`, `username`, `password`, `phone`, `type`, `gender`, `address`) VALUES ('NV02','dang thong','dangthong','123','0764721172','sale','male','france');
 INSERT INTO `employee`(`id`, `fullName`, `username`, `password`, `phone`, `type`, `gender`, `address`) VALUES ('NV03','tan thanh','tanthanh','123','0769815274','sale','male','italia');
@@ -20,3 +40,8 @@ INSERT INTO `merchandise`(`id`, `idName`, `merchandiseName`, `producer`, `quanti
 INSERT INTO `merchandise`(`id`, `idName`, `merchandiseName`, `producer`, `quantity`, `price`, `create_date`, `update_date`) VALUES ('SP02','002','laptop 360','dell','10','200000','2022-5-5','')
 INSERT INTO `merchandise`(`id`, `idName`, `merchandiseName`, `producer`, `quantity`, `price`, `create_date`, `update_date`) VALUES ('SP03','003','laptop 720','hp','12','300000','2022-5-5','')
 INSERT INTO `merchandise`(`id`, `idName`, `merchandiseName`, `producer`, `quantity`, `price`, `create_date`, `update_date`) VALUES ('SP04','004','laptop 900','asus','31','5000000','2022-5-5','')
+
+INSERT INTO `customer`(`id`, `fullName`, `phone`, `email`, `address`, `gender`, `create_date`, `update_date`) VALUES ('KH01','Dang Minh Tuong','0769158372','abc@gmail.com','vietnam','Male','2022-5-5', NULL);
+INSERT INTO `customer`(`id`, `fullName`, `phone`, `email`, `address`, `gender`, `create_date`, `update_date`) VALUES ('KH02','Nguyen Chau Dang Thong','076821372','xyz@gmail.com','italia','Male','2022-5-8', NULL);
+INSERT INTO `customer`(`id`, `fullName`, `phone`, `email`, `address`, `gender`, `create_date`, `update_date`) VALUES ('KH03','Nguyen Tan Thanh','0678158372','def@gmail.com','spain','Male','2022-5-7', NULL);
+INSERT INTO `customer`(`id`, `fullName`, `phone`, `email`, `address`, `gender`, `create_date`, `update_date`) VALUES ('KH04','Tran Hai Kim Long','0769158372','grs@gmail.com','france','Male','2022-5-6', NULL);

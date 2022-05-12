@@ -1,17 +1,18 @@
 package DTO;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Merchandise {
 	String id, producer, merchandiseName;
-	int quantity, price;
+	int quantity;
+	long price;
 	Date createDate, updateDate;
 	
 	public Merchandise() {
 		
 	}
 
-	public Merchandise(String id, String producer, String merchandiseName, int quantity, int price,
+	public Merchandise(String id, String producer, String merchandiseName, int quantity, long price,
 			Date createDate, Date updateDate) {
 		this.id = id;
 		this.producer = producer;
@@ -54,11 +55,11 @@ public class Merchandise {
 		this.quantity = quantity;
 	}
 
-	public int getPrice() {
+	public long getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(long price) {
 		this.price = price;
 	}
 
