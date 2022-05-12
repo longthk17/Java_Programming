@@ -64,11 +64,11 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				String name = toolSearch.getText();
-				if(name.equals("")) {
+				String nameSearch = toolSearch.getText();
+				if(nameSearch.equals("")) {
 					loadEmployeeList();
 				} else {
-					loadEmployeeSearch(name);
+					loadEmployeeSearch(nameSearch);
 				}
 			}
 		});
@@ -251,10 +251,16 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 		}
 	}
 	
-	public void loadEmployeeSearch(String name) {
+	public void loadEmployeeSearch(String nameSearch) {
 		model.setRowCount(0);
 		ArrayList<Employee> arr = new ArrayList<Employee>();
-		arr = empBUS.getByFullName(name);
+		if(!empBUS.getByFullNameSearch(nameSearch).isEmpty()) {
+			arr = empBUS.getByFullNameSearch(nameSearch);
+		} else if(!empBUS.getByUsernameSearch(nameSearch).isEmpty()) {
+			arr = empBUS.getByUsernameSearch(nameSearch);
+		} else if(!empBUS.getByIdSearch(nameSearch).isEmpty()) {
+			arr = empBUS.getByIdSearch(nameSearch);
+		}
 		for(int i=0; i < arr.size(); i++) {
 			Employee emp = arr.get(i);
 			String id = emp.getId();

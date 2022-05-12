@@ -1,143 +1,337 @@
 package GUI;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import java.awt.Color;
-import javax.swing.JCheckBox;
+import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
+
+import DTO.Customer;
+import DTO.Employee;
+import BUS.CustomerBUS;
+import BUS.EmployeeBUS;
+
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.EventQueue;
 
-public class CustomerGUI extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTable table;
-	private JTextField textField_4;
-
-	/**
-	 * Create the panel.
-	 */
+public class CustomerGUI extends JPanel implements ActionListener {
+	JLabel lbId, lbName, lbPhone, lbEmail, lbGender, lbAddress, lbSearch, lbTitle;
+	JTextField tfId, tfName, tfEmail, tfPhone, tfAddress, toolSearch;
+	JComboBox cbGender;
+	JPanel pn1, pnBtn;
+	JButton btnAdd, btnUpd, btnDel, btnClear;
+	String gender[] = {"Male", "Female"};
+			
+	
+	DefaultTableModel model = new DefaultTableModel();
+	JTable tb = new JTable(model);
+	
+	CustomerBUS cusBUS = new CustomerBUS();
+	
 	public CustomerGUI() {
-		setBackground(new Color(240, 255, 240));
-		setLayout(null);
+		initGUI();
+	}
+	
+	private void initGUI() {
 		setSize(1050,630);
+		setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("CUSTOMER :");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel.setBounds(41, 10, 206, 36);
-		add(lblNewLabel);
+		initComponents();
+		loadCustomerList();
 		
-		JLabel lblNewLabel_1 = new JLabel("ID");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1.setBounds(41, 56, 138, 23);
-		add(lblNewLabel_1);
+		setBackground(Color.decode("#DFEEEA"));
+	}
+	
+	private void initComponents() {
 		
-		JLabel lblNewLabel_1_1 = new JLabel("FULLNAME");
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_1.setBounds(41, 121, 138, 23);
-		add(lblNewLabel_1_1);
+		lbTitle = new JLabel("Customer:");
+		lbTitle.setFont(new Font("AddElectricCity", Font.BOLD,30));
+		lbTitle.setBounds(20, 15, 250, 30);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("PHONE");
-		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_2.setBounds(41, 183, 138, 23);
-		add(lblNewLabel_1_2);
-		
-		JLabel lblNewLabel_1_3 = new JLabel("EMAIL");
-		lblNewLabel_1_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_3.setBounds(455, 56, 138, 23);
-		add(lblNewLabel_1_3);
-		
-		JLabel lblNewLabel_1_4 = new JLabel("GENDER");
-		lblNewLabel_1_4.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_4.setBounds(455, 121, 138, 23);
-		add(lblNewLabel_1_4);
-		
-		JButton btnNewButton = new JButton("CLEAR");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnNewButton.setBackground(new Color(0, 250, 154));
-		btnNewButton.setBounds(779, 271, 138, 48);
-		add(btnNewButton);
-		
-		textField = new JTextField();
-		textField.setBounds(126, 56, 206, 23);
-		add(textField);
-		textField.setColumns(10);
-		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(126, 123, 206, 23);
-		add(textField_1);
-		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBounds(126, 185, 206, 23);
-		add(textField_2);
-		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(566, 58, 206, 23);
-		add(textField_3);
-		
-		table = new JTable();
-		table.setBackground(new Color(240, 248, 255));
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-				{null, null, null, null, null, null},
-			},
-			new String[] {
-				"ID", "FULLNAME", "PHONE", "EMAIL", "GENDER", "ADDRESS"
+		toolSearch = new JTextField();
+		toolSearch.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String nameSearch = toolSearch.getText();
+				if(nameSearch.equals("")) {
+					loadCustomerList();
+				} else {
+					loadCustomerSearch(nameSearch);
+				}
 			}
-		));
-		table.setSurrendersFocusOnKeystroke(true);
-		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table.setBounds(90, 265, 637, 386);
-		add(table);
+		});
+		toolSearch.setBounds(300, 15, 400, 25);
 		
-		JButton btnAdd = new JButton("ADD");
-		btnAdd.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnAdd.setBackground(new Color(0, 250, 154));
-		btnAdd.setBounds(779, 368, 138, 48);
-		add(btnAdd);
+		lbSearch = new JLabel();
+		lbSearch.setIcon(new ImageIcon(this.getClass().getResource("/images/magnifier.png")));
+		lbSearch.setBounds(710, -20, 100, 100);
 		
-		JButton btnUpdate = new JButton("UPDATE");
-		btnUpdate.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnUpdate.setBackground(new Color(0, 250, 154));
-		btnUpdate.setBounds(779, 460, 138, 48);
-		add(btnUpdate);
 		
-		JButton btnDelete = new JButton("DELETE");
-		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnDelete.setBackground(new Color(0, 250, 154));
-		btnDelete.setBounds(779, 558, 138, 48);
-		add(btnDelete);
+		lbId = new JLabel("Id");
+		lbId.setFont(new Font("Verdana", Font.BOLD, 15));
+		lbId.setBounds(70, 100, 100, 25);
 		
-		JCheckBox chckbxNewCheckBox = new JCheckBox("MALE");
-		chckbxNewCheckBox.setBounds(566, 114, 98, 36);
-		add(chckbxNewCheckBox);
+		tfId = new JTextField();
+		tfId.setEditable(false);
+		tfId.setBounds(150, 100, 150, 25);
 		
-		JCheckBox chckbxFemale = new JCheckBox("FEMALE");
-		chckbxFemale.setBounds(666, 114, 98, 36);
-		add(chckbxFemale);
+		lbName = new JLabel("Name");
+		lbName.setFont(new Font("Verdana", Font.BOLD, 15));
+		lbName.setBounds(70, 150, 100, 25);
 		
-		JLabel lblNewLabel_1_3_1 = new JLabel("ADDRESS");
-		lblNewLabel_1_3_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_1_3_1.setBounds(455, 183, 138, 23);
-		add(lblNewLabel_1_3_1);
-		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(566, 185, 206, 23);
-		add(textField_4);
+		tfName = new JTextField();
+		tfName.setBounds(150, 150, 150, 25);
+	    
+		lbEmail = new JLabel("Email");
+		lbEmail.setFont(new Font("Verdana", Font.BOLD, 15));
+		lbEmail.setBounds(320, 100, 120, 25);
 
+		tfEmail = new JTextField();
+		tfEmail.setBounds(450, 100, 150, 25);
+		
+		lbAddress = new JLabel("Address");
+		lbAddress.setFont(new Font("Verdana", Font.BOLD, 15));
+		lbAddress.setBounds(320, 150, 100, 25);
+		
+		tfAddress = new JTextField();
+		tfAddress.setBounds(450, 150, 150, 25);
+		
+		lbPhone = new JLabel("Phone");
+		lbPhone.setFont(new Font("Verdana", Font.BOLD, 15));
+		lbPhone.setBounds(670, 100, 100, 25);
+
+		tfPhone = new JTextField();
+		tfPhone.setBounds(755, 100, 150, 25);
+		
+		lbGender = new JLabel("Gender");
+		lbGender.setFont(new Font("Verdana", Font.BOLD, 15));
+		lbGender.setBounds(670, 150, 120, 25);
+
+		cbGender = new JComboBox(gender);
+		cbGender.setBounds(755, 150, 150, 25);
+
+		model.addColumn("ID");
+		model.addColumn("Name");
+		model.addColumn("Gender");
+		model.addColumn("Address");
+		model.addColumn("Phone");
+		model.addColumn("Email");
+		
+		
+		JScrollPane sp = new JScrollPane(tb);
+		tb.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent evt) {
+				tfId.setEditable(false);
+				int i = tb.getSelectedRow();
+				if(i>=0) {
+					tfId.setText(model.getValueAt(i, 0).toString());
+					tfName.setText(model.getValueAt(i, 1).toString());
+					tfAddress.setText(model.getValueAt(i, 3).toString());
+					tfPhone.setText(model.getValueAt(i, 4).toString());
+					tfEmail.setText(model.getValueAt(i, 5).toString());
+				}
+			}
+			
+		});
+		sp.setBounds(70, 250, 700, 300);
+		
+		
+		btnAdd = new JButton("Add");
+		btnAdd.setFont(new Font("Keyes", Font.BOLD, 20));
+		btnAdd.setFocusable(false);
+		btnAdd.setBackground(Color.decode("#A7C4BC"));
+		btnAdd.setBounds(820, 280, 150, 50);
+		btnAdd.addActionListener(this);
+		
+		btnUpd = new JButton("Update");
+		btnUpd.setFont(new Font("Keyes", Font.BOLD, 20));
+		btnUpd.setFocusable(false);
+		btnUpd.setBackground(Color.decode("#A7C4BC"));
+		btnUpd.setBounds(820, 380, 150, 50);
+		btnUpd.addActionListener(this);
+		
+		btnDel = new JButton("Delete");
+		btnDel.setFont(new Font("Keyes", Font.BOLD, 20));
+		btnDel.setFocusable(false);
+		btnDel.setBackground(Color.decode("#A7C4BC"));
+		btnDel.setBounds(820, 480, 150, 50);
+		btnDel.addActionListener(this);
+		
+		btnClear = new JButton("Clear");
+		btnClear.setFont(new Font("Keyes", Font.BOLD, 15));
+		btnClear.setFocusable(false);
+		btnClear.setBackground(Color.decode("#A7C4BC"));
+		btnClear.setBounds(755, 200, 100, 30);
+		btnClear.addActionListener(this);
+		
+		
+		add(lbTitle);
+		add(toolSearch);
+		add(lbSearch);
+		add(lbId);
+		add(tfId);
+		add(lbName);
+		add(tfName);
+		add(lbEmail);
+		add(tfEmail);
+//		add(lbBirth);
+//		add(calBirth);
+		add(lbAddress);
+		add(tfAddress);
+		add(lbPhone);
+		add(tfPhone);
+		add(lbGender);
+		add(cbGender);
+		add(sp);
+		add(btnAdd);
+		add(btnUpd);
+		add(btnDel);	
+		add(btnClear);
+	}
+	
+	public void loadCustomerList() {
+		model.setRowCount(0);
+		ArrayList<Customer> arr = new ArrayList<Customer>();
+		arr = cusBUS.getAllCustomer();
+		for(int i=0; i < arr.size(); i++) {
+			Customer cus = arr.get(i);
+			String id = cus.getId();
+			String fullName = cus.getFullName();
+			String phone = cus.getPhone();
+			String email = cus.getEmail();
+			String address = cus.getAddress();
+			String gender = cus.getGender();
+			Object[] row = {id,fullName,gender,address,phone,email};
+			model.addRow(row);
+		}
+	}
+	
+	public void loadCustomerSearch(String nameSearch) {
+		model.setRowCount(0);
+		ArrayList<Customer> arr = new ArrayList<Customer>();
+		if(!cusBUS.getByFullNameSearch(nameSearch).isEmpty()) {
+			arr = cusBUS.getByFullNameSearch(nameSearch);
+		} else if(!cusBUS.getByIdSearch(nameSearch).isEmpty()) {
+			arr = cusBUS.getByIdSearch(nameSearch);
+		} else if(!cusBUS.getByPhoneSearch(nameSearch).isEmpty()) {
+			arr = cusBUS.getByPhoneSearch(nameSearch);
+		}
+		
+		for(int i=0; i < arr.size(); i++) {
+			Customer cus = arr.get(i);
+			String id = cus.getId();
+			String fullName = cus.getFullName();
+			String phone = cus.getPhone();
+			String email = cus.getEmail();
+			String address = cus.getAddress();
+			String gender = cus.getGender();
+			Object[] row = {id,fullName,gender,address,phone,email};
+			model.addRow(row);
+		}
+	}
+	
+	public boolean checkNull(String string) {
+		if(string != null && !string.trim().equals("")) {
+			return true;
+		} else return false;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource() == btnAdd) {
+			try {
+				tfId.setEditable(true);
+				if(checkNull(tfId.getText()) && checkNull(tfName.getText())  && checkNull(tfEmail.getText()) && checkNull(tfPhone.getText()) && checkNull(tfAddress.getText())) {
+					Customer cus = new Customer();
+					cus.setId(tfId.getText());
+					cus.setFullName(tfName.getText());
+					cus.setPhone(tfPhone.getText());
+					
+					String gender = (String)cbGender.getSelectedItem();
+					cus.setGender(gender);
+					
+					cus.setAddress(tfAddress.getText());
+					cus.setEmail(tfEmail.getText());
+					JOptionPane.showMessageDialog(this, cusBUS.addCustomer(cus));
+					tfId.setText("");
+					tfName.setText("");
+					tfPhone.setText("");
+					tfAddress.setText("");
+					tfEmail.setText("");
+					loadCustomerList();
+				} else {
+					JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin");
+				}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(this, "Thông tin không hợp lệ");
+			}
+		}
+		
+		if(e.getSource() == btnUpd) {
+			try {
+				if(checkNull(tfName.getText()) && checkNull(tfEmail.getText()) && checkNull(tfPhone.getText()) && checkNull(tfAddress.getText())) {
+					Customer cus = new Customer();
+					cus.setId(tfId.getText());
+					cus.setFullName(tfName.getText());
+					cus.setPhone(tfPhone.getText());
+					
+					String gender = (String)cbGender.getSelectedItem();
+					cus.setGender(gender);
+					
+					cus.setAddress(tfAddress.getText());
+					JOptionPane.showMessageDialog(this, cusBUS.updateCustomer(cus));
+					tfId.setText("");
+					tfName.setText("");
+					tfPhone.setText("");
+					tfAddress.setText("");
+					tfEmail.setText("");
+					loadCustomerList();
+				} else {
+					JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ thông tin");
+				}
+			} catch(Exception ex) {
+				ex.printStackTrace();
+				JOptionPane.showMessageDialog(this, "Thông tin không hợp lệ");
+			}
+		}
+		if(e.getSource() == btnDel) {
+			int i = tb.getSelectedRow();
+			String id = (String) model.getValueAt(i, 0);
+			if(i>=0) {
+				cusBUS.deleterCustomer(id);
+				JOptionPane.showMessageDialog(this, "Xóa thành công");
+				loadCustomerList();
+				tfId.setText("");
+				tfName.setText("");
+				tfPhone.setText("");
+				tfAddress.setText("");
+				tfEmail.setText("");
+			} else {
+				JOptionPane.showMessageDialog(this, "Xóa thất bại");
+			}
+		}
+		
+		if(e.getSource() == btnClear) {
+			tfId.setText("");
+			tfName.setText("");
+			tfPhone.setText("");
+			tfAddress.setText("");
+			tfEmail.setText("");
+		}
+		
 	}
 }

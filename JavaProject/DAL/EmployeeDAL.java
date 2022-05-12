@@ -41,12 +41,70 @@ public class EmployeeDAL {
 		return empList;
 	}
 	
-	public static ArrayList<Employee> getByFullName(String name) {
+	public static ArrayList<Employee> getByUsernameSearch(String name) {
+		ArrayList<Employee> empList = new ArrayList<>();
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "SELECT * FROM employee WHERE username = ?";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			prest.setString(1, name);
+			ResultSet rs = prest.executeQuery();
+			if(rs.next()) {
+				String id = rs.getString("id");
+				String fullName = rs.getString("fullName");
+				String username = rs.getString("username");
+				String password = rs.getString("password");
+				String phone = rs.getString("phone");
+				String type = rs.getString("type");
+				String gender = rs.getString("gender");
+				String address = rs.getString("address");
+				java.sql.Date createDate = rs.getDate("create_date");
+				java.sql.Date updateDate = rs.getDate("update_date");
+				Employee emp = new Employee(id, fullName, username, password, phone, type, gender, address, createDate, updateDate);
+				empList.add(emp);
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return empList;
+	}
+	
+	public static ArrayList<Employee> getByFullNameSearch(String name) {
 		ArrayList<Employee> empList = new ArrayList<>();
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
 			sql = "SELECT * FROM employee WHERE fullName = ?";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			prest.setString(1, name);
+			ResultSet rs = prest.executeQuery();
+			if(rs.next()) {
+				String id = rs.getString("id");
+				String fullName = rs.getString("fullName");
+				String username = rs.getString("username");
+				String password = rs.getString("password");
+				String phone = rs.getString("phone");
+				String type = rs.getString("type");
+				String gender = rs.getString("gender");
+				String address = rs.getString("address");
+				java.sql.Date createDate = rs.getDate("create_date");
+				java.sql.Date updateDate = rs.getDate("update_date");
+				Employee emp = new Employee(id, fullName, username, password, phone, type, gender, address, createDate, updateDate);
+				empList.add(emp);
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return empList;
+	}
+	
+	public static ArrayList<Employee> getByIdSearch(String name) {
+		ArrayList<Employee> empList = new ArrayList<>();
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "SELECT * FROM employee WHERE id = ?";
 			PreparedStatement prest = conn.prepareStatement(sql);
 			prest.setString(1, name);
 			ResultSet rs = prest.executeQuery();

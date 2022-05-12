@@ -12,8 +12,16 @@ public class EmployeeBUS {
 		return empDAL.getAllEmployee();
 	}
 	
-	public ArrayList<Employee> getByFullName(String fullName) {
-		return empDAL.getByFullName(fullName);
+	public ArrayList<Employee> getByFullNameSearch(String fullName) {
+		return empDAL.getByFullNameSearch(fullName);
+	}
+	
+	public ArrayList<Employee> getByUsernameSearch(String username) {
+		return empDAL.getByUsernameSearch(username);
+	}
+	
+	public ArrayList<Employee> getByIdSearch(String id) {
+		return empDAL.getByIdSearch(id);
 	}
 	
 	public Employee getByUsername(String username) {
