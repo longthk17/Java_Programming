@@ -4,6 +4,8 @@ import DTO.Customer;
 import DTO.Employee;
 import DTO.Merchandise;
 import DTO.Receipt;
+import DTO.ReceiptDetail;
+
 import java.awt.BorderLayout;
 import java.awt.Choice;
 import java.awt.Color;
@@ -24,6 +26,8 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import BUS.MerchandiseBUS;
+import BUS.ReceiptBUS;
 import BUS.ReceiptDetailBUS;
 
 import javax.swing.JScrollPane;
@@ -41,6 +45,9 @@ import javax.swing.border.EmptyBorder;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
+import java.util.UUID;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 
 public class ReceiptDetailGUI extends JFrame implements ActionListener {
@@ -60,9 +67,12 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 	Merchandise chooseMer;
 	Customer chooseCus;
 	
-	ReceiptDetailBUS recDetailBUS = new ReceiptDetailBUS();
-	
 	String curMhd;
+	
+	ReceiptDetailBUS recDetailBUS = new ReceiptDetailBUS();
+	ReceiptBUS recBUS = new ReceiptBUS();
+	MerchandiseBUS merBUS = new MerchandiseBUS();
+	
 	
 	public void date() {
 		Date thisDate = new Date();
@@ -313,12 +323,35 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		pn.add(bt_can);
 		pn.add(spp);
 	}
+	
+	public void loadReceiptDetailList(String recId) {
+		model.setRowCount(0);
+		ArrayList<ReceiptDetail> arr = new ArrayList<ReceiptDetail>();
+		arr = recDetailBUS.getReceiptDetailById(recId);
+		for(int i=0; i < arr.size(); i++) {
+			ReceiptDetail recDetail = arr.get(i);
+			String id = recDetail.getId();
+			int quantity = recDetail.getQuantity();
+			
+			Locale localeEN = new Locale("en", "EN");
+		    NumberFormat en = NumberFormat.getInstance(localeEN);
+			
+			String amount = en.format(recDetail.getAmount()) + " VND";
+			String price = en.format(recDetail.getPrice()) + " VND";
+			String merchandiseId = recDetail.getMerchandiseId();
+			String receiptId = recDetail.getReceiptId();
+			String merchandise = recDetail.getMerchandiseName();
+			String producer = recDetail.getProducer();
+			Object[] row = {id,merchandise,producer,quantity,price,amount};
+			model.addRow(row);
+		}
+	}
 
 	private void bt_canActionPerformed(ActionEvent e) {
 		if(e.getSource() == bt_can) {
-			if(recDetailBUS.deleteOrder(curMhd)) {
+			if(recBUS.deleteReceipt(curMhd)) {
 				JOptionPane.showMessageDialog(this, "Hủy thành công");
-				setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				dispose();
 			} else {
 				JOptionPane.showMessageDialog(this, "Hủy thất bại");
 			}
@@ -329,18 +362,34 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == bt_check) {
-			System.out.println(chooseCus.getAddress());
+			int qes;
+			qes = JOptionPane.showConfirmDialog(this, "Bạn chấp nhận thanh toán?", "Question", JOptionPane.YES_NO_OPTION);
+			if(qes==JOptionPane.YES_OPTION) {
+				ArrayList<ReceiptDetail> arr = new ArrayList<ReceiptDetail>();
+				arr = recDetailBUS.getReceiptDetailById(curMhd);
+				for(int i = 0; i< arr.size(); i++) {
+					ReceiptDetail recDetail = arr.get(i);
+					String merId = recDetail.getMerchandiseId();
+					int quantity = recDetail.getQuantity();
+					merBUS.updateMerchandiseFromDetail(merId, quantity);
+				}
+				dispose();	
+			}
 		}
 		if(e.getSource() == bt_addhd) {
 			int chooseQuant = (Integer) spinner.getValue();
-			if(chooseMer!=null && chooseCus!=null && chooseQuant>0) {
+			if(chooseMer!=null && chooseQuant>0) {
+				String idDetail = UUID.randomUUID().toString();
+				int quantity = chooseQuant + recDetailBUS.getMerchandiseQuantity(chooseMer.getId());
+				long total = quantity * chooseMer.getPrice();
+				String idMer = chooseMer.getId();
 				int inventory = recDetailBUS.compareInventory(txtMerId.getText());
-				if(chooseQuant <= inventory) {
-					String cusId = chooseCus.getId();
-					JOptionPane.showMessageDialog(this, recDetailBUS.addOrder(curEmp, chooseMer, cusId, curMhd, chooseQuant));
+				if(quantity <= inventory) {
+					JOptionPane.showMessageDialog(this, recDetailBUS.insertDetail(idMer, curMhd, quantity, total));
 				} else {
 					JOptionPane.showMessageDialog(this, "Số lượng đặt lớn hơn số lượng tồn");
 				}
+				loadReceiptDetailList(curMhd);
 			} else {
 				JOptionPane.showMessageDialog(this, "Mời chọn thông tin");
 			}

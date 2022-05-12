@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="javax.swing.JMenuItem"/>
-    <fullyQualifiedTypeName name="javax.swing.JTable"/>
-    <fullyQualifiedTypeName name="java.net.URL"/>
     <fullyQualifiedTypeName name="java.util.ResourceBundle"/>
-    <fullyQualifiedTypeName name="java.awt.event.MouseAdapter"/>
-    <fullyQualifiedTypeName name="java.awt.event.MouseEvent"/>
     <fullyQualifiedTypeName name="java.lang.reflect.InvocationTargetException"/>
     <fullyQualifiedTypeName name="com.mysql.cj.Query"/>
     <fullyQualifiedTypeName name="java.util.List"/>
@@ -35,11 +30,9 @@
     <fullyQualifiedTypeName name="GUI.Hashing"/>
     <fullyQualifiedTypeName name="GUI.EmployeeGUI"/>
     <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
-    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
     <fullyQualifiedTypeName name="java.sql.Statement"/>
     <fullyQualifiedTypeName name="Utils.Date"/>
     <fullyQualifiedTypeName name="java.util.Date"/>
-    <fullyQualifiedTypeName name="java.sql.Date"/>
     <fullyQualifiedTypeName name="Utils.UUIDHelper"/>
     <fullyQualifiedTypeName name="javax.swing.JComboBox"/>
     <fullyQualifiedTypeName name="BUS.ReceiptDetailBUS"/>
@@ -49,15 +42,22 @@
     <fullyQualifiedTypeName name="DAL.ReceiptDetailDAL"/>
     <fullyQualifiedTypeName name="javax.swing.DefaultComboBoxModel"/>
     <fullyQualifiedTypeName name="DTO.Merchandise"/>
-    <fullyQualifiedTypeName name="java.util.UUID"/>
-    <fullyQualifiedTypeName name="DTO.Receipt"/>
-    <fullyQualifiedTypeName name="DTO.ReceiptDetail"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="java.sql.SQLException"/>
     <fullyQualifiedTypeName name="DTO.Employee"/>
     <fullyQualifiedTypeName name="Utils.MySQLConnUtils"/>
     <fullyQualifiedTypeName name="java.sql.Connection"/>
     <fullyQualifiedTypeName name="DAL.ReceiptDAL"/>
     <fullyQualifiedTypeName name="javax.swing.JOptionPane"/>
+    <fullyQualifiedTypeName name="java.util.UUID"/>
+    <fullyQualifiedTypeName name="DTO.ReceiptDetail"/>
+    <fullyQualifiedTypeName name="java.util.Locale"/>
+    <fullyQualifiedTypeName name="java.text.NumberFormat"/>
     <fullyQualifiedTypeName name="BUS.ReceiptBUS"/>
+    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="DTO.Receipt"/>
+    <fullyQualifiedTypeName name="java.sql.Date"/>
+    <fullyQualifiedTypeName name="java.awt.event.MouseAdapter"/>
+    <fullyQualifiedTypeName name="java.awt.event.MouseEvent"/>
+    <fullyQualifiedTypeName name="BUS.MerchandiseBUS"/>
 </qualifiedTypeNameHistroy>

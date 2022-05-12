@@ -17,19 +17,23 @@ import Utils.MySQLConnUtils;
 
 public class ReceiptDetailDAL {
 	
-	public ArrayList<ReceiptDetail> loadReceiptDetail(String recId) {
+	public ArrayList<ReceiptDetail> getReceiptDetailById(String recId) {
 		ArrayList<ReceiptDetail> recDetailList = new ArrayList<>();
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "SELECT receipt_detail.receipt_id, receipt.id, merchandise.merchandiseName, merchandise.producer, receipt_detail.quantity, merchandise.price, receipt_detail.amount, receipt_detail.merchandise_id FROM receipt_detail INNER JOIN merchandise ON merchandise.id = receipt_detail.merchandise_id INNER JOIN receipt ON receipt.id = receipt_detail.receipt_id WHERE receipt_id = ?";
+			sql = "SELECT receipt_detail.receipt_id, receipt.id, merchandise.merchandiseName, merchandise.producer, receipt_detail.quantity, merchandise.price, receipt_detail.amount, receipt_detail.merchandise_id "
+					+ "FROM receipt_detail "
+					+ "INNER JOIN merchandise ON merchandise.id = receipt_detail.merchandise_id "
+					+ "INNER JOIN receipt ON receipt.id = receipt_detail.receipt_id WHERE receipt_id = ?";
 			PreparedStatement prest = conn.prepareStatement(sql);
+			prest.setString(1, recId);
 			ResultSet rs = prest.executeQuery();
 			while(rs.next()) {
 				String id = rs.getString("id");
 				int quantity = rs.getInt("quantity");
-				float amount = rs.getFloat("amount");
-				float price = rs.getFloat("price");
+				long amount = rs.getLong("amount");
+				long price = rs.getLong("price");
 				String merchandiseId = rs.getString("merchandise_id");
 				String receiptId = rs.getString("receipt_id");
 				String merchandise = rs.getString("merchandiseName");
@@ -56,7 +60,7 @@ public class ReceiptDetailDAL {
 				String merchandisename = rs.getString("merchandiseName");
 				String producer = rs.getString("producer");
 				int quantity = rs.getInt("quantity");
-				int price = rs.getInt("price");
+				long price = rs.getInt("price");
 				java.sql.Date createDate = rs.getDate("create_date");
 				java.sql.Date updateDate = rs.getDate("update_date");
 				Merchandise mer = new Merchandise(id, producer, merchandisename, quantity, price,createDate,updateDate);
@@ -133,7 +137,7 @@ public class ReceiptDetailDAL {
 				mer.setMerchandiseName(rs.getString("merchandiseName"));
 				mer.setProducer(rs.getString("producer"));
 				mer.setQuantity(rs.getInt("quantity"));
-				mer.setPrice(rs.getInt("price"));
+				mer.setPrice(rs.getLong("price"));
 				mer.setCreateDate(rs.getDate("create_date"));
 				mer.setUpdateDate(rs.getDate("update_date"));
 				return mer;
@@ -209,6 +213,72 @@ public class ReceiptDetailDAL {
 		}
 	}
 	
+	public boolean insertDetail(String merId, String recId, int quantity, long amount) {
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			conn.setAutoCommit(false);
+			String sql;
+			sql = "INSERT INTO receipt_detail values(?,?,?,?,?)";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			String id = UUID.randomUUID().toString();
+			prest.setString(1,id);
+			prest.setString(2,merId);
+			prest.setString(3, recId);
+			prest.setInt(4, quantity);
+			prest.setLong(5, amount);
+			conn.commit();
+			conn.setAutoCommit(true);
+			if(prest.executeUpdate()>=1) {
+				return true;
+			} else {
+				try {
+					conn.rollback();
+				} catch(SQLException ex) {
+					ex.printStackTrace();
+				}
+				return false;
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean updateDetail(String merId, int quantity, long amount) {
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "UPDATE receipt_detail SET quantity = ?, amount = ? WHERE merchandise_id = ?";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			prest.setInt(1, quantity);
+			prest.setLong(2, amount);
+			prest.setString(3, merId);
+			if(prest.executeUpdate()>=1) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+	
+	public boolean hasMerchandiseDetail(String merId) {
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "SELECT * FROM receipt_detail WHERE merchandise_id = ?";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			prest.setString(1, merId);
+			ResultSet rs = prest.executeQuery();
+			return rs.next();
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+	
 	public static int compareInventory(String merId) {
 		int quantity = 0;
 		try {
@@ -228,19 +298,23 @@ public class ReceiptDetailDAL {
 		return quantity;
 	}
 	
-	public boolean deleteOrder(String id) {
+	
+	//Lấy số lượng merchandise có trong receiptDetail
+	public int getMerchandiseQuantity(String merId) {
+		int quantity = 0;
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "DELETE FROM receipt WHERE id = ?";
+			sql = "SELECT quantity FROM receipt_detail WHERE merchandise_id = ?";
 			PreparedStatement prest = conn.prepareStatement(sql);
-			prest.setString(1, id);
-			if(prest.executeUpdate()>=1) {
-				return true;
-			} else return false;
+			prest.setString(1,merId);
+			ResultSet rs = prest.executeQuery();
+			if(rs.next()) {
+				quantity = rs.getInt("quantity");
+			}
 		} catch(Exception ex) {
 			ex.printStackTrace();
-			return false;
 		}
+		return quantity;
 	}
 }

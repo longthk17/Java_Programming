@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class Receipt {
 	String id;
-	Employee employeeId;
-	Customer customerId;
+	String employeeId;
+	String customerId;
 	Date createDate, updateDate;
 	
 	ArrayList<ReceiptDetail> receiptDetail = new ArrayList<ReceiptDetail>();
@@ -15,7 +15,7 @@ public class Receipt {
 		
 	}
 
-	public Receipt(String id, Employee employeeId, Customer customerId, Date createDate, Date updateDate) {
+	public Receipt(String id, String employeeId, String customerId, Date createDate, Date updateDate) {
 		this.id = id;
 		this.employeeId = employeeId;
 		this.customerId = customerId;
@@ -31,19 +31,19 @@ public class Receipt {
 		this.id = id;
 	}
 
-	public Employee getEmployeeId() {
+	public String getEmployeeId() {
 		return employeeId;
 	}
 
-	public void setEmployeeId(Employee employeeId) {
+	public void setEmployeeId(String employeeId) {
 		this.employeeId = employeeId;
 	}
 
-	public Customer getCustomerId() {
+	public String getCustomerId() {
 		return customerId;
 	}
 
-	public void setCustomerId(Customer customerId) {
+	public void setCustomerId(String customerId) {
 		this.customerId = customerId;
 	}
 

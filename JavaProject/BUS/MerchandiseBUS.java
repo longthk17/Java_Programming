@@ -39,6 +39,15 @@ public class MerchandiseBUS {
 			return "Xóa thất bại";
 		}
 	}
+	
+	public boolean updateMerchandiseFromDetail(String merId, int quantity) {
+		if(merDAL.updateMerchandiseFromDetail(merId, quantity)) {
+			if(merDAL.getMerchandiseQuantity(merId) == 0) {
+				merDAL.deleteMerchandise(merId);
+			}
+			return true;
+		} else return false;
+	}
 
 }
 

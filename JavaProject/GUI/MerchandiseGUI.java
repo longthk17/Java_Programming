@@ -197,7 +197,7 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 					String quantity = tfQuantity.getText();
 					mer.setQuantity(Integer.parseInt(quantity));
 					String price = tfPrice.getText();
-					mer.setPrice(Float.parseFloat(price));
+					mer.setPrice(Long.parseLong(price));
 					JOptionPane.showMessageDialog(this, merBUS.addMerchandise(mer));
 					tfID.setText("");
 					tfProducer.setText("");
@@ -224,7 +224,7 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 					String quantity = tfQuantity.getText();
 					mer.setQuantity(Integer.parseInt(quantity));
 					String price = tfPrice.getText();
-					mer.setPrice(Float.parseFloat(price));
+					mer.setPrice(Long.parseLong(price));
 					JOptionPane.showMessageDialog(this, merBUS.updateMerchandise(mer));
 					loadMerchandiseList();
 					tfID.setText("");

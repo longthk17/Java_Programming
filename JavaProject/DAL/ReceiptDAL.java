@@ -2,15 +2,44 @@ package DAL;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import DTO.Employee;
+import DTO.Receipt;
 import Utils.Date;
 import Utils.MySQLConnUtils;
 
 public class ReceiptDAL {
 	
-	public boolean addOrder(Employee emp, String cusId, String recId) {
+	public ArrayList<Receipt> getAllReceipt() {
+		ArrayList<Receipt> recList = new ArrayList<>();
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "SELECT receipt.id, employee.fullName, customer.fullName, receipt.create_date, receipt.update_date "
+					+ "FROM receipt "
+					+ "INNER JOIN employee ON employee.id = receipt.employee_id "
+					+ "INNER JOIN customer ON customer.id = receipt.customer_id";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			ResultSet rs = prest.executeQuery();
+			while(rs.next()) {
+				String id = rs.getString(1);
+				String empName = rs.getString(2);
+				String cusName = rs.getString(3);
+				java.sql.Date createDate = rs.getDate(4);
+				java.sql.Date updateDate = rs.getDate(5);
+				Receipt rec = new Receipt(id,empName,cusName,createDate,updateDate);
+				recList.add(rec);
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return recList;
+	}
+	
+	public boolean addReceipt(Employee emp, String cusId, String recId) {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			conn.setAutoCommit(false);
@@ -42,7 +71,8 @@ public class ReceiptDAL {
 		}
 	}
 	
-	public boolean deleteOrder(String id) {
+	
+	public boolean deleteReceipt(String id) {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;

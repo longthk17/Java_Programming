@@ -7,10 +7,16 @@ import DTO.Customer;
 import DTO.Employee;
 import DTO.Merchandise;
 import DTO.Receipt;
+import DTO.ReceiptDetail;
 
 public class ReceiptDetailBUS {
 
 	ReceiptDetailDAL recDetailDAL = new ReceiptDetailDAL();
+	
+	public ArrayList<ReceiptDetail> getReceiptDetailById(String recId) {
+		return recDetailDAL.getReceiptDetailById(recId);
+	}
+	
 	public ArrayList<Customer> getAllCustomer() {
 		return recDetailDAL.getAllCustomer();
 	}
@@ -39,12 +45,25 @@ public class ReceiptDetailBUS {
 		}
 	}
 	
-	public boolean deleteOrder(String id) {
-		if(recDetailDAL.deleteOrder(id)) {
-			return true;
+	public String insertDetail(String merId, String recId, int quantity, long amount) {
+		if(recDetailDAL.hasMerchandiseDetail(merId)) {
+			
+			if(recDetailDAL.updateDetail(merId, quantity, amount)) {
+				return "Thêm thành công";
+			} else {
+				return "Thêm thất bại";
+			}
 		} else {
-			return false;
+			if(recDetailDAL.insertDetail(merId, recId, quantity, amount)) {
+				return "Thêm thành công";
+			} else {
+				return "Thêm thất bại";
+			}	
 		}
+	}
+	
+	public int getMerchandiseQuantity(String merId) {
+		return recDetailDAL.getMerchandiseQuantity(merId);
 	}
 	
 	public int compareInventory(String merId) {

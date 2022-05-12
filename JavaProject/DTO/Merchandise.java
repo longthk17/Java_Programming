@@ -5,14 +5,14 @@ import java.sql.Date;
 public class Merchandise {
 	String id, producer, merchandiseName;
 	int quantity;
-	float price;
+	long price;
 	Date createDate, updateDate;
 	
 	public Merchandise() {
 		
 	}
 
-	public Merchandise(String id, String producer, String merchandiseName, int quantity, float price,
+	public Merchandise(String id, String producer, String merchandiseName, int quantity, long price,
 			Date createDate, Date updateDate) {
 		this.id = id;
 		this.producer = producer;
@@ -55,11 +55,11 @@ public class Merchandise {
 		this.quantity = quantity;
 	}
 
-	public float getPrice() {
+	public long getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(long price) {
 		this.price = price;
 	}
 

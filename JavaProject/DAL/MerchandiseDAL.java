@@ -27,7 +27,7 @@ public class MerchandiseDAL {
 				String merchandisename = rs.getString("merchandiseName");
 				String producer = rs.getString("producer");
 				int quantity = rs.getInt("quantity");
-				float price = rs.getInt("price");
+				long price = rs.getInt("price");
 				java.sql.Date createDate = rs.getDate("create_date");
 				java.sql.Date updateDate = rs.getDate("update_date");
 				Merchandise mer = new Merchandise(id, producer, merchandisename, quantity, price,createDate,updateDate);
@@ -49,7 +49,7 @@ public class MerchandiseDAL {
 			prest.setString(2, mer.getMerchandiseName());
 			prest.setString(3, mer.getProducer());
 			prest.setInt(4, mer.getQuantity());
-			prest.setFloat(5, mer.getPrice());
+			prest.setLong(5, mer.getPrice());
 			java.sql.Date date = Date.getCurrentDatetime();
 			prest.setDate(6, date);
 			prest.setDate(7, null);
@@ -72,7 +72,7 @@ public class MerchandiseDAL {
 			prest.setString(1, mer.getProducer());
 			prest.setString(2, mer.getMerchandiseName());
 			prest.setInt(3, mer.getQuantity());
-			prest.setFloat(4, mer.getPrice());
+			prest.setLong(4, mer.getPrice());
 			java.sql.Date date = Date.getCurrentDatetime();
 			prest.setDate(5, date);
 			prest.setString(6, mer.getId());
@@ -80,6 +80,43 @@ public class MerchandiseDAL {
 				return true;
 			} else return false;
 		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
+	
+	//lấy số lượng merchandise có trong DB
+	public int getMerchandiseQuantity(String merId) {
+		int quantity = 0;
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "SELECT quantity FROM merchandise WHERE id = ?";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			prest.setString(1, merId);
+			ResultSet rs = prest.executeQuery();
+			if(rs.next()) {
+				quantity = rs.getInt("quantity");
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return quantity;
+	}
+	
+	public boolean updateMerchandiseFromDetail(String merId, int quantity) {
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "UPDATE merchandise SET quantity = ? WHERE id = ?";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			int newQuant = getMerchandiseQuantity(merId) - quantity;
+			prest.setInt(1, newQuant);
+			prest.setString(2, merId);
+			if(prest.executeUpdate()>=1) {
+				return true;
+			} else return false;
+		} catch(Exception ex) {
 			ex.printStackTrace();
 			return false;
 		}

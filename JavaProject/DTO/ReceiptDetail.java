@@ -1,15 +1,17 @@
 package DTO;
 
+import java.util.UUID;
+
 public class ReceiptDetail {
 	int quantity;
-	float amount, price;
-	String id, merchandiseName, producer, merchandiseId, receiptId;
+	long amount, price;
+	String merchandiseName, producer, merchandiseId, receiptId, id;
 	
 	public ReceiptDetail() {
 		
 	}
 
-	public ReceiptDetail(String id, int quantity, float amount, float price, String merchandiseId, String receiptId, String merchandiseName, String producer) {
+	public ReceiptDetail(String id, int quantity, long amount, long price, String merchandiseId, String receiptId, String merchandiseName, String producer) {
 		this.id = id;
 		this.quantity = quantity;
 		this.amount = amount;
@@ -36,11 +38,11 @@ public class ReceiptDetail {
 		this.quantity = quantity;
 	}
 
-	public float getAmount() {
+	public long getAmount() {
 		return amount;
 	}
 
-	public void setAmount(float amount) {
+	public void setAmount(long amount) {
 		this.amount = amount;
 	}
 
@@ -76,11 +78,11 @@ public class ReceiptDetail {
 		this.producer = producer;
 	}
 
-	public float getPrice() {
+	public long getPrice() {
 		return price;
 	}
 
-	public void setPrice(float price) {
+	public void setPrice(long price) {
 		this.price = price;
 	}
 		
