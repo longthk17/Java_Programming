@@ -30,24 +30,25 @@ import javax.swing.border.EmptyBorder;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import javax.swing.JComboBox;
 
-public class Receipt1GUI extends JFrame {
+public class Receipt1GUI extends JFrame implements ActionListener{
 
 	private JPanel pn;
-	private JLabel lb_1, lbtthd, lbshd, lbnl, lbtkh, lbckh, lbdcll, 
-	lb_msp, lb_tsp, lb_nh, lb_sl, lb_tt, lb_tkt, lb_td, lb_shd, lb_nl;
-	private JTextField textField_1, txtTmKimSn;
-	private JButton btaddkh, btfind, bt_addhd, bt_check, bt_can;
+	private JLabel lb_1, lbshd, lbnl, lbtkh, lbdcll, 
+	lb_msp, lb_tsp, lb_nh, lb_sl, lb_tt, lb_shd, 
+	lb_nl, lb_slt, lbb_slt, lb_csp;
+	private JButton bt_addhd, bt_check, bt_can;
 	private JSpinner spinner;
+	private JComboBox comboBoxMer;
 	DefaultTableModel model = new DefaultTableModel();
 	JTable tb = new JTable(model);
-	
+
 	String curMhd;
-	
 	
 	public void date() {
 		Date thisDate = new Date();
-		SimpleDateFormat dateForm = new SimpleDateFormat("MM/dd/Y");
+		SimpleDateFormat dateForm = new SimpleDateFormat("dd/MM/Y");
 		lb_nl.setText(dateForm.format(thisDate));
 	
 	}
@@ -55,15 +56,12 @@ public class Receipt1GUI extends JFrame {
 	public Receipt1GUI(String mhd) {
 		this.curMhd = mhd;
 		initGUI();
-		//date();
+		date();
 	}
 	
-	
-	
 	private void initGUI() {
-		setTitle("RECEIPT");
-		initComponents();
-		
+		setTitle("");
+		initComponents();	
 		setBounds(0,0,1050,630);
 		getContentPane().setLayout(null);
 		setResizable(false);
@@ -80,115 +78,88 @@ public class Receipt1GUI extends JFrame {
 		
 		lb_1 = new JLabel("RECEIPT");
 		lb_1.setFont(new Font("Times New Roman", Font.BOLD, 24));
-		lb_1.setBounds(459, 10, 114, 29);
-		
-		lbtthd = new JLabel("Th\u00F4ng tin h\u00F3a \u0111\u01A1n");
-		lbtthd.setFont(new Font("Times New Roman", Font.BOLD, 18));
-		lbtthd.setBounds(52, 45, 154, 20);
+		lb_1.setBounds(461, 20, 114, 29);
 		
 		lbshd = new JLabel("ID Receit: ");
-		lbshd.setBounds(102, 89, 83, 20);
-		lbshd.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		lbshd.setBounds(99, 69, 118, 20);
+		lbshd.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
 		lb_shd = new JLabel("");
-		lb_shd.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lb_shd.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		lb_shd.setText(curMhd);
-		lb_shd.setBounds(223, 84, 85, 29);
-		
+		lb_shd.setBounds(258, 65, 114, 29);
 		
 		lbnl = new JLabel("Date founded:");
-		lbnl.setBounds(102, 119, 98, 20);
-		lbnl.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		lbnl.setBounds(99, 105, 118, 20);
+		lbnl.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
 		lb_nl = new JLabel("");
-		lb_nl.setBounds(244, 115, 134, 29);
-		lb_nl.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		lb_nl.setBounds(258, 101, 134, 29);
+		lb_nl.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
 		lbtkh = new JLabel("Customer:");
-		lbtkh.setBounds(102, 149, 119, 20);
-		lbtkh.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		
-		lbckh = new JLabel("Choose Customer:");
-		lbckh.setBounds(102, 179, 134, 20);
-		lbckh.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		lbtkh.setBounds(99, 140, 119, 20);
+		lbtkh.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
 		lbdcll = new JLabel("Contact Address:");
-		lbdcll.setBounds(102, 209, 119, 20);
-		lbdcll.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		lbdcll.setBounds(99, 178, 141, 20);
+		lbdcll.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(238, 149, 174, 19);
-		textField_1.setColumns(10);
+		lb_csp = new JLabel("Choose Merchandise:");
+		lb_csp.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		lb_csp.setBounds(511, 69, 175, 20);
 		
-		/*Choice choice_1 = new Choice();
-		choice_1.setBounds(238, 181, 174, 18);
-		add(choice_1);*/
-		
-		btaddkh = new JButton("Add");
-		btaddkh.setBounds(422, 149, 68, 21);
-		btaddkh.setBackground(Color.decode("#A7C4BC"));
-		btaddkh.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		
-		txtTmKimSn = new JTextField();
-		txtTmKimSn.setBounds(628, 89, 195, 19);
-		txtTmKimSn.setText("T\u00ECm ki\u1EBFm s\u1EA3n ph\u1EA9m");
-		txtTmKimSn.setColumns(10);
-		
-		btfind = new JButton("Search");
-		btfind.setBounds(850, 88, 77, 21);
-		btfind.setBackground(Color.decode("#A7C4BC"));
-		btfind.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		comboBoxMer = new JComboBox();
+		comboBoxMer.setBounds(696, 64, 255, 22);
 		
 		lb_msp = new JLabel("ID: ");
-		lb_msp.setBounds(573, 119, 98, 20);
-		lb_msp.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		lb_msp.setBounds(512, 105, 46, 20);
+		lb_msp.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		
+		lb_slt = new JLabel("Quantity In Stock:");
+		lb_slt.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		lb_slt.setBounds(726, 215, 154, 20);
+		
+		lbb_slt = new JLabel("//");
+		lbb_slt.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		lbb_slt.setBounds(892, 215, 46, 20);
 		
 		lb_tsp = new JLabel("Merchandise Name:");
-		lb_tsp.setBounds(573, 149, 154, 20);
-		lb_tsp.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		lb_tsp.setBounds(512, 140, 163, 20);
+		lb_tsp.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
 		lb_nh = new JLabel("Producer:");
-		lb_nh.setBounds(573, 179, 85, 20);
-		lb_nh.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		lb_nh.setBounds(511, 178, 85, 20);
+		lb_nh.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
 		lb_sl = new JLabel("Quantity:");
-		lb_sl.setBounds(573, 209, 68, 20);
-		lb_sl.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		lb_sl.setBounds(511, 215, 85, 20);
+		lb_sl.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
 		spinner = new JSpinner();
-		spinner.setBounds(670, 211, 46, 20);
+		spinner.setBounds(597, 215, 46, 20);
 		
 		bt_addhd = new JButton("Add To Receipt");
-		bt_addhd.setBounds(775, 229, 167, 32);
+		bt_addhd.setBounds(771, 245, 167, 32);
 		bt_addhd.setBackground(Color.decode("#A7C4BC"));
-		bt_addhd.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		bt_addhd.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		bt_addhd.addActionListener(this);
 		
 		lb_tt = new JLabel("Total Price:");
-		lb_tt.setBounds(388, 504, 119, 20);
-		lb_tt.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		
-		lb_tkt = new JLabel("Ti\u1EC1n kh\u00E1ch tr\u1EA3: ");
-		lb_tkt.setBounds(597, 504, 119, 20);
-		lb_tkt.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		
-		lb_td = new JLabel("Ti\u1EC1n d\u01B0:");
-		lb_td.setBounds(823, 504, 119, 20);
-		lb_td.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		lb_tt.setBounds(713, 481, 119, 20);
+		lb_tt.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
 		bt_check = new JButton("Checkout");
-		bt_check.setBounds(833, 534, 114, 36);
-		bt_check.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		bt_check.setBounds(843, 511, 114, 36);
+		bt_check.setFont(new Font("Times New Roman", Font.BOLD, 16));
 		bt_check.setBackground(Color.decode("#A7C4BC"));
+		bt_check.addActionListener(this);
 		
 		bt_can = new JButton("Cancel");
-		bt_can.setBounds(732, 534, 88, 36);
-		bt_can.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		bt_can.setBounds(723, 511, 109, 36);
+		bt_can.setFont(new Font("Times New Roman", Font.BOLD, 16));
 		bt_can.setBackground(Color.decode("#A7C4BC"));
-		bt_can.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				bt_canActionPerformed(e);
-			}
-		});
+		bt_can.addActionListener(this);
 		
 		model.addColumn("STT");
 		model.addColumn("ID Receipt");
@@ -199,23 +170,17 @@ public class Receipt1GUI extends JFrame {
 		model.addColumn("Total");
 		
 		JScrollPane spp = new JScrollPane(tb);
-		spp.setBounds(102, 271, 842, 202);
+		spp.setBounds(86, 291, 871, 180);
 		
 		
 		getContentPane().add(pn);
 		pn.add(lb_1);
-		pn.add(lbtthd);
 		pn.add(lbshd);
 		pn.add(lb_shd);
 		pn.add(lbnl);
 		pn.add(lb_nl);
 		pn.add(lbtkh);
-		pn.add(lbckh);
 		pn.add(lbdcll);
-		pn.add(textField_1);
-		pn.add(btaddkh);
-		pn.add(txtTmKimSn);
-		pn.add(btfind);
 		pn.add(lb_msp);
 		pn.add(lb_tsp);
 		pn.add(lb_nh);
@@ -223,20 +188,23 @@ public class Receipt1GUI extends JFrame {
 		pn.add(spinner);
 		pn.add(bt_addhd);
 		pn.add(lb_tt);
-		pn.add(lb_tkt);
-		pn.add(lb_td);
 		pn.add(bt_check);
 		pn.add(bt_can);
 		pn.add(spp);
-		
-		
-		
+		pn.add(lb_slt);	
+		pn.add(lbb_slt);
+		pn.add(comboBoxMer);
+		pn.add(lb_csp);
+
 	}
 
-	private void bt_canActionPerformed(ActionEvent e) {
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
 		if(e.getSource() == bt_can) {
 			dispose();
 		}
+		
 	}
-
 }
