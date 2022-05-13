@@ -123,7 +123,7 @@ public class ReceiptGUI extends JPanel implements ActionListener {
 		for(int i = 0; i < cusData.size(); i++) {
 			cbCus.addItem(cusData.get(i).getFullName());
 		}
-		cbCus.setBounds(100, 300, 174, 19);
+		cbCus.setBounds(779, 134, 234, 26);
 		cbCus.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
@@ -157,7 +157,7 @@ public class ReceiptGUI extends JPanel implements ActionListener {
 			
 		add(lb_1);
 		add(lb_cus);
-		add(comboBoxCus);
+//		add(comboBoxCus);
 		add(lb_mhd);
 		add(lbb_mhd);
 		add(sp);
