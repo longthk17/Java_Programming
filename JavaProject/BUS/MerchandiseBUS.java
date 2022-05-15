@@ -3,6 +3,7 @@ package BUS;
 import java.util.ArrayList;
 
 import DAL.MerchandiseDAL;
+import DTO.Employee;
 import DTO.Merchandise;
 
 public class MerchandiseBUS {
@@ -20,6 +21,10 @@ public class MerchandiseBUS {
 		} else {
 			return "Thêm Thất Bại";
 		}
+	}
+
+	public Merchandise getByMerchandiseName(String name) {
+		return merDAL.getByMerchandiseName(name);
 	}
 		
 	public String updateMerchandise(Merchandise mer) {
@@ -39,6 +44,19 @@ public class MerchandiseBUS {
 			return "Xóa thất bại";
 		}
 	}
+	
+	public ArrayList<Merchandise> getByIdSearch(String id) {
+		return merDAL.getByIdSearch(id);
+	}
+	
+	public ArrayList<Merchandise> getByFullNameSearch(String name) {
+		return merDAL.getByFullNameSearch(name);
+	}
+	
+	public ArrayList<Merchandise> getByProducerSearch(String name) {
+		return merDAL.getByProducerSearch(name);
+	}
+
 	
 	public boolean updateMerchandiseFromDetail(String merId, int quantity) {
 		if(merDAL.updateMerchandiseFromDetail(merId, quantity)) {

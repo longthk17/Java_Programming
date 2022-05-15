@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -24,14 +25,20 @@ import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.awt.event.ActionEvent;
 
 public class MerchandiseGUI extends JPanel implements ActionListener{
 
-	private JLabel lbTitle, lbID, lbID_Name, lbProducer, lbMerchandise_Name, lbQuantity, lbPrice;
-	private JTextField tfID, tfProducer, tfMerchandise_Name, tfQuantity, tfPrice;
-	private JButton btnAdd, btnUp, btnDel;
+	private JLabel lbTitle, lbID, lbID_Name, lbProducer, lbMerchandise_Name, lbQuantity, lbPrice, lbSearch;
+	private JTextField tfID, tfMerchandise_Name, tfQuantity, tfPrice, toolSearch;
+	private JButton btnAdd, btnUp, btnDel, btnClear;
+	
+	private JComboBox cbProducer;
+	String producer[] = {"Asus", "MacBook", "HP", "Lenovo", "Acer", "Dell", "MSI", "Intel"};
+	
 	DefaultTableModel model = new DefaultTableModel();
 	JTable tb = new JTable(model);
 	
@@ -54,7 +61,28 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 	private void initComponents() {
 		lbTitle = new JLabel("Merchandise");
 		lbTitle.setFont(new Font("AddElectricCity", Font.BOLD, 30));
-		lbTitle.setBounds(415, 15, 303, 50);
+		lbTitle.setBounds(20, 15, 250, 30);
+		
+		toolSearch = new JTextField();
+		toolSearch.setBounds(300, 15, 400, 25);
+		toolSearch.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				String nameSearch = toolSearch.getText();
+				if(nameSearch.equals("")) {
+					loadMerchandiseList();
+				} else {
+					loadMerchandiseListSearch(nameSearch);
+				}
+			}
+			
+		});
+		
+		lbSearch = new JLabel();
+		lbSearch.setIcon(new ImageIcon(this.getClass().getResource("/images/magnifier.png")));
+		lbSearch.setBounds(710, -20, 100, 100);
 		
 		lbID = new JLabel("ID");
 		lbID.setVerticalAlignment(SwingConstants.TOP);
@@ -68,11 +96,10 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 		lbProducer = new JLabel("Producer");
 		lbProducer.setVerticalAlignment(SwingConstants.TOP);
 		lbProducer.setFont(new Font("Verdana", Font.BOLD, 15));
-		lbProducer.setBounds(680, 103, 74, 25);
+		lbProducer.setBounds(375, 103, 74, 25);
 		
-		tfProducer = new JTextField();
-		tfProducer.setColumns(10);
-		tfProducer.setBounds(785, 103, 150, 25);
+		cbProducer = new JComboBox(producer);
+		cbProducer.setBounds(486, 103, 150, 25);
 		
 		lbMerchandise_Name = new JLabel("Merchandise Name");
 		lbMerchandise_Name.setVerticalAlignment(SwingConstants.TOP);
@@ -95,11 +122,11 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 		lbPrice = new JLabel("Price");
 		lbPrice.setVerticalAlignment(SwingConstants.TOP);
 		lbPrice.setFont(new Font("Verdana", Font.BOLD, 15));
-		lbPrice.setBounds(707, 171, 47, 25);
+		lbPrice.setBounds(680, 103, 74, 25);
 		
 		tfPrice = new JTextField();
 		tfPrice.setColumns(10);
-		tfPrice.setBounds(785, 171, 150, 25);
+		tfPrice.setBounds(785, 103, 150, 25);
 		
 		btnAdd = new JButton("Add");
 		btnAdd.setFont(new Font("Keyes", Font.BOLD, 20));
@@ -122,6 +149,14 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 		btnDel.setBounds(695, 248, 150, 50);
 		btnDel.addActionListener(this);
 		
+		btnClear = new JButton("Clear");
+		btnClear.setFont(new Font("Keyes", Font.BOLD,15));
+		btnClear.setFocusable(false);
+		btnClear.setBackground(Color.decode("#A7C4BC"));
+		btnClear.setBounds(800,172,150,50);
+		btnClear.addActionListener(this);
+		
+		
 		model.addColumn("ID");
 		model.addColumn("Merchandise Name");
 		model.addColumn("Producer");
@@ -133,10 +168,12 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 			public void mouseClicked(MouseEvent evt) {
 				tfID.setEditable(false);
 				int i = tb.getSelectedRow();
+				Locale localeEN = new Locale("en", "EN");
+			    NumberFormat en = NumberFormat.getInstance(localeEN);
 				if(i>=0) {
 					tfID.setText(model.getValueAt(i, 0).toString());
 					tfMerchandise_Name.setText(model.getValueAt(i, 1).toString());
-					tfProducer.setText(model.getValueAt(i, 2).toString());
+					cbProducer.setSelectedItem(model.getValueAt(i, 2).toString());
 					tfQuantity.setText(model.getValueAt(i, 3).toString());
 					tfPrice.setText(model.getValueAt(i, 4).toString());
 				}
@@ -147,10 +184,12 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 		
 
 		add(lbTitle);
+		add(lbSearch);
+		add(toolSearch);
 		add(lbID);
 		add(tfID);
 		add(lbProducer);
-		add(tfProducer);
+		add(cbProducer);
 		add(lbMerchandise_Name);
 		add(tfMerchandise_Name);
 		add(lbQuantity);
@@ -160,13 +199,38 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 		add(btnAdd);
 		add(btnUp);
 		add(btnDel);
+		add(btnClear);
 		add(sp);
 	}
 	
 	public void loadMerchandiseList() {
 		model.setRowCount(0);
+		Locale localeEN = new Locale("en", "EN");
+	    NumberFormat en = NumberFormat.getInstance(localeEN);
 		ArrayList<Merchandise> arr = new ArrayList<Merchandise>();
 		arr = merBUS.getAllMerchandise();
+		for(int i=0; i < arr.size(); i++) {
+			Merchandise mer = arr.get(i);
+			String id = mer.getId();
+			String producer = mer.getProducer();
+			String merchandiseName = mer.getMerchandiseName();
+			int quantity = mer.getQuantity();
+			String price = en.format(mer.getPrice()) + " VND";
+			Object[] row = {id, merchandiseName, producer, quantity, price};
+			model.addRow(row);
+		}
+	}
+	
+	public void loadMerchandiseListSearch(String nameSearch) {
+		model.setRowCount(0);
+		ArrayList<Merchandise> arr = new ArrayList<Merchandise>();
+		if(!merBUS.getByFullNameSearch(nameSearch).isEmpty()) {
+			arr = merBUS.getByFullNameSearch(nameSearch);
+		} else if(!merBUS.getByProducerSearch(nameSearch).isEmpty()) {
+			arr = merBUS.getByProducerSearch(nameSearch);
+		} else if(!merBUS.getByIdSearch(nameSearch).isEmpty()) {
+			arr = merBUS.getByIdSearch(nameSearch);
+		}
 		for(int i=0; i < arr.size(); i++) {
 			Merchandise mer = arr.get(i);
 			String id = mer.getId();
@@ -179,6 +243,8 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 		}
 	}
 	
+	
+	
 	public boolean checkNull(String string) {
 		if(string != null && !string.trim().equals("")) {
 			return true;
@@ -189,10 +255,10 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 		if(e.getSource() == btnAdd) {
 			try {
 				tfID.setEditable(true);
-				if(checkNull(tfID.getText()) && checkNull(tfProducer.getText()) && checkNull(tfMerchandise_Name.getText()) && checkNull(tfQuantity.getText()) && checkNull(tfPrice.getText())) {
+				if(checkNull(tfID.getText()) && checkNull((String) cbProducer.getSelectedItem()) && checkNull(tfMerchandise_Name.getText()) && checkNull(tfQuantity.getText()) && checkNull(tfPrice.getText())) {
 					Merchandise mer = new Merchandise();
 					mer.setId(tfID.getText());
-					mer.setProducer(tfProducer.getText());
+					mer.setProducer((String) cbProducer.getSelectedItem());
 					mer.setMerchandiseName(tfMerchandise_Name.getText());
 					String quantity = tfQuantity.getText();
 					mer.setQuantity(Integer.parseInt(quantity));
@@ -200,7 +266,6 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 					mer.setPrice(Long.parseLong(price));
 					JOptionPane.showMessageDialog(this, merBUS.addMerchandise(mer));
 					tfID.setText("");
-					tfProducer.setText("");
 					tfMerchandise_Name.setText("");
 					tfQuantity.setText("");
 					tfPrice.setText("");
@@ -216,10 +281,10 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 		
 		if(e.getSource() == btnUp) {
 			try {
-				if(checkNull(tfID.getText()) && checkNull(tfProducer.getText()) && checkNull(tfMerchandise_Name.getText()) && checkNull(tfQuantity.getText()) && checkNull(tfPrice.getText())) {
+				if(checkNull(tfID.getText()) && checkNull((String) cbProducer.getSelectedItem()) && checkNull(tfMerchandise_Name.getText()) && checkNull(tfQuantity.getText()) && checkNull(tfPrice.getText())) {
 					Merchandise mer = new Merchandise();
 					mer.setId(tfID.getText());
-					mer.setProducer(tfProducer.getText());
+					mer.setProducer((String) cbProducer.getSelectedItem());
 					mer.setMerchandiseName(tfMerchandise_Name.getText());
 					String quantity = tfQuantity.getText();
 					mer.setQuantity(Integer.parseInt(quantity));
@@ -228,16 +293,15 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 					JOptionPane.showMessageDialog(this, merBUS.updateMerchandise(mer));
 					loadMerchandiseList();
 					tfID.setText("");
-					tfProducer.setText("");
 					tfMerchandise_Name.setText("");
 					tfQuantity.setText("");
 					tfPrice.setText("");
 				} else {
-					JOptionPane.showMessageDialog(this, "Vui lĂ²ng nháº­p Ä‘á»§ thĂ´ng tin");
+					JOptionPane.showMessageDialog(this, "Vui lòng nhập thông tin");
 				}
 			} catch(Exception ex) {
 				ex.printStackTrace();
-				JOptionPane.showMessageDialog(this, "ThĂ´ng tin khĂ´ng há»£p lá»‡");
+				JOptionPane.showMessageDialog(this, "Thông tin không hợp lệ");
 			}
 		}
 		if(e.getSource() == btnDel) {
@@ -248,7 +312,6 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 				JOptionPane.showMessageDialog(this, "Xóa thành công");
 				loadMerchandiseList();
 				tfID.setText("");
-				tfProducer.setText("");
 				tfMerchandise_Name.setText("");
 				tfQuantity.setText("");
 				tfPrice.setText("");
@@ -257,14 +320,12 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 			}
 		}
 		
-		/*if(e.getSource() == btnClear) {
+		if(e.getSource() == btnClear) {
 			tfID.setText("");
-			tfID_Name.setText("");
-			tfProducer.setText("");
 			tfMerchandise_Name.setText("");
 			tfQuantity.setText("");
 			tfPrice.setText("");
-		}*/
+		}
 		
 	}
 	

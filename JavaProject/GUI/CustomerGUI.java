@@ -54,7 +54,6 @@ public class CustomerGUI extends JPanel implements ActionListener {
 	}
 	
 	private void initComponents() {
-		
 		lbTitle = new JLabel("Customer:");
 		lbTitle.setFont(new Font("AddElectricCity", Font.BOLD,30));
 		lbTitle.setBounds(20, 15, 250, 30);
@@ -293,6 +292,7 @@ public class CustomerGUI extends JPanel implements ActionListener {
 					cus.setGender(gender);
 					
 					cus.setAddress(tfAddress.getText());
+					cus.setEmail(tfEmail.getText());
 					JOptionPane.showMessageDialog(this, cusBUS.updateCustomer(cus));
 					tfId.setText("");
 					tfName.setText("");
@@ -312,8 +312,7 @@ public class CustomerGUI extends JPanel implements ActionListener {
 			int i = tb.getSelectedRow();
 			String id = (String) model.getValueAt(i, 0);
 			if(i>=0) {
-				cusBUS.deleterCustomer(id);
-				JOptionPane.showMessageDialog(this, "Xóa thành công");
+				JOptionPane.showMessageDialog(this, cusBUS.deleterCustomer(id));
 				loadCustomerList();
 				tfId.setText("");
 				tfName.setText("");

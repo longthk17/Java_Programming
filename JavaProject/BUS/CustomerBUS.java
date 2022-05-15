@@ -2,8 +2,10 @@ package BUS;
 
 import java.util.ArrayList;
 
+
 import DAL.CustomerDAL;
 import DTO.Customer;
+import DAL.ReceiptDetailDAL;
 
 public class CustomerBUS {
 
@@ -18,6 +20,10 @@ public class CustomerBUS {
 	
 	public ArrayList<Customer> getByIdSearch(String id) {
 		return cusDAL.getByIdSearch(id);
+	}
+	
+	public Customer getByFullName(String fullName) {
+		return cusDAL.getByFullName(fullName);
 	}
 	
 	public ArrayList<Customer> getByPhoneSearch(String phone) {

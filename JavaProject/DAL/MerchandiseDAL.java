@@ -39,6 +39,109 @@ public class MerchandiseDAL {
 		return merList;
 	}
 	
+	public static Merchandise getByMerchandiseName(String name) {
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "SELECT * FROM merchandise WHERE merchandiseName = ?";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			prest.setString(1, name);
+			ResultSet rs = prest.executeQuery();
+			if(rs.next()) {
+				Merchandise mer = new Merchandise();
+				mer.setId(rs.getString("id"));
+				mer.setMerchandiseName(rs.getString("merchandiseName"));
+				mer.setProducer(rs.getString("producer"));
+				mer.setQuantity(rs.getInt("quantity"));
+				mer.setPrice(rs.getLong("price"));
+				mer.setCreateDate(rs.getDate("create_date"));
+				mer.setUpdateDate(rs.getDate("update_date"));
+				return mer;
+			} else return null;
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static ArrayList<Merchandise> getByFullNameSearch(String name) {
+		ArrayList<Merchandise> merList = new ArrayList<>();
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "SELECT * FROM merchandise WHERE merchandiseName = ?";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			prest.setString(1, name);
+			ResultSet rs = prest.executeQuery();
+			while(rs.next()) {
+				String id = rs.getString("id");
+				String merchandisename = rs.getString("merchandiseName");
+				String producer = rs.getString("producer");
+				int quantity = rs.getInt("quantity");
+				long price = rs.getInt("price");
+				java.sql.Date createDate = rs.getDate("create_date");
+				java.sql.Date updateDate = rs.getDate("update_date");
+				Merchandise mer = new Merchandise(id, producer, merchandisename, quantity, price,createDate,updateDate);
+				merList.add(mer);
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return merList;
+	}
+	
+	public static ArrayList<Merchandise> getByIdSearch(String name) {
+		ArrayList<Merchandise> merList = new ArrayList<>();
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "SELECT * FROM merchandise WHERE id = ?";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			prest.setString(1, name);
+			ResultSet rs = prest.executeQuery();
+			while(rs.next()) {
+				String id = rs.getString("id");
+				String merchandisename = rs.getString("merchandiseName");
+				String producer = rs.getString("producer");
+				int quantity = rs.getInt("quantity");
+				long price = rs.getInt("price");
+				java.sql.Date createDate = rs.getDate("create_date");
+				java.sql.Date updateDate = rs.getDate("update_date");
+				Merchandise mer = new Merchandise(id, producer, merchandisename, quantity, price,createDate,updateDate);
+				merList.add(mer);
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return merList;
+	}
+	
+	public static ArrayList<Merchandise> getByProducerSearch(String name) {
+		ArrayList<Merchandise> merList = new ArrayList<>();
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "SELECT * FROM merchandise WHERE producer = ?";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			prest.setString(1, name);
+			ResultSet rs = prest.executeQuery();
+			while(rs.next()) {
+				String id = rs.getString("id");
+				String merchandisename = rs.getString("merchandiseName");
+				String producer = rs.getString("producer");
+				int quantity = rs.getInt("quantity");
+				long price = rs.getInt("price");
+				java.sql.Date createDate = rs.getDate("create_date");
+				java.sql.Date updateDate = rs.getDate("update_date");
+				Merchandise mer = new Merchandise(id, producer, merchandisename, quantity, price,createDate,updateDate);
+				merList.add(mer);
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return merList;
+	}
+	
 	public boolean addMerchandise(Merchandise mer) {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();

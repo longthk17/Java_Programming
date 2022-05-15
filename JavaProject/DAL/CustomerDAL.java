@@ -40,6 +40,32 @@ public class CustomerDAL {
 		return cusList;
 	}
 	
+	public static Customer getByFullName(String fullName) {
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "SELECT * FROM customer WHERE fullName = ?";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			prest.setString(1, fullName);
+			ResultSet rs = prest.executeQuery();
+			if(rs.next()) {
+				Customer cus = new Customer();
+				cus.setId(rs.getString("id"));
+				cus.setFullName(rs.getString("fullName"));
+				cus.setPhone(rs.getString("phone"));
+				cus.setEmail(rs.getString("email"));
+				cus.setAddress(rs.getString("address"));
+				cus.setGender(rs.getString("gender"));
+				cus.setCreateDate(rs.getDate("create_date"));
+				cus.setUpdateDate(rs.getDate("update_date"));
+				return cus;
+			} else return null;
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
+	
 	public static ArrayList<Customer> getByFullNameSearch(String name) {
 		ArrayList<Customer> cusList = new ArrayList<>();
 		try {
@@ -130,10 +156,10 @@ public class CustomerDAL {
 			PreparedStatement prest = conn.prepareStatement(sql);
 			prest.setString(1, cus.getId());
 			prest.setString(2, cus.getFullName());
-			prest.setString(3, cus.getGender());
-			prest.setString(4, cus.getPhone());
-			prest.setString(5, cus.getEmail());
-			prest.setString(6, cus.getAddress());
+			prest.setString(3, cus.getPhone());
+			prest.setString(4, cus.getEmail());
+			prest.setString(5, cus.getAddress());
+			prest.setString(6, cus.getGender());
 			java.sql.Date date = Date.getCurrentDatetime();
 			prest.setDate(7, date);
 			prest.setDate(8, null);
@@ -190,7 +216,7 @@ public class CustomerDAL {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "SELECT * FROM CustomerDTO WHERE id = '" + id + "'";
+			sql = "SELECT * FROM customer WHERE id = '" + id + "'";
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			return rs.next();

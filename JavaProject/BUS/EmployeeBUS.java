@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import DAL.EmployeeDAL;
 import DTO.Employee;
+import net.sf.jasperreports.engine.JasperPrint;
 
 public class EmployeeBUS {
 	
@@ -28,6 +29,10 @@ public class EmployeeBUS {
 		return empDAL.getByUsername(username);
 	}
 	
+	public Employee getByFullName(String name) {
+		return empDAL.getByFullName(name);
+	}
+	
 	public String addEmployee(Employee emp) {
 		if(empDAL.hasEmployeeID(emp.getId())) {
 			return "Mã NV đã tồn tại";
@@ -46,6 +51,10 @@ public class EmployeeBUS {
 		} else {
 			return "Cập nhật thất bại";
 		}
+	}
+	
+	public JasperPrint printEmployeeReport() {
+		return empDAL.printEmployeeReport();
 	}
 	
 	public String deleteEmployee(String id) {

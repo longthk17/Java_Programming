@@ -30,5 +30,23 @@ public class ReceiptBUS {
 			return false;
 		}
 	}
+	
+	public ArrayList<Receipt> getByIdSearch(String recId) {
+		return recDAL.getByIdSearch(recId);
+	}
+	
+	public ArrayList<Receipt> getByEmployeeDetailSearch(String name) {
+		return recDAL.getByEmployeeDetailSearch(name);
+	}
+	
+	public ArrayList<Receipt> getByCustomerDetailSearch(String name) {
+		return recDAL.getByCustomerDetailSearch(name);
+	}
+	
+	public boolean hasReceiptId(String id) {
+		if(recDAL.hasReceiptId(id)) {
+			return true;
+		} else return false;
+	}
 
 }

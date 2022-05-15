@@ -17,20 +17,8 @@ public class ReceiptDetailBUS {
 		return recDetailDAL.getReceiptDetailById(recId);
 	}
 	
-	public ArrayList<Customer> getAllCustomer() {
-		return recDetailDAL.getAllCustomer();
-	}
-	
-	public ArrayList<Merchandise> getAllMerchandise() {
-		return recDetailDAL.getAllMerchandise();
-	}
-	
-	public Customer getByFullName(String fullName) {
-		return recDetailDAL.getByFullName(fullName);
-	}
-	
-	public Merchandise getByMerchandiseName(String name) {
-		return recDetailDAL.getByMerchandiseName(name);
+	public ReceiptDetail getMerchandiseByDetail(String name) {
+		return recDetailDAL.getMerchandiseByDetail(name);
 	}
 	
 	public String addOrder(Employee emp, Merchandise mer, String cusId, String recId, int quantity) {
@@ -46,9 +34,8 @@ public class ReceiptDetailBUS {
 	}
 	
 	public String insertDetail(String merId, String recId, int quantity, long amount) {
-		if(recDetailDAL.hasMerchandiseDetail(merId)) {
-			
-			if(recDetailDAL.updateDetail(merId, quantity, amount)) {
+		if(recDetailDAL.hasMerchandiseDetail(recId, merId)) {
+			if(recDetailDAL.updateDetail(recId, merId, quantity, amount)) {
 				return "Thêm thành công";
 			} else {
 				return "Thêm thất bại";
@@ -68,5 +55,11 @@ public class ReceiptDetailBUS {
 	
 	public int compareInventory(String merId) {
 		return recDetailDAL.compareInventory(merId);
+	}
+	
+	public boolean deleteDetail(String id) {
+		if(recDetailDAL.deleteDetail(id)) {
+			return true;
+		} else return false;
 	}
 }
