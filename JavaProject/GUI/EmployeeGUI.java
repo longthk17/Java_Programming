@@ -5,6 +5,11 @@ import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.JTextFieldDateEditor;
 
 import DTO.Employee;
+import Utils.MySQLConnUtils;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import BUS.EmployeeBUS;
 
 import java.awt.Dimension;
@@ -18,7 +23,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.EventQueue;
@@ -29,7 +38,7 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 	JComboBox cbType, cbGender;
 	JPanel pn1, pnBtn;
 	JDateChooser calBirth;
-	JButton btnAdd, btnUpd, btnDel, btnClear;
+	JButton btnAdd, btnUpd, btnDel, btnClear, btnPrint;
 	String gender[] = {"Male", "Female"};
 	String type[] = {"Admin","Sale"};
 			
@@ -204,6 +213,13 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 		btnClear.setBounds(755, 160, 100, 30);
 		btnClear.addActionListener(this);
 		
+		btnPrint = new JButton("Print");
+		btnPrint.setFont(new Font("Keyes", Font.BOLD, 15));
+		btnPrint.setFocusable(false);
+		btnPrint.setBackground(Color.decode("#A7C4BC"));
+		btnPrint.setBounds(865, 160, 100, 30);
+		btnPrint.addActionListener(this);
+		
 		
 		add(lbTitle);
 		add(toolSearch);
@@ -231,6 +247,7 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 		add(btnUpd);
 		add(btnDel);	
 		add(btnClear);
+		add(btnPrint);
 	}
 	
 	public void loadEmployeeList() {
@@ -367,6 +384,16 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 				JOptionPane.showMessageDialog(this, "Xóa thất bại");
 			}
 		}
+		if(e.getSource() == btnPrint) {
+			JasperPrint jp = empBUS.printEmployeeReport();
+			BufferedImage bufferedImage = null;
+			if(jp != null) {
+				JOptionPane.showMessageDialog(this, "Xuất thành công");
+				JasperViewer.viewReport(jp,false);
+			} else {
+				JOptionPane.showMessageDialog(this, "Xuất thất bại");
+			}
+		}
 		
 		if(e.getSource() == btnClear) {
 			tfId.setText("");
@@ -376,6 +403,5 @@ public class EmployeeGUI extends JPanel implements ActionListener {
 			tfPhone.setText("");
 			tfAddress.setText("");
 		}
-		
 	}
 }

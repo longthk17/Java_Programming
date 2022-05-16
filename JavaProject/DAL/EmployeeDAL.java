@@ -9,6 +9,14 @@ import java.sql.Statement;
 import DTO.Employee;
 import Utils.Hashing;
 import Utils.MySQLConnUtils;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 import Utils.Date;
 
 public class EmployeeDAL {
@@ -46,11 +54,10 @@ public class EmployeeDAL {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "SELECT * FROM employee WHERE username = ?";
-			PreparedStatement prest = conn.prepareStatement(sql);
-			prest.setString(1, name);
-			ResultSet rs = prest.executeQuery();
-			if(rs.next()) {
+			sql = "SELECT * FROM employee WHERE username LIKE '%"+ name +"%'";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
 				String id = rs.getString("id");
 				String fullName = rs.getString("fullName");
 				String username = rs.getString("username");
@@ -70,8 +77,7 @@ public class EmployeeDAL {
 		return empList;
 	}
 	
-	public static ArrayList<Employee> getByFullNameSearch(String name) {
-		ArrayList<Employee> empList = new ArrayList<>();
+	public static Employee getByFullName(String name) {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
@@ -80,6 +86,34 @@ public class EmployeeDAL {
 			prest.setString(1, name);
 			ResultSet rs = prest.executeQuery();
 			if(rs.next()) {
+				Employee emp = new Employee();
+				emp.setId(rs.getString("id"));
+				emp.setFullName(rs.getString("fullName"));
+				emp.setUsername(rs.getString("username"));
+				emp.setPassword(rs.getString("password"));
+				emp.setPhone(rs.getString("phone"));
+				emp.setType(rs.getString("type"));
+				emp.setGender(rs.getString("gender"));
+				emp.setAddress(rs.getString("address"));
+				emp.setCreateDate(rs.getDate("create_date"));
+				emp.setUpdateDate(rs.getDate("update_date"));
+				return emp;
+			} else return null;
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
+	
+	public static ArrayList<Employee> getByFullNameSearch(String name) {
+		ArrayList<Employee> empList = new ArrayList<>();
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "SELECT * FROM employee WHERE fullName LIKE '% " + name + " %'";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
 				String id = rs.getString("id");
 				String fullName = rs.getString("fullName");
 				String username = rs.getString("username");
@@ -104,11 +138,10 @@ public class EmployeeDAL {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "SELECT * FROM employee WHERE id = ?";
-			PreparedStatement prest = conn.prepareStatement(sql);
-			prest.setString(1, name);
-			ResultSet rs = prest.executeQuery();
-			if(rs.next()) {
+			sql = "SELECT * FROM employee WHERE id LIKE '%" + name + "%'";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			while(rs.next()) {
 				String id = rs.getString("id");
 				String fullName = rs.getString("fullName");
 				String username = rs.getString("username");
@@ -252,5 +285,26 @@ public class EmployeeDAL {
 			ex.printStackTrace();
 			return false;
 		}
+	}
+	
+	public JasperPrint printEmployeeReport() {
+		JasperPrint JasperPrint = null;
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "SELECT * FROM employee";
+			JasperDesign jdesign = JRXmlLoader.load("D:\\Github\\Java_Programming\\JavaProject\\reportXML\\Employee.jrxml");
+			JRDesignQuery updateQuery = new JRDesignQuery();
+			updateQuery.setText(sql);
+			jdesign.setQuery(updateQuery);
+			JasperReport Jreport = JasperCompileManager.compileReport(jdesign);
+			JasperPrint = JasperFillManager.fillReport(Jreport, null, conn);
+			if(JasperPrint != null) {
+				return JasperPrint;
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return JasperPrint;
 	}
 }

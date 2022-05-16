@@ -76,7 +76,7 @@ public class HomeGUI extends JFrame implements ActionListener{
         
         JLabel hello = new JLabel();
         hello.setText("Hello, " + curEmp.getFullName());
-        hello.setFont(new Font("Keyes", Font.ITALIC, 25));
+        hello.setFont(new Font("Verdana", Font.ITALIC, 25));
         hello.setForeground(Color.decode("#DFEEEA"));
         hello.setBounds(900, 40, 250, 80);
         

@@ -36,6 +36,8 @@ import javax.swing.JSpinner;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import java.awt.EventQueue;
 
@@ -53,10 +55,10 @@ import java.text.SimpleDateFormat;
 public class ReceiptDetailGUI extends JFrame implements ActionListener {
 
 	private JPanel pn;
-	private JLabel lbTitle, lbSubTitle, lbIdReceipt, lbCurDate, lbCusName, txtCusName, lbCusId, lbCusContact, lbChooseMer, lbQuantStock, txtQuantStock, 
-	lbMerId, lbMerName, lbMerProc, lbQuant, lbTotal, lb_tkt, lb_td, txtIdReceipt, txtCurDate, txtCusId, txtCusContact, txtMerId, txtMerName, txtMerProc;
+	private JLabel lbTitle, lbSubTitle, lbIdReceipt, lbCurDate, lbCusName, txtCusName, lbCusId, lbCusContact, lbPrice, txtPrice, lbChooseMer, lbQuantStock, txtQuantStock, 
+	lbMerId, lbMerName, lbMerProc, lbQuant, lbTotal, lb_tkt, lb_td, txtIdReceipt, txtCurDate, txtCusId, txtCusContact, txtMerId, txtMerName, txtMerProc, txtTotal;
 	private JTextField textField_1, txtTmKimSn;
-	private JButton btaddkh, btfind, bt_addhd, bt_check, bt_can;
+	private JButton btaddkh, btfind, bt_addhd, bt_check, bt_can, btRemove;
 	private JSpinner spinner;
 	private JComboBox cbCus, cbMer;
 	
@@ -68,7 +70,11 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 	Customer chooseCus;
 	
 	String curMhd;
-	
+	long totalReceipt = 0;
+
+	Locale localeEN = new Locale("en", "EN");
+    NumberFormat en = NumberFormat.getInstance(localeEN);
+
 	ReceiptDetailBUS recDetailBUS = new ReceiptDetailBUS();
 	ReceiptBUS recBUS = new ReceiptBUS();
 	MerchandiseBUS merBUS = new MerchandiseBUS();
@@ -93,14 +99,15 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		
 		initComponents();
 		
+		loadReceiptDetailList(curMhd);
+		checkDetail(curMhd);
+		
 		setBounds(0,0,1050,630);
 		getContentPane().setLayout(null);
 		setResizable(false);
-//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setVisible(false);
 	}	
-
 	
 	private void initComponents() {	
 		pn = new JPanel();
@@ -108,13 +115,9 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		pn.setBackground(Color.decode("#DFEEEA"));
 		pn.setLayout(null);
 		
-		lbTitle = new JLabel("RECEIPT");
-		lbTitle.setFont(new Font("Times New Roman", Font.BOLD, 24));
-		lbTitle.setBounds(461, 20, 114, 29);
-		
-		lbSubTitle = new JLabel("Th\u00F4ng tin h\u00F3a \u0111\u01A1n");
-		lbSubTitle.setFont(new Font("Times New Roman", Font.BOLD, 18));
-		lbSubTitle.setBounds(52, 45, 154, 20);
+		lbTitle = new JLabel("Receipt");
+		lbTitle.setFont(new Font("AddElectricCity", Font.BOLD, 30));
+		lbTitle.setBounds(381, 20, 200, 29);
 		
 		lbIdReceipt = new JLabel("ID Receipt: ");
 		lbIdReceipt.setBounds(99, 69, 118, 20);
@@ -156,7 +159,7 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		lbCusContact.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
 		txtCusContact = new JLabel();
-		txtCusContact.setBounds(258, 210, 119, 20);
+		txtCusContact.setBounds(258, 210, 200, 20);
 		txtCusContact.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		txtCusContact.setText(chooseCus.getAddress() + " - " + chooseCus.getPhone());
 		
@@ -165,7 +168,7 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		lbChooseMer.setBounds(511, 69, 175, 20);
 
 		cbMer = new JComboBox();
-		ArrayList<Merchandise> merData = recDetailBUS.getAllMerchandise();
+		ArrayList<Merchandise> merData = merBUS.getAllMerchandise();
 		for(int i = 0; i < merData.size(); i++) {
 			cbMer.addItem(merData.get(i).getMerchandiseName());
 		}
@@ -174,12 +177,16 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
 				// TODO Auto-generated method stub
-				chooseMer = recDetailBUS.getByMerchandiseName(cbMer.getSelectedItem().toString());
+				Locale localeEN = new Locale("en", "EN");
+			    NumberFormat en = NumberFormat.getInstance(localeEN);
+				chooseMer = merBUS.getByMerchandiseName(cbMer.getSelectedItem().toString());
+				String price = en.format(chooseMer.getPrice()) + " VND";
 				txtMerId.setText(chooseMer.getId());
 				txtMerName.setText(chooseMer.getMerchandiseName());
 				txtMerProc.setText(chooseMer.getProducer());
 				String inventory = String.valueOf(chooseMer.getQuantity());
 				txtQuantStock.setText(inventory);
+				txtPrice.setText(price);
 			}
 		});
 		
@@ -204,7 +211,7 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		lbMerName.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
 		txtMerName = new JLabel();
-		txtMerName.setBounds(729, 140, 98, 20);
+		txtMerName.setBounds(729, 140, 300, 20);
 		txtMerName.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		
 		lbMerProc = new JLabel("Producer:");
@@ -222,6 +229,13 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		spinner = new JSpinner();
 		spinner.setBounds(597, 215, 46, 20);
 		
+		lbPrice = new JLabel("Price");
+		lbPrice.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		lbPrice.setBounds(511, 252, 150, 20);
+		
+		txtPrice = new JLabel();
+		txtPrice.setBounds(597, 252, 150, 20);
+		
 		bt_addhd = new JButton("Add To Receipt");
 		bt_addhd.setBounds(771, 245, 167, 32);
 		bt_addhd.setBackground(Color.decode("#A7C4BC"));
@@ -232,13 +246,9 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		lbTotal.setBounds(713, 481, 119, 20);
 		lbTotal.setFont(new Font("Times New Roman", Font.BOLD, 18));
 		
-		lb_tkt = new JLabel("Ti\u1EC1n kh\u00E1ch tr\u1EA3: ");
-		lb_tkt.setBounds(597, 504, 119, 20);
-		lb_tkt.setFont(new Font("Times New Roman", Font.BOLD, 16));
-		
-		lb_td = new JLabel("Ti\u1EC1n d\u01B0:");
-		lb_td.setBounds(823, 504, 119, 20);
-		lb_td.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		txtTotal = new JLabel();
+		txtTotal.setBounds(830,481,300,20);
+		txtTotal.setFont(new Font("Times New Roman", Font.BOLD, 16));
 		
 		bt_check = new JButton("Checkout");
 		bt_check.setBounds(843, 511, 114, 36);
@@ -247,7 +257,7 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		bt_check.addActionListener(this);
 		
 		bt_can = new JButton("Cancel");
-		bt_can.setBounds(723, 511, 109, 36);
+		bt_can.setBounds(603, 511, 109, 36);
 		bt_can.setFont(new Font("Times New Roman", Font.BOLD, 16));
 		bt_can.setBackground(Color.decode("#A7C4BC"));
 		bt_can.addActionListener(new ActionListener(){
@@ -255,6 +265,12 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 				bt_canActionPerformed(e);
 			}
 		});
+		
+		btRemove = new JButton("Remove");
+		btRemove.setBounds(723, 511, 109, 36);
+		btRemove.setFont(new Font("Times New Roman", Font.BOLD, 16));
+		btRemove.setBackground(Color.decode("#A7C4BC"));
+		btRemove.addActionListener(this);
 		
 //		model.addColumn("STT");
 		model.addColumn("ID Receipt");
@@ -267,10 +283,12 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		JScrollPane spp = new JScrollPane(tb);
 		spp.setBounds(86, 291, 871, 180);
 		
+		totalReceipt = recDetailBUS.sumReceiptDetail(curMhd);
+		String total = en.format(totalReceipt) + " VND";
+		txtTotal.setText(total);
 		
 		getContentPane().add(pn);
 		pn.add(lbTitle);
-		pn.add(lbSubTitle);
 		pn.add(lbIdReceipt);
 		pn.add(txtIdReceipt);
 		pn.add(lbCurDate);
@@ -293,13 +311,24 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		pn.add(txtMerProc);
 		pn.add(lbQuant);
 		pn.add(spinner);
+		pn.add(lbPrice);
+		pn.add(txtPrice);
 		pn.add(bt_addhd);
 		pn.add(lbTotal);
-//		pn.add(lb_tkt);
-//		pn.add(lb_td);
+		pn.add(txtTotal);
 		pn.add(bt_check);
 		pn.add(bt_can);
+		pn.add(btRemove);
 		pn.add(spp);
+	}
+	
+	public void checkDetail(String id) {
+		if(recDetailBUS.hasReceipt(id)) {
+			pn.remove(btRemove);
+			pn.remove(bt_addhd);
+			pn.remove(bt_can);
+			pn.remove(bt_check);
+		}
 	}
 	
 	public void loadReceiptDetailList(String recId) {
@@ -310,9 +339,6 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 			ReceiptDetail recDetail = arr.get(i);
 			String id = recDetail.getId();
 			int quantity = recDetail.getQuantity();
-			
-			Locale localeEN = new Locale("en", "EN");
-		    NumberFormat en = NumberFormat.getInstance(localeEN);
 			
 			String amount = en.format(recDetail.getAmount()) + " VND";
 			String price = en.format(recDetail.getPrice()) + " VND";
@@ -351,25 +377,50 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 					int quantity = recDetail.getQuantity();
 					merBUS.updateMerchandiseFromDetail(merId, quantity);
 				}
-				dispose();	
+				totalReceipt = 0;
 			}
+			dispose();	
 		}
 		if(e.getSource() == bt_addhd) {
 			int chooseQuant = (Integer) spinner.getValue();
+			String totalFinal;
+			Locale localeEN = new Locale("en", "EN");
+		    NumberFormat en = NumberFormat.getInstance(localeEN);
 			if(chooseMer!=null && chooseQuant>0) {
-				String idDetail = UUID.randomUUID().toString();
-				int quantity = chooseQuant + recDetailBUS.getMerchandiseQuantity(chooseMer.getId());
+				int quantity = chooseQuant + recDetailBUS.getMerchandiseQuantity(chooseMer.getId(), curMhd);
 				long total = quantity * chooseMer.getPrice();
 				String idMer = chooseMer.getId();
 				int inventory = recDetailBUS.compareInventory(txtMerId.getText());
 				if(quantity <= inventory) {
 					JOptionPane.showMessageDialog(this, recDetailBUS.insertDetail(idMer, curMhd, quantity, total));
+					totalReceipt = recDetailBUS.sumReceiptDetail(curMhd);
+					totalFinal = en.format(totalReceipt) + " VND";
+					txtTotal.setText(totalFinal);
 				} else {
 					JOptionPane.showMessageDialog(this, "Số lượng đặt lớn hơn số lượng tồn");
 				}
 				loadReceiptDetailList(curMhd);
 			} else {
 				JOptionPane.showMessageDialog(this, "Mời chọn thông tin");
+			}
+		}
+		
+		if(e.getSource() == btRemove) {
+			int i = tb.getSelectedRow();
+			String name = (String) model.getValueAt(i, 1);
+			String totalFinal;
+			Locale localeEN = new Locale("en", "EN");
+		    NumberFormat en = NumberFormat.getInstance(localeEN);
+			if(i>=0) {
+				ReceiptDetail recDe = recDetailBUS.getMerchandiseByDetail(name);
+				if(recDetailBUS.deleteDetail(recDe.getId())) {
+					totalReceipt -= recDe.getAmount();
+					totalFinal = en.format(totalReceipt) + " VND";
+					txtTotal.setText(totalFinal);
+					loadReceiptDetailList(curMhd);
+				} else {
+					JOptionPane.showMessageDialog(this, "Xóa thất bại");
+				}
 			}
 		}
 	}
