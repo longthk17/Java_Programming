@@ -7,8 +7,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import DTO.Merchandise;
+<<<<<<< Updated upstream
 import Utils.Date;
 import Utils.Hashing;
+=======
+import GUI.Hashing;
+>>>>>>> Stashed changes
 import Utils.MySQLConnUtils;
 
 public class MerchandiseDAL {

@@ -3,7 +3,6 @@ package GUI;
 import java.awt.Color;
 import javax.swing.JPanel;
 
-import DTO.Employee;
 import DTO.Merchandise;
 import BUS.MerchandiseBUS;
 
@@ -18,7 +17,6 @@ import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import BUS.EmployeeBUS;
 
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
@@ -29,7 +27,7 @@ import java.awt.event.ActionEvent;
 
 public class MerchandiseGUI extends JPanel implements ActionListener{
 
-	private JLabel lbTitle, lbID, lbID_Name, lbProducer, lbMerchandise_Name, lbQuantity, lbPrice, lbSearch;
+	private JLabel lbTitle, lbID, lbProducer, lbMerchandise_Name, lbQuantity, lbPrice, lbSearch;
 	private JTextField tfID, tfProducer, tfMerchandise_Name, tfQuantity, tfPrice, toolSearch;
 	private JButton btnAdd, btnUp, btnDel, btnPri, btnCle;
 	DefaultTableModel model = new DefaultTableModel();
