@@ -29,9 +29,9 @@ import java.awt.event.ActionEvent;
 
 public class MerchandiseGUI extends JPanel implements ActionListener{
 
-	private JLabel lbTitle, lbID, lbID_Name, lbProducer, lbMerchandise_Name, lbQuantity, lbPrice;
-	private JTextField tfID, tfProducer, tfMerchandise_Name, tfQuantity, tfPrice;
-	private JButton btnAdd, btnUp, btnDel;
+	private JLabel lbTitle, lbID, lbID_Name, lbProducer, lbMerchandise_Name, lbQuantity, lbPrice, lbSearch;
+	private JTextField tfID, tfProducer, tfMerchandise_Name, tfQuantity, tfPrice, toolSearch;
+	private JButton btnAdd, btnUp, btnDel, btnPri, btnCle;
 	DefaultTableModel model = new DefaultTableModel();
 	JTable tb = new JTable(model);
 	
@@ -54,77 +54,104 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 	private void initComponents() {
 		lbTitle = new JLabel("Merchandise");
 		lbTitle.setFont(new Font("AddElectricCity", Font.BOLD, 30));
-		lbTitle.setBounds(415, 15, 303, 50);
+		lbTitle.setBounds(20, 15, 303, 50);
+		
+		toolSearch = new JTextField();
+		toolSearch.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
+		toolSearch.setBounds(300, 15, 400, 25);
+		
+		lbSearch = new JLabel();
+		lbSearch.setIcon(new ImageIcon(this.getClass().getResource("/images/magnifier.png")));
+		lbSearch.setBounds(710, -20, 100, 100);
 		
 		lbID = new JLabel("ID");
 		lbID.setVerticalAlignment(SwingConstants.TOP);
 		lbID.setFont(new Font("Verdana", Font.BOLD, 15));
-		lbID.setBounds(160, 103, 22, 25);
+		lbID.setBounds(100, 103, 22, 25);
 		
 		tfID = new JTextField();
-		tfID.setBounds(192, 103, 150, 25);
+		tfID.setBounds(132, 103, 150, 25);
 		tfID.setColumns(10);
 		
 		lbProducer = new JLabel("Producer");
 		lbProducer.setVerticalAlignment(SwingConstants.TOP);
 		lbProducer.setFont(new Font("Verdana", Font.BOLD, 15));
-		lbProducer.setBounds(680, 103, 74, 25);
+		lbProducer.setBounds(720, 103, 74, 25); 
 		
 		tfProducer = new JTextField();
 		tfProducer.setColumns(10);
-		tfProducer.setBounds(785, 103, 150, 25);
+		tfProducer.setBounds(815, 103, 150, 25);
 		
 		lbMerchandise_Name = new JLabel("Merchandise Name");
 		lbMerchandise_Name.setVerticalAlignment(SwingConstants.TOP);
 		lbMerchandise_Name.setFont(new Font("Verdana", Font.BOLD, 15));
-		lbMerchandise_Name.setBounds(22, 171, 165, 25);
+		lbMerchandise_Name.setBounds(340, 103, 165, 25);
 		
 		tfMerchandise_Name = new JTextField();
 		tfMerchandise_Name.setColumns(10);
-		tfMerchandise_Name.setBounds(192, 171, 150, 25);
+		tfMerchandise_Name.setBounds(510, 103, 150, 25);
 		
 		lbQuantity = new JLabel("Quantity");
 		lbQuantity.setVerticalAlignment(SwingConstants.TOP);
 		lbQuantity.setFont(new Font("Verdana", Font.BOLD, 15));
-		lbQuantity.setBounds(375, 171, 74, 25);
+		lbQuantity.setBounds(50, 171, 74, 25);
 		
 		tfQuantity = new JTextField();
 		tfQuantity.setColumns(10);
-		tfQuantity.setBounds(486, 174, 150, 25);
+		tfQuantity.setBounds(132, 174, 150, 25);
 		
 		lbPrice = new JLabel("Price");
 		lbPrice.setVerticalAlignment(SwingConstants.TOP);
 		lbPrice.setFont(new Font("Verdana", Font.BOLD, 15));
-		lbPrice.setBounds(707, 171, 47, 25);
+		lbPrice.setBounds(450, 171, 47, 25);
 		
 		tfPrice = new JTextField();
 		tfPrice.setColumns(10);
-		tfPrice.setBounds(785, 171, 150, 25);
+		tfPrice.setBounds(510, 171, 150, 25);
 		
 		btnAdd = new JButton("Add");
 		btnAdd.setFont(new Font("Keyes", Font.BOLD, 20));
 		btnAdd.setFocusable(false);
 		btnAdd.setBackground(Color.decode("#A7C4BC"));
-		btnAdd.setBounds(160, 248, 150, 50);
+		btnAdd.setBounds(75, 248, 150, 50);
 		btnAdd.addActionListener(this);
 		
 		btnUp = new JButton("Update");
 		btnUp.setFont(new Font("Keyes", Font.BOLD, 20));
 		btnUp.setFocusable(false);
 		btnUp.setBackground(Color.decode("#A7C4BC"));
-		btnUp.setBounds(425, 248, 150, 50);
+		btnUp.setBounds(310, 248, 150, 50);
 		btnUp.addActionListener(this);
 		
 		btnDel = new JButton("Delete");
 		btnDel.setFont(new Font("Keyes", Font.BOLD, 20));
 		btnDel.setFocusable(false);
 		btnDel.setBackground(Color.decode("#A7C4BC"));
-		btnDel.setBounds(695, 248, 150, 50);
+		btnDel.setBounds(535, 248, 150, 50);
 		btnDel.addActionListener(this);
 		
+		btnPri = new JButton("Print");
+		btnPri.setFont(new Font("Keyes", Font.BOLD, 20));
+		btnPri.setFocusable(false);
+		btnPri.setBackground(Color.decode("#A7C4BC"));
+		btnPri.setBounds(765, 248, 150, 50);
+		btnPri.addActionListener(this);
+		
+		btnCle = new JButton("Clear");
+		btnCle.setFont(new Font("Keyes", Font.BOLD, 15));
+		btnCle.setFocusable(false);
+		btnCle.setBackground(Color.decode("#A7C4BC"));
+		btnCle.setBounds(850, 171, 100, 30);
+		btnCle.addActionListener(this);
+		
 		model.addColumn("ID");
-		model.addColumn("Merchandise Name");
 		model.addColumn("Producer");
+		model.addColumn("Merchandise Name");
 		model.addColumn("Quantity");
 		model.addColumn("Price");
 			
@@ -135,8 +162,8 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 				int i = tb.getSelectedRow();
 				if(i>=0) {
 					tfID.setText(model.getValueAt(i, 0).toString());
-					tfMerchandise_Name.setText(model.getValueAt(i, 1).toString());
-					tfProducer.setText(model.getValueAt(i, 2).toString());
+					tfProducer.setText(model.getValueAt(i, 1).toString());
+					tfMerchandise_Name.setText(model.getValueAt(i, 2).toString());
 					tfQuantity.setText(model.getValueAt(i, 3).toString());
 					tfPrice.setText(model.getValueAt(i, 4).toString());
 				}
@@ -147,6 +174,8 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 		
 
 		add(lbTitle);
+		add(toolSearch);
+		add(lbSearch);
 		add(lbID);
 		add(tfID);
 		add(lbProducer);
@@ -160,6 +189,8 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 		add(btnAdd);
 		add(btnUp);
 		add(btnDel);
+		add(btnPri);
+		add(btnCle);
 		add(sp);
 	}
 	
@@ -256,16 +287,13 @@ public class MerchandiseGUI extends JPanel implements ActionListener{
 				JOptionPane.showMessageDialog(this, "Xóa thất bại");
 			}
 		}
-		
-		/*if(e.getSource() == btnClear) {
+		if(e.getSource() == btnCle) {
 			tfID.setText("");
-			tfID_Name.setText("");
 			tfProducer.setText("");
 			tfMerchandise_Name.setText("");
 			tfQuantity.setText("");
 			tfPrice.setText("");
-		}*/
-		
+		}	
 	}
 	
 }

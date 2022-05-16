@@ -43,8 +43,8 @@ public class MerchandiseDAL {
 			sql = "INSERT INTO merchandise values(?,?,?,?,?,?,?,)";
 			PreparedStatement prest = conn.prepareStatement(sql);
 			prest.setString(1, mer.getId());
-			prest.setString(2, mer.getMerchandiseName());
-			prest.setString(3, mer.getProducer());
+			prest.setString(2, mer.getProducer());
+			prest.setString(1, mer.getMerchandiseName());
 			prest.setInt(4, mer.getQuantity());
 			prest.setInt(5, mer.getPrice());
 			java.sql.Date date = Date.getCurrentDatetime();
