@@ -34,23 +34,25 @@ public class ReceiptDetailBUS {
 	}
 	
 	public String insertDetail(String merId, String recId, int quantity, long amount) {
-		if(recDetailDAL.hasMerchandiseDetail(recId, merId)) {
-			if(recDetailDAL.updateDetail(recId, merId, quantity, amount)) {
-				return "Thêm thành công";
-			} else {
-				return "Thêm thất bại";
-			}
+		if(recDetailDAL.updateDetail(recId, merId, quantity, amount)) {
+			return "Thêm thành công";
+		} else if (recDetailDAL.insertDetail(merId, recId, quantity, amount)) {
+			return "Thêm thành công";
 		} else {
-			if(recDetailDAL.insertDetail(merId, recId, quantity, amount)) {
-				return "Thêm thành công";
-			} else {
-				return "Thêm thất bại";
-			}	
+			return "Thêm thất bại";
 		}
 	}
 	
-	public int getMerchandiseQuantity(String merId) {
-		return recDetailDAL.getMerchandiseQuantity(merId);
+	public boolean hasReceipt(String recId) {
+		return recDetailDAL.hasReceipt(recId);
+	}
+	
+	public long sumReceiptDetail(String id) {
+		return recDetailDAL.sumReceiptDetail(id);
+	}
+	
+	public int getMerchandiseQuantity(String merId, String recId) {
+		return recDetailDAL.getMerchandiseQuantity(merId, recId);
 	}
 	
 	public int compareInventory(String merId) {

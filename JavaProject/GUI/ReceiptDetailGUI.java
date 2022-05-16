@@ -72,6 +72,9 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 	String curMhd;
 	long totalReceipt = 0;
 
+	Locale localeEN = new Locale("en", "EN");
+    NumberFormat en = NumberFormat.getInstance(localeEN);
+
 	ReceiptDetailBUS recDetailBUS = new ReceiptDetailBUS();
 	ReceiptBUS recBUS = new ReceiptBUS();
 	MerchandiseBUS merBUS = new MerchandiseBUS();
@@ -97,6 +100,7 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		initComponents();
 		
 		loadReceiptDetailList(curMhd);
+		checkDetail(curMhd);
 		
 		setBounds(0,0,1050,630);
 		getContentPane().setLayout(null);
@@ -104,7 +108,6 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		setVisible(false);
 	}	
-
 	
 	private void initComponents() {	
 		pn = new JPanel();
@@ -280,6 +283,10 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		JScrollPane spp = new JScrollPane(tb);
 		spp.setBounds(86, 291, 871, 180);
 		
+		totalReceipt = recDetailBUS.sumReceiptDetail(curMhd);
+		String total = en.format(totalReceipt) + " VND";
+		txtTotal.setText(total);
+		
 		getContentPane().add(pn);
 		pn.add(lbTitle);
 		pn.add(lbIdReceipt);
@@ -315,6 +322,15 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 		pn.add(spp);
 	}
 	
+	public void checkDetail(String id) {
+		if(recDetailBUS.hasReceipt(id)) {
+			pn.remove(btRemove);
+			pn.remove(bt_addhd);
+			pn.remove(bt_can);
+			pn.remove(bt_check);
+		}
+	}
+	
 	public void loadReceiptDetailList(String recId) {
 		model.setRowCount(0);
 		ArrayList<ReceiptDetail> arr = new ArrayList<ReceiptDetail>();
@@ -323,9 +339,6 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 			ReceiptDetail recDetail = arr.get(i);
 			String id = recDetail.getId();
 			int quantity = recDetail.getQuantity();
-			
-			Locale localeEN = new Locale("en", "EN");
-		    NumberFormat en = NumberFormat.getInstance(localeEN);
 			
 			String amount = en.format(recDetail.getAmount()) + " VND";
 			String price = en.format(recDetail.getPrice()) + " VND";
@@ -364,6 +377,7 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 					int quantity = recDetail.getQuantity();
 					merBUS.updateMerchandiseFromDetail(merId, quantity);
 				}
+				totalReceipt = 0;
 			}
 			dispose();	
 		}
@@ -373,14 +387,13 @@ public class ReceiptDetailGUI extends JFrame implements ActionListener {
 			Locale localeEN = new Locale("en", "EN");
 		    NumberFormat en = NumberFormat.getInstance(localeEN);
 			if(chooseMer!=null && chooseQuant>0) {
-				String idDetail = UUID.randomUUID().toString();
-				int quantity = chooseQuant + recDetailBUS.getMerchandiseQuantity(chooseMer.getId());
+				int quantity = chooseQuant + recDetailBUS.getMerchandiseQuantity(chooseMer.getId(), curMhd);
 				long total = quantity * chooseMer.getPrice();
 				String idMer = chooseMer.getId();
 				int inventory = recDetailBUS.compareInventory(txtMerId.getText());
 				if(quantity <= inventory) {
 					JOptionPane.showMessageDialog(this, recDetailBUS.insertDetail(idMer, curMhd, quantity, total));
-					totalReceipt += total;
+					totalReceipt = recDetailBUS.sumReceiptDetail(curMhd);
 					totalFinal = en.format(totalReceipt) + " VND";
 					txtTotal.setText(totalFinal);
 				} else {

@@ -69,10 +69,9 @@ public class MerchandiseDAL {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "SELECT * FROM merchandise WHERE merchandiseName = ?";
-			PreparedStatement prest = conn.prepareStatement(sql);
-			prest.setString(1, name);
-			ResultSet rs = prest.executeQuery();
+			sql = "SELECT * FROM merchandise WHERE merchandiseName LIKE '%" + name + "%'";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				String id = rs.getString("id");
 				String merchandisename = rs.getString("merchandiseName");
@@ -95,10 +94,9 @@ public class MerchandiseDAL {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "SELECT * FROM merchandise WHERE id = ?";
-			PreparedStatement prest = conn.prepareStatement(sql);
-			prest.setString(1, name);
-			ResultSet rs = prest.executeQuery();
+			sql = "SELECT * FROM merchandise WHERE id LIKE '%" + name + "%'";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				String id = rs.getString("id");
 				String merchandisename = rs.getString("merchandiseName");
@@ -121,10 +119,9 @@ public class MerchandiseDAL {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "SELECT * FROM merchandise WHERE producer = ?";
-			PreparedStatement prest = conn.prepareStatement(sql);
-			prest.setString(1, name);
-			ResultSet rs = prest.executeQuery();
+			sql = "SELECT * FROM merchandise WHERE producer LIKE '%" + name + "%'";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				String id = rs.getString("id");
 				String merchandisename = rs.getString("merchandiseName");

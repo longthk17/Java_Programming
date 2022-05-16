@@ -71,10 +71,9 @@ public class CustomerDAL {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "SELECT * FROM customer WHERE fullName = ?";
-			PreparedStatement prest = conn.prepareStatement(sql);
-			prest.setString(1, name);
-			ResultSet rs = prest.executeQuery();
+			sql = "SELECT * FROM customer WHERE fullName LIKE '%" + name + "%'";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
 			if(rs.next()) {
 				String id = rs.getString("id");
 				String fullName = rs.getString("fullName");
@@ -98,10 +97,9 @@ public class CustomerDAL {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "SELECT * FROM customer WHERE id = ?";
-			PreparedStatement prest = conn.prepareStatement(sql);
-			prest.setString(1, name);
-			ResultSet rs = prest.executeQuery();
+			sql = "SELECT * FROM customer WHERE id LIKE '%" + name + "%'";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
 			if(rs.next()) {
 				String id = rs.getString("id");
 				String fullName = rs.getString("fullName");
@@ -125,10 +123,9 @@ public class CustomerDAL {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "SELECT * FROM customer WHERE phone = ?";
-			PreparedStatement prest = conn.prepareStatement(sql);
-			prest.setString(1, name);
-			ResultSet rs = prest.executeQuery();
+			sql = "SELECT * FROM customer WHERE phone LIKE '%" + name + "%'";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
 			if(rs.next()) {
 				String id = rs.getString("id");
 				String fullName = rs.getString("fullName");

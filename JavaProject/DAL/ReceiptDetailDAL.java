@@ -188,14 +188,13 @@ public class ReceiptDetailDAL {
 		}
 	}
 	
-	public boolean hasMerchandiseDetail(String merId, String recId) {
+	public boolean hasReceipt(String recId) {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "SELECT * FROM receipt_detail WHERE merchandise_id = ? AND receipt_id = ?";
+			sql = "SELECT * FROM receipt_detail WHERE receipt_id = ?";
 			PreparedStatement prest = conn.prepareStatement(sql);
-			prest.setString(1, merId);
-			prest.setString(2, recId);
+			prest.setString(1, recId);
 			ResultSet rs = prest.executeQuery();
 			return rs.next();
 		} catch(Exception ex) {
@@ -225,14 +224,15 @@ public class ReceiptDetailDAL {
 	
 	
 	//Lấy số lượng merchandise có trong receiptDetail
-	public int getMerchandiseQuantity(String merId) {
+	public int getMerchandiseQuantity(String merId, String recId) {
 		int quantity = 0;
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "SELECT quantity FROM receipt_detail WHERE merchandise_id = ?";
+			sql = "SELECT quantity FROM receipt_detail WHERE merchandise_id = ? AND receipt_id = ?";
 			PreparedStatement prest = conn.prepareStatement(sql);
 			prest.setString(1,merId);
+			prest.setString(2, recId);
 			ResultSet rs = prest.executeQuery();
 			if(rs.next()) {
 				quantity = rs.getInt("quantity");
@@ -257,5 +257,23 @@ public class ReceiptDetailDAL {
 			ex.printStackTrace();
 			return false;
 		}
+	}
+	
+	public long sumReceiptDetail(String id) {
+		long sum = 0;
+		try {
+			Connection conn = MySQLConnUtils.getMySQLConnection();
+			String sql;
+			sql = "SELECT SUM(amount) FROM receipt_detail WHERE receipt_id = ?";
+			PreparedStatement prest = conn.prepareStatement(sql);
+			prest.setString(1, id);
+			ResultSet rs = prest.executeQuery();
+			if(rs.next()) {
+				sum = rs.getLong(1);
+			}
+		} catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		return sum;
 	}
 }

@@ -54,10 +54,9 @@ public class EmployeeDAL {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "SELECT * FROM employee WHERE username = ?";
-			PreparedStatement prest = conn.prepareStatement(sql);
-			prest.setString(1, name);
-			ResultSet rs = prest.executeQuery();
+			sql = "SELECT * FROM employee WHERE username LIKE '%"+ name +"%'";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				String id = rs.getString("id");
 				String fullName = rs.getString("fullName");
@@ -111,10 +110,9 @@ public class EmployeeDAL {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "SELECT * FROM employee WHERE fullName = ?";
-			PreparedStatement prest = conn.prepareStatement(sql);
-			prest.setString(1, name);
-			ResultSet rs = prest.executeQuery();
+			sql = "SELECT * FROM employee WHERE fullName LIKE '% " + name + " %'";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				String id = rs.getString("id");
 				String fullName = rs.getString("fullName");
@@ -140,10 +138,9 @@ public class EmployeeDAL {
 		try {
 			Connection conn = MySQLConnUtils.getMySQLConnection();
 			String sql;
-			sql = "SELECT * FROM employee WHERE id = ?";
-			PreparedStatement prest = conn.prepareStatement(sql);
-			prest.setString(1, name);
-			ResultSet rs = prest.executeQuery();
+			sql = "SELECT * FROM employee WHERE id LIKE '%" + name + "%'";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				String id = rs.getString("id");
 				String fullName = rs.getString("fullName");
