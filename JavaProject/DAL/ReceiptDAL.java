@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import DTO.Employee;
@@ -77,10 +78,9 @@ public class ReceiptDAL {
 					+ "INNER JOIN employee ON employee.id = receipt.employee_id "
 					+ "INNER JOIN customer ON customer.id = receipt.customer_id "
 					+ "WHERE receipt.employee_id = "
-					+ "(SELECT id FROM employee WHERE fullName = ?)";
-			PreparedStatement prest = conn.prepareStatement(sql);
-			prest.setString(1, name);
-			ResultSet rs = prest.executeQuery();
+					+ "(SELECT id FROM employee WHERE fullName LIKE '%"+ name +"%')";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				String id = rs.getString(1);
 				String empName = rs.getString(2);
@@ -106,10 +106,9 @@ public class ReceiptDAL {
 					+ "INNER JOIN employee ON employee.id = receipt.employee_id "
 					+ "INNER JOIN customer ON customer.id = receipt.customer_id "
 					+ "WHERE receipt.customer_id = "
-					+ "(SELECT id FROM customer WHERE fullName = ?)";
-			PreparedStatement prest = conn.prepareStatement(sql);
-			prest.setString(1, name);
-			ResultSet rs = prest.executeQuery();
+					+ "(SELECT id FROM customer WHERE fullName LIKE '%"+ name +"%')";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
 			while(rs.next()) {
 				String id = rs.getString(1);
 				String empName = rs.getString(2);
